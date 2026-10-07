@@ -3,7 +3,14 @@ dashboard_builder.py
 ======================
 Будує статичну HTML-сторінку (docs/index.html) з поточним станом ринку
 для одного або кількох тікерів одночасно (вкладки зверху, перемикання
-без перезавантаження сторінки).
+без перезавантаження сторінки). Для кожного тікера: ціна, RSI, графік з
+SMA, рівні підтримки/опору, фундаментальний погляд, найближчі корпоративні
+події. Знизу — спільна історія останніх сповіщень по всіх тікерах.
+
+Сторінка самодостатня (Chart.js через CDN) і призначена для публікації
+через GitHub Pages — тоді вона має власну постійну адресу, яку можна
+відкрити з телефону і навіть "встановити" як іконку на головний екран
+(Add to Home Screen / Install app).
 """
 
 import json
@@ -28,6 +35,9 @@ def _load_alerts_log() -> list:
 
 
 def append_alerts_log(new_events: list, ticker: str) -> list:
+    """Дописує нові події в історію (для показу на дашборді) і повертає
+    оновлений список. Викликати лише для подій, які справді щойно сталися
+    (після дедуплікації в main.py), щоб історія не дублювалась."""
     log = _load_alerts_log()
     now = datetime.now(timezone.utc).isoformat()
     for ev in new_events:
@@ -53,6 +63,7 @@ def _safe_id(ticker: str, idx: int) -> str:
 
 def _ticker_tab(ticker: str, interval: str, df, result: dict, fair_value: dict,
                  upcoming_events: list, idx: int, alerts_for_ticker: list) -> tuple:
+    """Повертає (nav_button_html, panel_html, chart_js) для одного тікера."""
     tab_id = _safe_id(ticker, idx)
 
     labels = [str(t)[:16] for t in df["timestamp"].tail(120)]
@@ -176,7 +187,64 @@ charts['{tab_id}'] = function() {{
     return nav_button_html, panel_html, chart_js
 
 
-def build_multi(tabs: list, interval: str) -> None:
+def _trading_panel_html(trading_summary: dict | None) -> str:
+    """Панель над вкладками: статус автоторгівлі (Trading 212), якщо вона
+    налаштована. Якщо trading_summary=None — торгівля не налаштована
+    (немає TRADING212_API_KEY), панель взагалі не показуємо."""
+    if not trading_summary:
+        return ""
+
+    if trading_summary["dry_run"]:
+        mode_label, mode_class = "ТЕСТ (dry-run) — реальних ордерів немає", "neutral"
+    elif trading_summary["mode"] == "live":
+        mode_label, mode_class = "LIVE — реальні гроші", "bear"
+    else:
+        mode_label, mode_class = "DEMO — віртуальний рахунок", "bull"
+
+    positions = trading_summary["positions"]
+    if positions:
+        positions_html = "".join(
+            f'<div class="event-row">{t}: {p["qty"]} шт. по {p["buy_price"]:.4f} '
+            f'(стоп-лос ≈{p["buy_price"] * (1 - trading_summary["stop_loss_pct"] / 100):.4f})</div>'
+            for t, p in positions.items()
+        )
+    else:
+        positions_html = '<p class="empty">Немає відкритих позицій.</p>'
+
+    log = trading_summary["trade_log"]
+    if log:
+        log_html = ""
+        for e in log:
+            ts = e["time"][:16].replace("T", " ")
+            ok_word = "" if e.get("ok") else " (НЕ ВДАЛОСЯ)"
+            dry_word = " [dry-run]" if e.get("dry_run") else ""
+            log_html += (
+                f'<div class="alert-row"><span class="alert-time mono">{ts}</span>'
+                f'<span class="alert-type">{e["action"]} {e["ticker"]}</span>'
+                f'<span class="alert-detail">{e.get("reason", "")}{ok_word}{dry_word}</span></div>\n'
+            )
+    else:
+        log_html = '<p class="empty">Угод ще не було.</p>'
+
+    return f"""
+<div class="panel">
+  <h2>Автоторгівля (Trading 212)</h2>
+  <div class="stat-strip">
+    <div class="stat {mode_class}"><div class="val mono" style="font-size:14px;">{mode_label}</div><div class="lbl">режим</div></div>
+    <div class="stat"><div class="val mono">£{trading_summary['daily_spent_gbp']:.2f} / £{trading_summary['max_daily_gbp']:.0f}</div><div class="lbl">витрачено сьогодні</div></div>
+  </div>
+  <p class="empty">Макс. £{trading_summary['max_per_trade_gbp']:.0f} на угоду · стоп-лос {trading_summary['stop_loss_pct']:.0f}%</p>
+  <h2 style="margin-top:14px;">Відкриті позиції</h2>
+  {positions_html}
+  <h2 style="margin-top:14px;">Останні угоди</h2>
+  {log_html}
+</div>"""
+
+
+def build_multi(tabs: list, interval: str, trading_summary: dict | None = None) -> None:
+    """tabs: список dict з ключами ticker, df, result, fair_value, upcoming_events.
+    Генерує docs/index.html з вкладками (по одній на тікер). trading_summary —
+    опціональний dict від main.py з поточним станом автоторгівлі."""
     DOCS_DIR.mkdir(exist_ok=True)
 
     full_log = _load_alerts_log()
@@ -199,6 +267,7 @@ def build_multi(tabs: list, interval: str) -> None:
     html = HTML_TEMPLATE.format(
         title=title,
         updated=updated,
+        trading_panel=_trading_panel_html(trading_summary),
         nav_buttons="\n    ".join(nav_buttons),
         panels="\n".join(panels),
         chart_scripts="\n".join(chart_scripts),
@@ -209,6 +278,7 @@ def build_multi(tabs: list, interval: str) -> None:
 
 
 def build(df, result: dict, ticker: str, interval: str, fair_value: dict = None, upcoming_events: list = None) -> None:
+    """Сумісність зі старим викликом для одного тікера — обгортка над build_multi."""
     build_multi(
         [{"ticker": ticker, "df": df, "result": result, "fair_value": fair_value, "upcoming_events": upcoming_events}],
         interval,
@@ -269,6 +339,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 <div class="disclaimer"><b>Не фінансова консультація.</b> Це автоматичні відмітки технічних індикаторів з історичних даних, не прогноз і не торгові сигнали. Рішення — ваше, торгівля несе ризик втрати коштів.</div>
 <div class="app">
   <div class="header-row"><h1>Market Monitor</h1><span class="updated mono">Оновлено: {updated}</span></div>
+  {trading_panel}
   <div class="tabs-nav">
     {nav_buttons}
   </div>

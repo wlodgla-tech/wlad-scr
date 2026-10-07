@@ -2,3 +2,5 @@ yfinance
 pandas
 numpy
 requests
+# trading212_executor.py теж використовує requests (вже є вище) —
+# нових залежностей для торгового модуля не потрібно
