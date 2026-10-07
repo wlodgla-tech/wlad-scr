@@ -4,5 +4,11 @@
     "ticker": "SB=F",
     "type": "FALSE_BREAKOUT_UP",
     "detail": "рівень ≈20.6000 (resistance) пробитий і ціна повернулась назад"
+  },
+  {
+    "time": "2026-10-07T12:47:14.961936+00:00",
+    "ticker": "SB=F",
+    "type": "FALSE_BREAKOUT_UP",
+    "detail": "рівень ≈20.6000 (resistance) пробитий і ціна повернулась назад"
   }
 ]
