@@ -225,3 +225,71 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 <meta name="theme-color" content="#11151B">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root{{
+    --bg:#11151B; --panel:#161B22; --panel-2:#1C222B; --line:#262D38;
+    --text:#E7E9EC; --muted:#8A92A0;
+    --bull:#2FA86E; --bull-soft:#1A2E25;
+    --bear:#C1452F; --bear-soft:#2E1C18;
+    --neutral:#D9A62E; --neutral-soft:#2E2718;
+  }}
+  *{{box-sizing:border-box;}}
+  body{{margin:0; background:var(--bg); color:var(--text); font-family:'IBM Plex Sans',sans-serif;}}
+  .mono{{font-family:'IBM Plex Mono',monospace;}}
+  .disclaimer{{background:var(--neutral-soft); border-bottom:1px solid #3A3220; padding:12px 20px; font-size:12px; color:#E6CE8F; line-height:1.5;}}
+  .app{{max-width:760px; margin:0 auto; padding:16px 16px 60px;}}
+  .header-row{{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px;}}
+  h1{{font-size:18px; margin:0;}}
+  .updated{{font-size:11.5px; color:var(--muted);}}
+  .tabs-nav{{display:flex; gap:6px; overflow-x:auto; padding-bottom:10px; margin-bottom:6px; -webkit-overflow-scrolling:touch;}}
+  .tab-btn{{flex:0 0 auto; background:var(--panel); color:var(--muted); border:1px solid var(--line); border-radius:999px;
+            padding:7px 14px; font-size:12.5px; font-family:'IBM Plex Mono',monospace; font-weight:600; white-space:nowrap;}}
+  .tab-btn.active{{background:var(--neutral-soft); color:var(--neutral); border-color:#4A3F22;}}
+  .tab-content{{display:none;}}
+  .tab-content.active{{display:block;}}
+  .stat-strip{{display:flex; gap:10px; margin:16px 0;}}
+  .stat{{flex:1; background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:14px; text-align:center;}}
+  .stat .val{{font-size:22px; font-weight:700;}} .stat .lbl{{font-size:11px; color:var(--muted); margin-top:2px;}}
+  .stat.bull .val{{color:var(--bull);}} .stat.bear .val{{color:var(--bear);}} .stat.neutral .val{{color:var(--neutral);}}
+  .panel{{background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px; margin-bottom:14px;}}
+  .panel h2{{font-size:12px; color:var(--muted); margin:0 0 10px; font-weight:600;}}
+  .event-row{{font-size:13px; padding:8px 0; border-bottom:1px solid var(--line);}}
+  .event-row:last-child{{border-bottom:none;}}
+  .dot{{display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:8px;}}
+  .dot.bull{{background:var(--bull);}} .dot.bear{{background:var(--bear);}} .dot.neutral{{background:var(--neutral);}}
+  .alert-row{{display:flex; gap:8px; font-size:12px; padding:7px 0; border-bottom:1px solid var(--line); flex-wrap:wrap;}}
+  .alert-time{{color:var(--muted); min-width:110px;}}
+  .alert-type{{color:var(--neutral); font-weight:600;}}
+  .empty{{color:var(--muted); font-size:13px; margin:4px 0;}}
+</style>
+</head>
+<body>
+<div class="disclaimer"><b>Не фінансова консультація.</b> Це автоматичні відмітки технічних індикаторів з історичних даних, не прогноз і не торгові сигнали. Рішення — ваше, торгівля несе ризик втрати коштів.</div>
+<div class="app">
+  <div class="header-row"><h1>Market Monitor</h1><span class="updated mono">Оновлено: {updated}</span></div>
+  <div class="tabs-nav">
+    {nav_buttons}
+  </div>
+{panels}
+</div>
+<script>
+const charts = {{}};
+{chart_scripts}
+
+function showTab(id) {{
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  document.querySelector('.tab-btn[data-tab="' + id + '"]').classList.add('active');
+}}
+
+{chart_inits}
+showTab('{first_tab_id}');
+
+if ('serviceWorker' in navigator) {{ navigator.serviceWorker.register('service-worker.js').catch(() => {{}}); }}
+</script>
+</body>
+</html>
+"""
