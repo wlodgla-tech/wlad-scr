@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Бектест стратегій — Market Monitor</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#11151B; --panel:#161B22; --line:#262D38; --text:#E7E9EC; --muted:#8A92A0;
+          --bull:#2FA86E; --bear:#C1452F; --neutral:#D9A62E; }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:'IBM Plex Sans',sans-serif;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .app{max-width:860px; margin:0 auto; padding:16px 16px 60px;}
+  h1{font-size:18px; margin:0 0 4px;}
+  .updated{font-size:11.5px; color:var(--muted); margin-bottom:4px;}
+  .warn{background:#2E2718; border:1px solid #4A3F22; color:#E6CE8F; border-radius:6px; padding:12px 14px; font-size:12.5px; line-height:1.5; margin:14px 0;}
+  table{width:100%; border-collapse:collapse; margin-top:14px; font-size:12.5px;}
+  th, td{padding:8px 6px; text-align:left; border-bottom:1px solid var(--line);}
+  th{color:var(--muted); font-weight:600; font-size:11px;}
+  .bull{color:var(--bull);} .bear{color:var(--bear);} .neutral{color:var(--neutral);}
+  .benchmark-row{opacity:0.7; font-style:italic;}
+  .period{font-size:11.5px; color:var(--muted); margin-top:10px;}
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>Бектест: стара vs нова стратегія vs купив-і-тримай</h1>
+  <div class="updated mono">Оновлено: 2026-10-07 17:26 UTC</div>
+  <div class="warn">
+    Це перевірка ЛОГІКИ на минулих цінах, не гарантія майбутнього результату.
+    Бектест рахує на ЩОДЕННИХ свічках (для достатньої історії), тоді як живий
+    бот працює на ГОДИННИХ — це наближення, не точна копія. Комісії/спред
+    брокера тут НЕ враховані (реальний результат буде трохи гіршим).
+  </div>
+  <table>
+    <tr><th>Тікер</th><th>Стратегія</th><th>Угод</th><th>Win rate</th><th>Прибуток</th><th>Макс. просадка</th></tr>
+    
+            <tr>
+              <td class="mono">AAPL</td>
+              <td>Стара (RSI+рівні)</td>
+              <td class="mono">12</td>
+              <td class="mono">75.0%</td>
+              <td class="mono bull">+1.53%</td>
+              <td class="mono">-18.15%</td>
+            </tr>
+            <tr>
+              <td class="mono">AAPL</td>
+              <td>Нова (RSI+тренд+MACD+BB)</td>
+              <td class="mono">7</td>
+              <td class="mono">71.4%</td>
+              <td class="mono bull">+0.60%</td>
+              <td class="mono">-0.77%</td>
+            </tr>
+            <tr class="benchmark-row">
+              <td class="mono">AAPL</td>
+              <td>Купив і тримав (benchmark)</td>
+              <td class="mono">1</td>
+              <td class="mono">—</td>
+              <td class="mono bull">+55.67%</td>
+              <td class="mono">—</td>
+            </tr>
+            <tr>
+              <td class="mono">MSFT</td>
+              <td>Стара (RSI+рівні)</td>
+              <td class="mono">19</td>
+              <td class="mono">63.2%</td>
+              <td class="mono bull">+0.76%</td>
+              <td class="mono">-25.13%</td>
+            </tr>
+            <tr>
+              <td class="mono">MSFT</td>
+              <td>Нова (RSI+тренд+MACD+BB)</td>
+              <td class="mono">1</td>
+              <td class="mono">0.0%</td>
+              <td class="mono bear">-0.06%</td>
+              <td class="mono">0.00%</td>
+            </tr>
+            <tr class="benchmark-row">
+              <td class="mono">MSFT</td>
+              <td>Купив і тримав (benchmark)</td>
+              <td class="mono">1</td>
+              <td class="mono">—</td>
+              <td class="mono bull">+26.52%</td>
+              <td class="mono">—</td>
+            </tr>
+            <tr>
+              <td class="mono">NVDA</td>
+              <td>Стара (RSI+рівні)</td>
+              <td class="mono">15</td>
+              <td class="mono">66.7%</td>
+              <td class="mono bull">+3.27%</td>
+              <td class="mono">-26.68%</td>
+            </tr>
+            <tr>
+              <td class="mono">NVDA</td>
+              <td>Нова (RSI+тренд+MACD+BB)</td>
+              <td class="mono">2</td>
+              <td class="mono">100.0%</td>
+              <td class="mono bull">+9.59%</td>
+              <td class="mono">0.00%</td>
+            </tr>
+            <tr class="benchmark-row">
+              <td class="mono">NVDA</td>
+              <td>Купив і тримав (benchmark)</td>
+              <td class="mono">1</td>
+              <td class="mono">—</td>
+              <td class="mono bull">+110.49%</td>
+              <td class="mono">—</td>
+            </tr>
+            <tr>
+              <td class="mono">TSLA</td>
+              <td>Стара (RSI+рівні)</td>
+              <td class="mono">16</td>
+              <td class="mono">37.5%</td>
+              <td class="mono bull">+0.74%</td>
+              <td class="mono">-47.50%</td>
+            </tr>
+            <tr>
+              <td class="mono">TSLA</td>
+              <td>Нова (RSI+тренд+MACD+BB)</td>
+              <td class="mono">4</td>
+              <td class="mono">75.0%</td>
+              <td class="mono bull">+1.47%</td>
+              <td class="mono">-3.96%</td>
+            </tr>
+            <tr class="benchmark-row">
+              <td class="mono">TSLA</td>
+              <td>Купив і тримав (benchmark)</td>
+              <td class="mono">1</td>
+              <td class="mono">—</td>
+              <td class="mono bull">+71.66%</td>
+              <td class="mono">—</td>
+            </tr>
+  </table>
+  <div class="period">Період: AAPL: 2024-07-26 → 2026-10-07, MSFT: 2024-07-26 → 2026-10-07, NVDA: 2024-07-26 → 2026-10-07, TSLA: 2024-07-26 → 2026-10-07</div>
+</div>
+</body>
+</html>

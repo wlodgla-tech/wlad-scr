@@ -1,0 +1,666 @@
+{
+  "AAPL": {
+    "old": {
+      "num_trades": 12,
+      "win_rate": 75.0,
+      "total_pnl": 18.37,
+      "total_invested": 1200.0,
+      "total_pnl_pct": 1.53,
+      "max_drawdown_pct": -18.15,
+      "avg_win": 5.04,
+      "avg_loss": -8.99,
+      "best_trade_pct": 17.11,
+      "worst_trade_pct": -10.16,
+      "trades": [
+        {
+          "entry_i": 207,
+          "exit_i": 214,
+          "pnl": 8.56542960205941,
+          "pnl_pct": 8.565429602059416,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 270,
+          "exit_i": 285,
+          "pnl": 5.007073974772656,
+          "pnl_pct": 5.007073974772647,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 312,
+          "exit_i": 321,
+          "pnl": -9.126523041298599,
+          "pnl_pct": -9.126523041298595,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 339,
+          "exit_i": 342,
+          "pnl": 0.502864968921254,
+          "pnl_pct": 0.5028649689212461,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 343,
+          "exit_i": 344,
+          "pnl": 0.6312371479060039,
+          "pnl_pct": 0.6312371479060053,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 357,
+          "exit_i": 373,
+          "pnl": -10.158327428799078,
+          "pnl_pct": -10.158327428799074,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 374,
+          "exit_i": 390,
+          "pnl": 17.1056910871762,
+          "pnl_pct": 17.10569108717621,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 403,
+          "exit_i": 433,
+          "pnl": 1.7530410056110854,
+          "pnl_pct": 1.753041005611089,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 561,
+          "exit_i": 571,
+          "pnl": -7.692885905486992,
+          "pnl_pct": -7.692885905486991,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 572,
+          "exit_i": 582,
+          "pnl": 11.645451640013585,
+          "pnl_pct": 11.645451640013583,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 589,
+          "exit_i": 622,
+          "pnl": 0.054736356205727664,
+          "pnl_pct": 0.05473635620572015,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 724,
+          "exit_i": 729,
+          "pnl": 0.08445073611602978,
+          "pnl_pct": 0.08445073611602627,
+          "reason": "NEAR_RESISTANCE"
+        }
+      ]
+    },
+    "new": {
+      "num_trades": 7,
+      "win_rate": 71.4,
+      "total_pnl": 4.23,
+      "total_invested": 700.0,
+      "total_pnl_pct": 0.6,
+      "max_drawdown_pct": -0.77,
+      "avg_win": 1.1,
+      "avg_loss": -0.63,
+      "best_trade_pct": 3.14,
+      "worst_trade_pct": -0.77,
+      "trades": [
+        {
+          "entry_i": 316,
+          "exit_i": 317,
+          "pnl": -0.4778190385629444,
+          "pnl_pct": -0.4778190385629433,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 319,
+          "exit_i": 320,
+          "pnl": 0.7535213178546422,
+          "pnl_pct": 0.753521317854644,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 562,
+          "exit_i": 563,
+          "pnl": -0.7737522124409894,
+          "pnl_pct": -0.7737522124409923,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 564,
+          "exit_i": 565,
+          "pnl": 0.12739243260126393,
+          "pnl_pct": 0.12739243260126987,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 571,
+          "exit_i": 572,
+          "pnl": 0.38508189393806425,
+          "pnl_pct": 0.38508189393806624,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 608,
+          "exit_i": 609,
+          "pnl": 1.0794880344667592,
+          "pnl_pct": 1.079488034466758,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 679,
+          "exit_i": 680,
+          "pnl": 3.136469225316168,
+          "pnl_pct": 3.136469225316163,
+          "reason": "TREND_BREAK_SMA50"
+        }
+      ]
+    },
+    "buy_hold_pct": 55.67,
+    "period_start": "2024-07-26",
+    "period_end": "2026-10-07"
+  },
+  "MSFT": {
+    "old": {
+      "num_trades": 19,
+      "win_rate": 63.2,
+      "total_pnl": 14.5,
+      "total_invested": 1900.0,
+      "total_pnl_pct": 0.76,
+      "max_drawdown_pct": -25.13,
+      "avg_win": 4.59,
+      "avg_loss": -5.8,
+      "best_trade_pct": 13.41,
+      "worst_trade_pct": -9.15,
+      "trades": [
+        {
+          "entry_i": 205,
+          "exit_i": 233,
+          "pnl": 4.719728510942916,
+          "pnl_pct": 4.719728510942911,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 268,
+          "exit_i": 273,
+          "pnl": 4.695447310570598,
+          "pnl_pct": 4.6954473105705885,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 317,
+          "exit_i": 320,
+          "pnl": 3.2140875481320466,
+          "pnl_pct": 3.2140875481320386,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 328,
+          "exit_i": 354,
+          "pnl": -8.209284915423126,
+          "pnl_pct": -8.20928491542312,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 369,
+          "exit_i": 389,
+          "pnl": 4.968162673374756,
+          "pnl_pct": 4.968162673374765,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 465,
+          "exit_i": 471,
+          "pnl": -2.7527831196090897,
+          "pnl_pct": -2.7527831196090924,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 479,
+          "exit_i": 480,
+          "pnl": 0.0421447971463575,
+          "pnl_pct": 0.042144797146348445,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 481,
+          "exit_i": 482,
+          "pnl": 0.1279029983660392,
+          "pnl_pct": 0.12790299836604735,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 484,
+          "exit_i": 495,
+          "pnl": 0.5025640456163873,
+          "pnl_pct": 0.5025640456163938,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 497,
+          "exit_i": 498,
+          "pnl": 0.3121610981312454,
+          "pnl_pct": 0.31216109813123616,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 509,
+          "exit_i": 510,
+          "pnl": 0.16833785981220273,
+          "pnl_pct": 0.1683378598122065,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 521,
+          "exit_i": 544,
+          "pnl": -2.803688138623769,
+          "pnl_pct": -2.803688138623772,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 560,
+          "exit_i": 578,
+          "pnl": -8.339320501831216,
+          "pnl_pct": -8.339320501831216,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 581,
+          "exit_i": 615,
+          "pnl": -9.148425309436448,
+          "pnl_pct": -9.148425309436448,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 616,
+          "exit_i": 630,
+          "pnl": 10.82901903987285,
+          "pnl_pct": 10.829019039872856,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 669,
+          "exit_i": 676,
+          "pnl": -7.554854770915802,
+          "pnl_pct": -7.554854770915798,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 679,
+          "exit_i": 692,
+          "pnl": 12.130495400747101,
+          "pnl_pct": 12.13049540074711,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 693,
+          "exit_i": 694,
+          "pnl": -1.8150101813851518,
+          "pnl_pct": -1.8150101813851571,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 696,
+          "exit_i": 703,
+          "pnl": 13.412955756261328,
+          "pnl_pct": 13.412955756261336,
+          "reason": "RSI_OVERBOUGHT"
+        }
+      ]
+    },
+    "new": {
+      "num_trades": 1,
+      "win_rate": 0.0,
+      "total_pnl": -0.06,
+      "total_invested": 100.0,
+      "total_pnl_pct": -0.06,
+      "max_drawdown_pct": 0.0,
+      "avg_win": null,
+      "avg_loss": -0.06,
+      "best_trade_pct": -0.06,
+      "worst_trade_pct": -0.06,
+      "trades": [
+        {
+          "entry_i": 522,
+          "exit_i": 523,
+          "pnl": -0.05632566285092281,
+          "pnl_pct": -0.05632566285092011,
+          "reason": "TREND_BREAK_SMA50"
+        }
+      ]
+    },
+    "buy_hold_pct": 26.52,
+    "period_start": "2024-07-26",
+    "period_end": "2026-10-07"
+  },
+  "NVDA": {
+    "old": {
+      "num_trades": 15,
+      "win_rate": 66.7,
+      "total_pnl": 49.09,
+      "total_invested": 1500.0,
+      "total_pnl_pct": 3.27,
+      "max_drawdown_pct": -26.68,
+      "avg_win": 9.2,
+      "avg_loss": -8.59,
+      "best_trade_pct": 30.42,
+      "worst_trade_pct": -9.66,
+      "trades": [
+        {
+          "entry_i": 213,
+          "exit_i": 226,
+          "pnl": -8.536582126304202,
+          "pnl_pct": -8.536582126304204,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 299,
+          "exit_i": 311,
+          "pnl": 9.446980573922986,
+          "pnl_pct": 9.446980573922993,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 316,
+          "exit_i": 322,
+          "pnl": 10.388047670146562,
+          "pnl_pct": 10.38804767014656,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 326,
+          "exit_i": 330,
+          "pnl": -9.558880040533962,
+          "pnl_pct": -9.558880040533968,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 334,
+          "exit_i": 347,
+          "pnl": -7.463025540099119,
+          "pnl_pct": -7.463025540099122,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 353,
+          "exit_i": 372,
+          "pnl": -9.655373851996806,
+          "pnl_pct": -9.655373851996806,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 373,
+          "exit_i": 398,
+          "pnl": 30.420945014818777,
+          "pnl_pct": 30.420945014818777,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 475,
+          "exit_i": 489,
+          "pnl": 7.518653618344273,
+          "pnl_pct": 7.518653618344273,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 533,
+          "exit_i": 536,
+          "pnl": 0.7714624147749207,
+          "pnl_pct": 0.771462414774926,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 537,
+          "exit_i": 544,
+          "pnl": 4.508644765746581,
+          "pnl_pct": 4.508644765746572,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 548,
+          "exit_i": 555,
+          "pnl": 6.988488742638728,
+          "pnl_pct": 6.988488742638732,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 571,
+          "exit_i": 574,
+          "pnl": 5.391139946220614,
+          "pnl_pct": 5.391139946220624,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 598,
+          "exit_i": 627,
+          "pnl": 6.462107090804961,
+          "pnl_pct": 6.462107090804969,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 667,
+          "exit_i": 680,
+          "pnl": -7.721434853393007,
+          "pnl_pct": -7.7214348533930055,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 681,
+          "exit_i": 719,
+          "pnl": 10.12976923158889,
+          "pnl_pct": 10.129769231588881,
+          "reason": "NEAR_RESISTANCE"
+        }
+      ]
+    },
+    "new": {
+      "num_trades": 2,
+      "win_rate": 100.0,
+      "total_pnl": 19.17,
+      "total_invested": 200.0,
+      "total_pnl_pct": 9.59,
+      "max_drawdown_pct": 0.0,
+      "avg_win": 9.59,
+      "avg_loss": null,
+      "best_trade_pct": 12.81,
+      "worst_trade_pct": 6.36,
+      "trades": [
+        {
+          "entry_i": 202,
+          "exit_i": 203,
+          "pnl": 12.812102764638267,
+          "pnl_pct": 12.812102764638267,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 583,
+          "exit_i": 589,
+          "pnl": 6.359094965932642,
+          "pnl_pct": 6.359094965932632,
+          "reason": "TREND_BREAK_SMA50"
+        }
+      ]
+    },
+    "buy_hold_pct": 110.49,
+    "period_start": "2024-07-26",
+    "period_end": "2026-10-07"
+  },
+  "TSLA": {
+    "old": {
+      "num_trades": 16,
+      "win_rate": 37.5,
+      "total_pnl": 11.86,
+      "total_invested": 1600.0,
+      "total_pnl_pct": 0.74,
+      "max_drawdown_pct": -47.5,
+      "avg_win": 18.51,
+      "avg_loss": -9.92,
+      "best_trade_pct": 38.97,
+      "worst_trade_pct": -20.4,
+      "trades": [
+        {
+          "entry_i": 201,
+          "exit_i": 205,
+          "pnl": -10.525638643746795,
+          "pnl_pct": -10.525638643746793,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 214,
+          "exit_i": 232,
+          "pnl": 6.53311176475157,
+          "pnl_pct": 6.533111764751576,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 262,
+          "exit_i": 273,
+          "pnl": 38.97028417701024,
+          "pnl_pct": 38.97028417701025,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 333,
+          "exit_i": 334,
+          "pnl": -3.3928221731495865,
+          "pnl_pct": -3.39282217314959,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 345,
+          "exit_i": 350,
+          "pnl": -10.158514031737072,
+          "pnl_pct": -10.158514031737075,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 351,
+          "exit_i": 354,
+          "pnl": -20.404876732933143,
+          "pnl_pct": -20.40487673293314,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 355,
+          "exit_i": 389,
+          "pnl": 26.65018495110709,
+          "pnl_pct": 26.650184951107093,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 414,
+          "exit_i": 415,
+          "pnl": -14.259893789082124,
+          "pnl_pct": -14.259893789082124,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 446,
+          "exit_i": 448,
+          "pnl": -8.072626160340654,
+          "pnl_pct": -8.072626160340658,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 578,
+          "exit_i": 612,
+          "pnl": -8.704630780233435,
+          "pnl_pct": -8.704630780233435,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 614,
+          "exit_i": 623,
+          "pnl": -7.359852522013162,
+          "pnl_pct": -7.359852522013166,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 631,
+          "exit_i": 648,
+          "pnl": 14.425303930050477,
+          "pnl_pct": 14.425303930050482,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 677,
+          "exit_i": 698,
+          "pnl": -16.22598602945669,
+          "pnl_pct": -16.225986029456685,
+          "reason": "STOP_LOSS"
+        },
+        {
+          "entry_i": 699,
+          "exit_i": 725,
+          "pnl": 17.544648641313117,
+          "pnl_pct": 17.54464864131311,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 730,
+          "exit_i": 731,
+          "pnl": -0.09506901891408451,
+          "pnl_pct": -0.09506901891408459,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 745,
+          "exit_i": 751,
+          "pnl": 6.935155162304754,
+          "pnl_pct": 6.9351551623047625,
+          "reason": "END_OF_PERIOD"
+        }
+      ]
+    },
+    "new": {
+      "num_trades": 4,
+      "win_rate": 75.0,
+      "total_pnl": 5.89,
+      "total_invested": 400.0,
+      "total_pnl_pct": 1.47,
+      "max_drawdown_pct": -3.96,
+      "avg_win": 3.28,
+      "avg_loss": -3.96,
+      "best_trade_pct": 3.91,
+      "worst_trade_pct": -3.96,
+      "trades": [
+        {
+          "entry_i": 336,
+          "exit_i": 337,
+          "pnl": 2.43835913717656,
+          "pnl_pct": 2.43835913717656,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 345,
+          "exit_i": 346,
+          "pnl": -3.963012048799907,
+          "pnl_pct": -3.9630120487999076,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 347,
+          "exit_i": 348,
+          "pnl": 3.9120405397243707,
+          "pnl_pct": 3.912040539724382,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 583,
+          "exit_i": 584,
+          "pnl": 3.4994069120883067,
+          "pnl_pct": 3.4994069120882987,
+          "reason": "TREND_BREAK_SMA50"
+        }
+      ]
+    },
+    "buy_hold_pct": 71.66,
+    "period_start": "2024-07-26",
+    "period_end": "2026-10-07"
+  }
+}
