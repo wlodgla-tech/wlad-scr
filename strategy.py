@@ -138,6 +138,21 @@ def new_strategy_signal(df: pd.DataFrame, i: int, has_position: bool) -> tuple:
         return None, ""
 
 
+def daily_trend_bullish(daily_df: pd.DataFrame) -> bool:
+    """Мультитаймфрейм-фільтр: дивимось на ЩОДЕННИЙ графік (окремо від
+    того таймфрейму, яким торгуємо — напр. 1h) і визначаємо загальний
+    тренд. Висхідний тренд = ціна вище SMA50 на денному графіку І SMA50
+    вище SMA200 (довший тренд теж вгору). Повертає False, якщо даних
+    недостатньо (краще пропустити угоду, ніж вгадувати)."""
+    if daily_df is None or len(daily_df) < 200:
+        return False
+    d = add_all_indicators(daily_df)
+    last = d.iloc[-1]
+    if pd.isna(last["sma50"]) or pd.isna(last["sma200"]):
+        return False
+    return bool(last["close"] > last["sma50"] > last["sma200"])
+
+
 STRATEGIES = {
     "old": old_strategy_signal,
     "new": new_strategy_signal,

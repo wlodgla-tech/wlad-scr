@@ -158,6 +158,11 @@ def run_trading_scan(trading_state: dict) -> None:
     тікерів (TICKER) — ті лишаються для огляду/сповіщень, як і раніше."""
     print(f"[trading212] Сканую {len(TRADING_UNIVERSE)} акцій на наявність сигналів...")
     batch = data_collector.fetch_candles_batch(TRADING_UNIVERSE, interval=INTERVAL)
+    # Мультитаймфрейм-фільтр: окремий пакетний запит ЩОДЕННИХ свічок, щоб
+    # не купувати проти загального (денного) тренду, навіть якщо годинний
+    # сигнал виглядає привабливо. Один зайвий пакетний запит на весь
+    # список — дешево порівняно з кількістю хибних сигналів, яких уникаємо.
+    daily_batch = data_collector.fetch_candles_batch(TRADING_UNIVERSE, interval="1d", period="2y")
 
     scanned, signals_found = 0, 0
     for ticker, df in batch.items():
@@ -188,7 +193,10 @@ def run_trading_scan(trading_state: dict) -> None:
             else:
                 action, reason = strategy.new_strategy_signal(dfi, i, False)
                 if action == "BUY":
-                    _execute_buy(ticker, t212_ticker, price, reason, trading_state)
+                    daily_df = daily_batch.get(ticker)
+                    if not strategy.daily_trend_bullish(daily_df):
+                        continue  # годинний сигнал є, але денний тренд не підтверджує — пропускаємо
+                    _execute_buy(ticker, t212_ticker, price, f"{reason}+DAILY_TREND_UP", trading_state)
                     signals_found += 1
         except Exception as e:
             print(f"[trading212] Помилка аналізу {ticker}: {e}", file=sys.stderr)
