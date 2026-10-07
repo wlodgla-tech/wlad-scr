@@ -2,11 +2,16 @@ name: Market Monitor
 
 on:
   schedule:
+    # Раз на 5 хв. Репозиторій публічний — ліміт хвилин GitHub Actions
+    # необмежений, тож можна частіше. Сигнали рахуються по годинних (1h)
+    # і денних (1d) свічках, тож нова інформація зʼявляється не частіше
+    # ніж раз на годину — частіші перевірки лише зменшують затримку
+    # реакції на вже готовий сигнал, не дають нових даних.
     - cron: '*/5 * * * *'
-  workflow_dispatch: {}
+  workflow_dispatch: {}   # кнопка "Run workflow" для ручного тесту
 
 permissions:
-  contents: write
+  contents: write   # потрібно, щоб зберігати файл стану (дедуплікація сповіщень)
 
 jobs:
   check-market:
@@ -46,4 +51,15 @@ jobs:
           [ -f trading_state.json ] && git add trading_state.json || true
           [ -f t212_instruments_cache.json ] && git add t212_instruments_cache.json || true
           git diff --staged --quiet || git commit -m "Update dashboard and monitor state [skip ci]"
-          git push
+          # При частих запусках (кожні 5 хв) іноді два запуски намагаються
+          # зберегти результат одночасно — git push одного з них відхиляється,
+          # бо інший вже встиг запушити першим. Замість падати з помилкою,
+          # підтягуємо свіжі зміни і пробуємо запушити ще раз (до 5 спроб).
+          for i in 1 2 3 4 5; do
+            if git push; then
+              break
+            fi
+            echo "Push відхилено (спроба $i), підтягую свіжі зміни і пробую ще раз..."
+            git pull --rebase --autostash
+            sleep 3
+          done
