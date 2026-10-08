@@ -147,6 +147,25 @@ def log_trade(trading_state: dict, **entry) -> None:
     trading_state["trade_log"] = trading_state["trade_log"][-TRADE_LOG_MAX:]
 
 
+def _is_uk(ticker: str) -> bool:
+    """Акція Лондонської біржі (формат Yahoo Finance: суфікс .L)."""
+    return ticker.upper().endswith(".L")
+
+
+def _cur(ticker: str) -> str:
+    return "£" if _is_uk(ticker) else "$"
+
+
+def _uk_pence_to_pounds(df):
+    """Yahoo віддає ціни акцій LSE в пенсах (GBX). Переводимо у фунти, щоб
+    розмір угоди, стопи й результат рахувались в одних одиницях з рештою."""
+    out = df.copy()
+    for col in ("open", "high", "low", "close"):
+        if col in out.columns:
+            out[col] = out[col] * 0.01
+    return out
+
+
 REASON_TEXT = {
     "TRAILING_STOP_LOSS": "спрацював трейлінг стоп-лос",
     "RSI_OVERBOUGHT": "RSI вище 70 (перекупленість)",
@@ -165,22 +184,23 @@ def _notify_open(ticker: str, price: float, qty: float, value_gbp: float,
                  reason: str, stop_price: float, levels: dict, side: str = "LONG") -> None:
     """Повідомлення в Telegram про відкриття позиції: вхід, стоп, цілі виходу."""
     try:
+        c = _cur(ticker)
         if side == "SHORT":
             lines = [
                 f"🔻 <b>ШОРТ {ticker}</b> ({sector_of(ticker)}) — ставка на падіння",
                 _mode_label() + " · шорти лише віртуально",
                 "",
-                f"Вхід: <b>${price:.2f}</b> × {qty:.4f} шт (≈ £{value_gbp:.0f})",
-                f"🛑 Початковий стоп-лос: <b>${stop_price:.2f}</b> (+{STOP_LOSS_PCT:g}% вище входу)",
+                f"Вхід: <b>{c}{price:.2f}</b> × {qty:.4f} шт (≈ £{value_gbp:.0f})",
+                f"🛑 Початковий стоп-лос: <b>{c}{stop_price:.2f}</b> (+{STOP_LOSS_PCT:g}% вище входу)",
                 f"   Стоп трейлінговий: опускається за ціною на {STOP_LOSS_PCT:g}% вище мінімуму.",
             ]
             bb = levels.get("bb_lower")
             sma50 = levels.get("sma50")
             if bb:
                 gain = (1 - bb / price) * 100
-                lines.append(f"🎯 Орієнтир виходу (нижня межа Bollinger): <b>${bb:.2f}</b> (+{gain:.1f}% прибутку)")
+                lines.append(f"🎯 Орієнтир виходу (нижня межа Bollinger): <b>{c}{bb:.2f}</b> (+{gain:.1f}% прибутку)")
             if sma50:
-                lines.append(f"⚠️ Вихід при зламі тренду: ціна вище SMA50 <b>${sma50:.2f}</b>")
+                lines.append(f"⚠️ Вихід при зламі тренду: ціна вище SMA50 <b>{c}{sma50:.2f}</b>")
             lines.append("📉 Також вихід при RSI &lt; 30.")
             risk = stop_price - price
             if bb and risk > 0 and bb < price:
@@ -190,17 +210,17 @@ def _notify_open(ticker: str, price: float, qty: float, value_gbp: float,
                 f"🟢 <b>КУПІВЛЯ {ticker}</b> ({sector_of(ticker)})",
                 _mode_label(),
                 "",
-                f"Вхід: <b>${price:.2f}</b> × {qty:.4f} шт (≈ £{value_gbp:.0f})",
-                f"🛑 Початковий стоп-лос: <b>${stop_price:.2f}</b> (−{STOP_LOSS_PCT:g}%)",
+                f"Вхід: <b>{c}{price:.2f}</b> × {qty:.4f} шт (≈ £{value_gbp:.0f})",
+                f"🛑 Початковий стоп-лос: <b>{c}{stop_price:.2f}</b> (−{STOP_LOSS_PCT:g}%)",
                 f"   Стоп трейлінговий: підтягується за ціною на {STOP_LOSS_PCT:g}% нижче піку.",
             ]
             bb = levels.get("bb_upper")
             sma50 = levels.get("sma50")
             if bb:
                 gain = (bb / price - 1) * 100
-                lines.append(f"🎯 Орієнтир виходу (верхня межа Bollinger): <b>${bb:.2f}</b> (+{gain:.1f}%)")
+                lines.append(f"🎯 Орієнтир виходу (верхня межа Bollinger): <b>{c}{bb:.2f}</b> (+{gain:.1f}%)")
             if sma50:
-                lines.append(f"⚠️ Вихід при зламі тренду: ціна нижче SMA50 <b>${sma50:.2f}</b>")
+                lines.append(f"⚠️ Вихід при зламі тренду: ціна нижче SMA50 <b>{c}{sma50:.2f}</b>")
             lines.append("📈 Також вихід при RSI &gt; 70.")
             risk = price - stop_price
             if bb and risk > 0 and bb > price:
@@ -215,18 +235,19 @@ def _notify_open(ticker: str, price: float, qty: float, value_gbp: float,
 def _notify_close(ticker: str, price: float, position: dict, reason: str, cumulative: float) -> None:
     """Повідомлення в Telegram про закриття позиції: результат угоди."""
     try:
+        c = _cur(ticker)
         side = position.get("side", "LONG")
         buy_price = position.get("buy_price") or price
         qty = position.get("qty", 0)
         if side == "SHORT":
             pnl = (buy_price - price) * qty
             pnl_pct = (1 - price / buy_price) * 100
-            extreme_txt = f"Мінімум за час позиції: ${position.get('trough_price', buy_price):.2f}"
+            extreme_txt = f"Мінімум за час позиції: {c}{position.get('trough_price', buy_price):.2f}"
             title = f"ЗАКРИТО ШОРТ {ticker}"
         else:
             pnl = (price - buy_price) * qty
             pnl_pct = (price / buy_price - 1) * 100
-            extreme_txt = f"Максимум за час позиції: ${position.get('peak_price', buy_price):.2f}"
+            extreme_txt = f"Максимум за час позиції: {c}{position.get('peak_price', buy_price):.2f}"
             title = f"ПРОДАЖ {ticker}"
         icon = "✅" if pnl >= 0 else "🔴"
         opened = position.get("opened", "")[:16].replace("T", " ")
@@ -235,7 +256,7 @@ def _notify_close(ticker: str, price: float, position: dict, reason: str, cumula
             f"{icon} <b>{title}</b>",
             _mode_label(),
             "",
-            f"Вхід: ${buy_price:.2f} → Вихід: <b>${price:.2f}</b> ({pnl_pct:+.1f}%)",
+            f"Вхід: {c}{buy_price:.2f} → Вихід: <b>{c}{price:.2f}</b> ({pnl_pct:+.1f}%)",
             f"Результат угоди: <b>{pnl:+.2f}</b> (кількість {qty:.4f})",
             extreme_txt,
             f"Причина: {reason_txt}",
@@ -373,7 +394,13 @@ def run_trading_scan(trading_state: dict) -> None:
             continue
 
         position = trading_state["positions"].get(ticker)
-        t212_ticker = (position.get("t212_ticker") if position else None) or t212.find_instrument_ticker(ticker)
+        if _is_uk(ticker):
+            if not t212.DRY_RUN:
+                continue  # реальних ордерів по акціях LSE бот не робить — лише віртуально
+            t212_ticker = ticker + "_UK_VIRTUAL"
+            df = _uk_pence_to_pounds(df)
+        else:
+            t212_ticker = (position.get("t212_ticker") if position else None) or t212.find_instrument_ticker(ticker)
         if not t212_ticker:
             continue
         scanned += 1

@@ -45,6 +45,20 @@ TRADING_UNIVERSE = [
 # одночасно тримати в одному секторі (диверсифікація: кілька акцій
 # однієї галузі зазвичай рухаються разом, тобто це по суті одна й та
 # сама ставка, а не кілька незалежних).
+
+# Лондонська біржа (LSE): великі ліквідні компанії FTSE 100. Суфікс ".L" —
+# формат Yahoo Finance. ЛИШЕ віртуальна торгівля (dry-run): бот не
+# відправляє реальних ордерів по цих акціях. Ціни Yahoo віддає в пенсах —
+# бот переводить їх у фунти автоматично (див. main.py).
+UK_UNIVERSE = [
+    "SHEL.L", "AZN.L", "HSBA.L", "ULVR.L", "BP.L", "GSK.L", "RIO.L", "BATS.L",
+    "DGE.L", "LSEG.L", "REL.L", "NG.L", "VOD.L", "LLOY.L", "BARC.L", "NWG.L",
+    "PRU.L", "AAL.L", "GLEN.L", "BA.L", "RR.L", "CPG.L", "TSCO.L", "STAN.L",
+    "EXPN.L", "FLTR.L", "ABF.L", "III.L", "IMB.L", "SSE.L", "ANTO.L", "LGEN.L",
+    "AV.L", "NXT.L", "WPP.L", "RKT.L", "HLMA.L", "SGE.L", "INF.L", "IAG.L",
+]
+TRADING_UNIVERSE = TRADING_UNIVERSE + UK_UNIVERSE
+
 TICKER_SECTORS = {
     **{t: "Технології" for t in (
         "AAPL", "MSFT", "GOOGL", "AMZN", "META", "NVDA", "TSLA", "AMD", "INTC",
@@ -73,6 +87,20 @@ TICKER_SECTORS = {
     **{t: "Нерухомість/матеріали" for t in (
         "PLD", "AMT", "EQIX", "LIN", "APD", "SHW",
     )},
+    **{t: "Фінанси" for t in (
+        "HSBA.L", "LLOY.L", "BARC.L", "NWG.L", "PRU.L", "STAN.L", "LSEG.L",
+        "III.L", "LGEN.L", "AV.L",
+    )},
+    **{t: "Охорона здоров'я" for t in ("AZN.L", "GSK.L")},
+    **{t: "Споживчі товари" for t in (
+        "ULVR.L", "BATS.L", "DGE.L", "TSCO.L", "ABF.L", "NXT.L", "RKT.L", "IMB.L",
+    )},
+    **{t: "Промисловість/енергетика" for t in (
+        "SHEL.L", "BP.L", "RIO.L", "AAL.L", "GLEN.L", "BA.L", "RR.L", "ANTO.L",
+        "HLMA.L", "IAG.L", "CPG.L",
+    )},
+    **{t: "Телеком/комунальні" for t in ("NG.L", "VOD.L", "SSE.L")},
+    **{t: "Технології" for t in ("REL.L", "EXPN.L", "SGE.L", "INF.L", "WPP.L", "FLTR.L")},
 }
 
 
