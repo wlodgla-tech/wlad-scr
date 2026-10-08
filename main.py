@@ -97,6 +97,7 @@ TREND_STOP_PCT = float(_env("TREND_STOP_PCT", "20"))
 ENABLE_SHORTS = _env("ENABLE_SHORTS", "false").lower() == "true"
 # "Радар входів": у задані години (UTC) бот шле в Telegram список акцій, які
 # ще не дали сигналу, але дадуть, якщо ціна впаде до вказаного рівня.
+DAILY_REPORT_HOUR_UTC = int(_env("DAILY_REPORT_HOUR_UTC", "21"))  # після закриття США; -1 = вимкнено
 RADAR_MAX_DISTANCE_PCT = float(_env("RADAR_MAX_DISTANCE_PCT", "5"))
 RADAR_MAX = int(_env("RADAR_MAX", "8"))
 RADAR_HOURS_UTC = [int(x) for x in _env("RADAR_HOURS_UTC", "7,10,13,16").split(",") if x.strip().isdigit()]
@@ -576,6 +577,65 @@ def run_trading_scan(trading_state: dict) -> None:
           f"у радарі: {len(radar)}.")
 
 
+def _send_daily_report(trading_state: dict) -> None:
+    """Щоденний звіт у Telegram (будні, після закриття США): усі відкриті
+    позиції — коли й за якою ціною відкрито, поточна ціна, плюс/мінус."""
+    now = datetime.now(timezone.utc)
+    if DAILY_REPORT_HOUR_UTC < 0 or now.weekday() >= 5 or now.hour < DAILY_REPORT_HOUR_UTC:
+        return
+    today = now.strftime("%Y-%m-%d")
+    if trading_state.get("report_sent") == today:
+        return
+    try:
+        positions = trading_state.get("positions", {})
+        header = f"📋 <b>ЗВІТ ЗА ДЕНЬ</b> · {today}\n{_mode_label()}\n"
+        chunks, lines = [], []
+        total_pct_sum, total_pnl = 0.0, 0.0
+        n = 0
+        for t, p in sorted(positions.items()):
+            if p.get("side") == "SHORT":
+                continue
+            c = _cur(t)
+            buy = p.get("buy_price") or 0
+            last = p.get("last_price") or p.get("peak_price") or buy
+            qty = p.get("qty", 0)
+            pnl = (last - buy) * qty
+            pct = (last / buy - 1) * 100 if buy else 0.0
+            total_pnl += pnl
+            total_pct_sum += pct
+            n += 1
+            opened = (p.get("opened") or "")[:16].replace("T", " ")
+            kind = "тренд" if p.get("mode") == "TREND" else "відскок"
+            icon = "🟢" if pnl >= 0 else "🔴"
+            lines.append(
+                f"{icon} <b>{t}</b> ({kind})\n"
+                f"   відкрито {opened} UTC по {c}{buy:.2f}\n"
+                f"   зараз {c}{last:.2f} → <b>{pct:+.1f}%</b> ({c}{pnl:+.2f})")
+        closed_today = [e for e in trading_state.get("trade_log", [])
+                        if e.get("action") == "SELL" and str(e.get("time", ""))[:10] == today]
+        if not lines:
+            body = "Відкритих позицій немає."
+        else:
+            body = "\n".join(lines)
+        footer = [""]
+        if n:
+            footer.append(f"Відкритих: {n}/{MAX_OPEN_POSITIONS} · плаваючий результат: <b>{total_pnl:+.2f}</b> "
+                          f"(сер. {total_pct_sum / n:+.1f}% на позицію)")
+        footer.append(f"Закрито сьогодні: {len(closed_today)} · сукупний результат закритих: "
+                      f"<b>{trading_state.get('cumulative_pnl_gbp', 0):+.2f}</b>")
+        footer.append("<i>Суми в валюті акції ($ для США, £ для Лондона). Ціни Yahoo можуть "
+                      "відставати; реальний спред брокера не врахований.</i>")
+        text = header + "\n" + body + "\n" + "\n".join(footer)
+        while len(text) > 3800:
+            cut = text.rfind("\n", 0, 3800)
+            telegram_notifier.send_alert(text[:cut])
+            text = text[cut + 1:]
+        telegram_notifier.send_alert(text)
+        trading_state["report_sent"] = today
+    except Exception as e:
+        print(f"[telegram] Не вдалося надіслати щоденний звіт: {e}", file=sys.stderr)
+
+
 def run_regime_scan(trading_state: dict) -> None:
     """Стратегія "перемикання режимів" на ЩОДЕННИХ свічках (так, як її
     перевіряв бектест): пробій 50-денного максимуму вище SMA200 = трендовий
@@ -617,6 +677,7 @@ def run_regime_scan(trading_state: dict) -> None:
                 if position.get("side") == "SHORT":
                     continue  # шорти в цьому режимі не використовуються
                 stop_pct = position.get("stop_pct", STOP_LOSS_PCT)
+                position["last_price"] = price
                 position["peak_price"] = max(position.get("peak_price", position["buy_price"]), price)
                 if price <= position["peak_price"] * (1 - stop_pct / 100):
                     _execute_sell(ticker, t212_ticker, position["qty"], price, "TRAILING_STOP_LOSS", trading_state)
@@ -662,6 +723,7 @@ def run_regime_scan(trading_state: dict) -> None:
             print(f"[trading212] Помилка аналізу {ticker}: {e}", file=sys.stderr)
 
     _send_radar(radar, trading_state)
+    _send_daily_report(trading_state)
     print(f"[trading212] [режими] Проскановано {scanned} акцій, сигналів: {signals_found}, у радарі: {len(radar)}.")
 
 
