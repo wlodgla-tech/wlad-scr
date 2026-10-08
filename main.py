@@ -91,8 +91,8 @@ STOP_LOSS_PCT = float(_env("STOP_LOSS_PCT", "7"))
 INDICATOR_ALERTS = _env("INDICATOR_ALERTS", "false").lower() == "true"
 # Віртуальні ШОРТИ (ставка на падіння). Працюють ЛИШЕ коли TRADING212_DRY_RUN
 # не "false": в Trading 212 Invest/ISA шортів немає, тож реальні ордери на
-# шорт бот не відправляє ніколи. Вимкнути: ENABLE_SHORTS=false.
-ENABLE_SHORTS = _env("ENABLE_SHORTS", "true").lower() != "false"
+# шорт бот не відправляє ніколи. За замовчуванням ВИМКНЕНО (бектест не показав переваги). Увімкнути: ENABLE_SHORTS=true.
+ENABLE_SHORTS = _env("ENABLE_SHORTS", "false").lower() == "true"
 MAX_OPEN_POSITIONS = int(float(_env("MAX_OPEN_POSITIONS", "10")))
 MAX_POSITIONS_PER_SECTOR = int(float(_env("MAX_POSITIONS_PER_SECTOR", "3")))
 AVOID_EARNINGS_DAYS = int(float(_env("AVOID_EARNINGS_DAYS", "3")))
