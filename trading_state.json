@@ -10,7 +10,7 @@
       "opened": "2026-10-08T11:19:58.572016+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 37.68
+      "last_price": 37.77
     },
     "HSBA.L": {
       "qty": 7.2812,
@@ -20,7 +20,7 @@
       "opened": "2026-10-08T11:19:59.164387+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 13.935999755859376
+      "last_price": 13.934000244140625
     },
     "BP.L": {
       "qty": 17.2117,
@@ -30,7 +30,7 @@
       "opened": "2026-10-08T11:19:59.715151+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 5.797000122070313
+      "last_price": 5.8100000000000005
     },
     "BARC.L": {
       "qty": 23.6714,
@@ -40,7 +40,7 @@
       "opened": "2026-10-08T11:20:00.320643+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 4.285499877929688
+      "last_price": 4.2779998779296875
     },
     "PRU.L": {
       "qty": 11.4077,
@@ -50,7 +50,7 @@
       "opened": "2026-10-08T11:20:00.856686+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 8.904000244140626
+      "last_price": 8.875999755859375
     },
     "BA.L": {
       "qty": 5.484,
@@ -60,7 +60,7 @@
       "opened": "2026-10-08T11:20:01.386565+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 18.385
+      "last_price": 18.365000000000002
     },
     "NXT.L": {
       "qty": 0.688,
@@ -70,17 +70,17 @@
       "opened": "2026-10-08T11:20:02.010530+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 146.4
+      "last_price": 146.0
     },
     "TSCO.L": {
       "qty": 59.7566,
       "buy_price": 5.020369873046875,
-      "peak_price": 5.11,
+      "peak_price": 5.120900268554688,
       "t212_ticker": "TSCO.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:42:59.754950+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 5.11
+      "last_price": 5.120900268554688
     },
     "INF.L": {
       "qty": 34.0445,
@@ -90,7 +90,7 @@
       "opened": "2026-10-08T12:00:08.276820+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 8.885999755859375
+      "last_price": 8.862000122070313
     },
     "GSK.L": {
       "qty": 17.002,
@@ -100,7 +100,7 @@
       "opened": "2026-10-08T13:16:51.368530+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 17.51
+      "last_price": 17.425
     }
   },
   "trade_log": [
