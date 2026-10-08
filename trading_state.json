@@ -1,8 +1,48 @@
 {
   "date": "2026-10-08",
-  "daily_spent_gbp": 0.0,
-  "positions": {},
-  "trade_log": [],
+  "daily_spent_gbp": 200.0,
+  "positions": {
+    "TSCO.L": {
+      "qty": 20.2388,
+      "buy_price": 4.941000061035156,
+      "peak_price": 4.941000061035156,
+      "t212_ticker": "TSCO.L_UK_VIRTUAL",
+      "opened": "2026-10-08T09:00:22.545771+00:00"
+    },
+    "SGE.L": {
+      "qty": 9.5923,
+      "buy_price": 10.425,
+      "peak_price": 10.425,
+      "t212_ticker": "SGE.L_UK_VIRTUAL",
+      "opened": "2026-10-08T09:00:23.066996+00:00"
+    }
+  },
+  "trade_log": [
+    {
+      "ticker": "TSCO.L",
+      "action": "BUY",
+      "reason": "MACD_BULLISH+VOLUME_CONFIRMED+DAILY_TREND_UP",
+      "qty": 20.2388,
+      "price": 4.941000061035156,
+      "value_gbp": 100.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 20.2388 x TSCO.L_UK_VIRTUAL",
+      "time": "2026-10-08T09:00:22.545762+00:00"
+    },
+    {
+      "ticker": "SGE.L",
+      "action": "BUY",
+      "reason": "MACD_BULLISH+VOLUME_CONFIRMED+DAILY_TREND_UP",
+      "qty": 9.5923,
+      "price": 10.425,
+      "value_gbp": 100.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 9.5923 x SGE.L_UK_VIRTUAL",
+      "time": "2026-10-08T09:00:23.066984+00:00"
+    }
+  ],
   "cumulative_pnl_gbp": 0.0,
   "peak_pnl_gbp": 0.0
 }
