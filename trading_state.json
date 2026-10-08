@@ -1,11 +1,11 @@
 {
   "date": "2026-10-08",
-  "daily_spent_gbp": 1500.0,
+  "daily_spent_gbp": 1800.0,
   "positions": {
     "SHEL.L": {
       "qty": 2.6802,
       "buy_price": 37.31,
-      "peak_price": 37.44,
+      "peak_price": 37.545,
       "t212_ticker": "SHEL.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:19:58.572016+00:00",
       "stop_pct": 20.0,
@@ -14,7 +14,7 @@
     "HSBA.L": {
       "qty": 7.2812,
       "buy_price": 13.734000244140626,
-      "peak_price": 13.834000244140626,
+      "peak_price": 13.84,
       "t212_ticker": "HSBA.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:19:59.164387+00:00",
       "stop_pct": 7.0,
@@ -32,7 +32,7 @@
     "BARC.L": {
       "qty": 23.6714,
       "buy_price": 4.224500122070313,
-      "peak_price": 4.2435000610351565,
+      "peak_price": 4.2554998779296875,
       "t212_ticker": "BARC.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:20:00.320643+00:00",
       "stop_pct": 7.0,
@@ -41,7 +41,7 @@
     "PRU.L": {
       "qty": 11.4077,
       "buy_price": 8.765999755859376,
-      "peak_price": 8.822000122070312,
+      "peak_price": 8.845999755859376,
       "t212_ticker": "PRU.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:20:00.856686+00:00",
       "stop_pct": 7.0,
@@ -50,7 +50,7 @@
     "BA.L": {
       "qty": 5.484,
       "buy_price": 18.235,
-      "peak_price": 18.36,
+      "peak_price": 18.365000000000002,
       "t212_ticker": "BA.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:20:01.386565+00:00",
       "stop_pct": 7.0,
@@ -59,7 +59,7 @@
     "NXT.L": {
       "qty": 0.688,
       "buy_price": 145.35,
-      "peak_price": 145.45000000000002,
+      "peak_price": 145.70000000000002,
       "t212_ticker": "NXT.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:20:02.010530+00:00",
       "stop_pct": 7.0,
@@ -68,7 +68,7 @@
     "TSCO.L": {
       "qty": 59.7566,
       "buy_price": 5.020369873046875,
-      "peak_price": 5.040020141601563,
+      "peak_price": 5.050010070800782,
       "t212_ticker": "TSCO.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:42:59.754950+00:00",
       "stop_pct": 20.0,
@@ -77,9 +77,18 @@
     "INF.L": {
       "qty": 34.0445,
       "buy_price": 8.812000122070312,
-      "peak_price": 8.92,
+      "peak_price": 8.935999755859376,
       "t212_ticker": "INF.L_UK_VIRTUAL",
       "opened": "2026-10-08T12:00:08.276820+00:00",
+      "stop_pct": 7.0,
+      "mode": null
+    },
+    "GSK.L": {
+      "qty": 17.002,
+      "buy_price": 17.645,
+      "peak_price": 17.645,
+      "t212_ticker": "GSK.L_UK_VIRTUAL",
+      "opened": "2026-10-08T13:16:51.368530+00:00",
       "stop_pct": 7.0,
       "mode": null
     }
@@ -238,11 +247,24 @@
       "dry_run": true,
       "detail": "(dry-run) BUY 34.0445 x INF.L_UK_VIRTUAL",
       "time": "2026-10-08T12:00:08.276810+00:00"
+    },
+    {
+      "ticker": "GSK.L",
+      "action": "BUY",
+      "reason": "NEAR_SUPPORT",
+      "qty": 17.002,
+      "price": 17.645,
+      "value_gbp": 300.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 17.0020 x GSK.L_UK_VIRTUAL",
+      "time": "2026-10-08T13:16:51.368522+00:00"
     }
   ],
   "cumulative_pnl_gbp": -0.15,
   "peak_pnl_gbp": 0.33,
   "radar_sent": [
-    "2026-10-08 10"
+    "2026-10-08 10",
+    "2026-10-08 13"
   ]
 }
