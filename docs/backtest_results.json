@@ -1,666 +1,3242 @@
 {
   "AAPL": {
     "old": {
-      "num_trades": 12,
-      "win_rate": 75.0,
-      "total_pnl": 18.37,
-      "total_invested": 1200.0,
-      "total_pnl_pct": 1.53,
-      "max_drawdown_pct": -18.15,
-      "avg_win": 5.04,
-      "avg_loss": -8.99,
-      "best_trade_pct": 17.11,
-      "worst_trade_pct": -10.16,
+      "num_trades": 27,
+      "win_rate": 51.9,
+      "total_pnl": 25.86,
+      "total_invested": 2700.0,
+      "total_pnl_pct": 0.96,
+      "max_drawdown_pct": -25.88,
+      "avg_win": 5.46,
+      "avg_loss": -3.89,
+      "best_trade_pct": 19.33,
+      "worst_trade_pct": -9.41,
       "trades": [
         {
-          "entry_i": 207,
-          "exit_i": 214,
-          "pnl": 8.56542960205941,
-          "pnl_pct": 8.565429602059416,
+          "entry_i": 246,
+          "exit_i": 261,
+          "pnl": 6.253123725517986,
+          "pnl_pct": 6.253123725517986,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 270,
-          "exit_i": 285,
-          "pnl": 5.007073974772656,
-          "pnl_pct": 5.007073974772647,
+          "entry_i": 277,
+          "exit_i": 282,
+          "pnl": -0.4818104156729267,
+          "pnl_pct": -0.4818104156729267,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 312,
-          "exit_i": 321,
-          "pnl": -9.126523041298599,
-          "pnl_pct": -9.126523041298595,
-          "reason": "STOP_LOSS"
-        },
-        {
-          "entry_i": 339,
-          "exit_i": 342,
-          "pnl": 0.502864968921254,
-          "pnl_pct": 0.5028649689212461,
+          "entry_i": 285,
+          "exit_i": 288,
+          "pnl": -0.35391258933347347,
+          "pnl_pct": -0.3539125893334734,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 343,
-          "exit_i": 344,
-          "pnl": 0.6312371479060039,
-          "pnl_pct": 0.6312371479060053,
+          "entry_i": 289,
+          "exit_i": 290,
+          "pnl": -0.6366221316829048,
+          "pnl_pct": -0.6366221316829048,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 357,
-          "exit_i": 373,
-          "pnl": -10.158327428799078,
-          "pnl_pct": -10.158327428799074,
-          "reason": "STOP_LOSS"
+          "entry_i": 293,
+          "exit_i": 300,
+          "pnl": -4.855373166269003,
+          "pnl_pct": -4.855373166269003,
+          "reason": "TRAILING_STOP_LOSS"
         },
         {
-          "entry_i": 374,
-          "exit_i": 390,
-          "pnl": 17.1056910871762,
-          "pnl_pct": 17.10569108717621,
+          "entry_i": 307,
+          "exit_i": 331,
+          "pnl": 19.330946034625562,
+          "pnl_pct": 19.330946034625562,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 458,
+          "exit_i": 483,
+          "pnl": -1.5907154096109968,
+          "pnl_pct": -1.5907154096109968,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 490,
+          "exit_i": 502,
+          "pnl": 2.60485308582193,
+          "pnl_pct": 2.6048530858219294,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 403,
-          "exit_i": 433,
-          "pnl": 1.7530410056110854,
-          "pnl_pct": 1.753041005611089,
+          "entry_i": 511,
+          "exit_i": 522,
+          "pnl": 3.36756631312726,
+          "pnl_pct": 3.3675663131272606,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 561,
-          "exit_i": 571,
-          "pnl": -7.692885905486992,
-          "pnl_pct": -7.692885905486991,
-          "reason": "STOP_LOSS"
-        },
-        {
-          "entry_i": 572,
-          "exit_i": 582,
-          "pnl": 11.645451640013585,
-          "pnl_pct": 11.645451640013583,
+          "entry_i": 562,
+          "exit_i": 573,
+          "pnl": 6.275781068717508,
+          "pnl_pct": 6.2757810687175075,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 589,
-          "exit_i": 622,
-          "pnl": 0.054736356205727664,
-          "pnl_pct": 0.05473635620572015,
+          "entry_i": 579,
+          "exit_i": 602,
+          "pnl": -7.052532846727919,
+          "pnl_pct": -7.052532846727918,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 603,
+          "exit_i": 635,
+          "pnl": -3.305118915540036,
+          "pnl_pct": -3.305118915540036,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 637,
+          "exit_i": 649,
+          "pnl": 10.27130764855681,
+          "pnl_pct": 10.27130764855681,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 724,
-          "exit_i": 729,
-          "pnl": 0.08445073611602978,
-          "pnl_pct": 0.08445073611602627,
+          "entry_i": 709,
+          "exit_i": 716,
+          "pnl": 8.252581457656321,
+          "pnl_pct": 8.252581457656321,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 772,
+          "exit_i": 787,
+          "pnl": 4.699556097198223,
+          "pnl_pct": 4.699556097198223,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 814,
+          "exit_i": 823,
+          "pnl": -9.412839520601372,
+          "pnl_pct": -9.412839520601372,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 841,
+          "exit_i": 844,
+          "pnl": 0.20209807400299468,
+          "pnl_pct": 0.2020980740029947,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 845,
+          "exit_i": 846,
+          "pnl": 0.33029649574621467,
+          "pnl_pct": 0.33029649574621467,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 859,
+          "exit_i": 874,
+          "pnl": -3.390553478605988,
+          "pnl_pct": -3.390553478605988,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 875,
+          "exit_i": 877,
+          "pnl": -8.759540087441104,
+          "pnl_pct": -8.759540087441104,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 888,
+          "exit_i": 892,
+          "pnl": 1.6790850172587373,
+          "pnl_pct": 1.679085017258737,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 905,
+          "exit_i": 935,
+          "pnl": 1.4504039826990136,
+          "pnl_pct": 1.4504039826990136,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 1063,
+          "exit_i": 1073,
+          "pnl": -7.981357129722627,
+          "pnl_pct": -7.981357129722627,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1074,
+          "exit_i": 1084,
+          "pnl": 11.3279889130896,
+          "pnl_pct": 11.3279889130896,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 1091,
+          "exit_i": 1110,
+          "pnl": -2.5095200053642706,
+          "pnl_pct": -2.5095200053642706,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1112,
+          "exit_i": 1124,
+          "pnl": 0.36375802488970205,
+          "pnl_pct": 0.36375802488970205,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 1226,
+          "exit_i": 1231,
+          "pnl": -0.21567593998814427,
+          "pnl_pct": -0.2156759399881443,
           "reason": "NEAR_RESISTANCE"
         }
       ]
     },
     "new": {
-      "num_trades": 7,
-      "win_rate": 71.4,
-      "total_pnl": 4.23,
-      "total_invested": 700.0,
-      "total_pnl_pct": 0.6,
-      "max_drawdown_pct": -0.77,
-      "avg_win": 1.1,
-      "avg_loss": -0.63,
-      "best_trade_pct": 3.14,
-      "worst_trade_pct": -0.77,
+      "num_trades": 55,
+      "win_rate": 45.5,
+      "total_pnl": -14.21,
+      "total_invested": 5500.0,
+      "total_pnl_pct": -0.26,
+      "max_drawdown_pct": -21.96,
+      "avg_win": 1.74,
+      "avg_loss": -1.93,
+      "best_trade_pct": 5.85,
+      "worst_trade_pct": -7.64,
       "trades": [
         {
-          "entry_i": 316,
-          "exit_i": 317,
-          "pnl": -0.4778190385629444,
-          "pnl_pct": -0.4778190385629433,
+          "entry_i": 202,
+          "exit_i": 205,
+          "pnl": 1.9242114543095297,
+          "pnl_pct": 1.9242114543095297,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 331,
+          "exit_i": 332,
+          "pnl": 2.136342426635883,
+          "pnl_pct": 2.136342426635883,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 360,
+          "exit_i": 362,
+          "pnl": 0.6930359673774995,
+          "pnl_pct": 0.6930359673774995,
+          "reason": "NEAR_UPPER_BB"
+        },
+        {
+          "entry_i": 395,
+          "exit_i": 396,
+          "pnl": -0.3402694674041612,
+          "pnl_pct": -0.3402694674041612,
+          "reason": "NEAR_UPPER_BB"
+        },
+        {
+          "entry_i": 412,
+          "exit_i": 413,
+          "pnl": 1.2998808731669231,
+          "pnl_pct": 1.2998808731669231,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 415,
+          "exit_i": 420,
+          "pnl": 2.04083758420723,
+          "pnl_pct": 2.04083758420723,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 424,
+          "exit_i": 425,
+          "pnl": -0.2513922874074339,
+          "pnl_pct": -0.25139228740743397,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 433,
+          "exit_i": 434,
+          "pnl": -1.0772943617427089,
+          "pnl_pct": -1.0772943617427087,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 457,
+          "exit_i": 458,
+          "pnl": -2.0228137502530448,
+          "pnl_pct": -2.0228137502530448,
           "reason": "TREND_BREAK_SMA50"
         },
         {
-          "entry_i": 319,
-          "exit_i": 320,
-          "pnl": 0.7535213178546422,
-          "pnl_pct": 0.753521317854644,
+          "entry_i": 459,
+          "exit_i": 460,
+          "pnl": -1.1940744410487485,
+          "pnl_pct": -1.1940744410487485,
           "reason": "TREND_BREAK_SMA50"
-        },
-        {
-          "entry_i": 562,
-          "exit_i": 563,
-          "pnl": -0.7737522124409894,
-          "pnl_pct": -0.7737522124409923,
-          "reason": "TREND_BREAK_SMA50"
-        },
-        {
-          "entry_i": 564,
-          "exit_i": 565,
-          "pnl": 0.12739243260126393,
-          "pnl_pct": 0.12739243260126987,
-          "reason": "TREND_BREAK_SMA50"
-        },
-        {
-          "entry_i": 571,
-          "exit_i": 572,
-          "pnl": 0.38508189393806425,
-          "pnl_pct": 0.38508189393806624,
-          "reason": "TREND_BREAK_SMA50"
-        },
-        {
-          "entry_i": 608,
-          "exit_i": 609,
-          "pnl": 1.0794880344667592,
-          "pnl_pct": 1.079488034466758,
-          "reason": "TREND_BREAK_SMA50"
-        },
-        {
-          "entry_i": 679,
-          "exit_i": 680,
-          "pnl": 3.136469225316168,
-          "pnl_pct": 3.136469225316163,
-          "reason": "TREND_BREAK_SMA50"
-        }
-      ]
-    },
-    "buy_hold_pct": 55.67,
-    "period_start": "2024-07-26",
-    "period_end": "2026-10-07"
-  },
-  "MSFT": {
-    "old": {
-      "num_trades": 19,
-      "win_rate": 63.2,
-      "total_pnl": 14.5,
-      "total_invested": 1900.0,
-      "total_pnl_pct": 0.76,
-      "max_drawdown_pct": -25.13,
-      "avg_win": 4.59,
-      "avg_loss": -5.8,
-      "best_trade_pct": 13.41,
-      "worst_trade_pct": -9.15,
-      "trades": [
-        {
-          "entry_i": 205,
-          "exit_i": 233,
-          "pnl": 4.719728510942916,
-          "pnl_pct": 4.719728510942911,
-          "reason": "NEAR_RESISTANCE"
-        },
-        {
-          "entry_i": 268,
-          "exit_i": 273,
-          "pnl": 4.695447310570598,
-          "pnl_pct": 4.6954473105705885,
-          "reason": "NEAR_RESISTANCE"
-        },
-        {
-          "entry_i": 317,
-          "exit_i": 320,
-          "pnl": 3.2140875481320466,
-          "pnl_pct": 3.2140875481320386,
-          "reason": "NEAR_RESISTANCE"
-        },
-        {
-          "entry_i": 328,
-          "exit_i": 354,
-          "pnl": -8.209284915423126,
-          "pnl_pct": -8.20928491542312,
-          "reason": "STOP_LOSS"
-        },
-        {
-          "entry_i": 369,
-          "exit_i": 389,
-          "pnl": 4.968162673374756,
-          "pnl_pct": 4.968162673374765,
-          "reason": "NEAR_RESISTANCE"
-        },
-        {
-          "entry_i": 465,
-          "exit_i": 471,
-          "pnl": -2.7527831196090897,
-          "pnl_pct": -2.7527831196090924,
-          "reason": "NEAR_RESISTANCE"
         },
         {
           "entry_i": 479,
           "exit_i": 480,
-          "pnl": 0.0421447971463575,
-          "pnl_pct": 0.042144797146348445,
-          "reason": "NEAR_RESISTANCE"
+          "pnl": -3.22055880220772,
+          "pnl_pct": -3.2205588022077203,
+          "reason": "TREND_BREAK_SMA50"
         },
         {
-          "entry_i": 481,
-          "exit_i": 482,
-          "pnl": 0.1279029983660392,
-          "pnl_pct": 0.12790299836604735,
-          "reason": "NEAR_RESISTANCE"
+          "entry_i": 520,
+          "exit_i": 526,
+          "pnl": 4.803302231427409,
+          "pnl_pct": 4.803302231427409,
+          "reason": "NEAR_UPPER_BB"
         },
         {
-          "entry_i": 484,
-          "exit_i": 495,
-          "pnl": 0.5025640456163873,
-          "pnl_pct": 0.5025640456163938,
-          "reason": "NEAR_RESISTANCE"
+          "entry_i": 548,
+          "exit_i": 549,
+          "pnl": -0.22434853589831516,
+          "pnl_pct": -0.22434853589831516,
+          "reason": "NEAR_UPPER_BB"
         },
         {
-          "entry_i": 497,
-          "exit_i": 498,
-          "pnl": 0.3121610981312454,
-          "pnl_pct": 0.31216109813123616,
-          "reason": "NEAR_RESISTANCE"
+          "entry_i": 550,
+          "exit_i": 560,
+          "pnl": -6.329321283243354,
+          "pnl_pct": -6.329321283243354,
+          "reason": "TREND_BREAK_SMA50"
         },
         {
-          "entry_i": 509,
-          "exit_i": 510,
-          "pnl": 0.16833785981220273,
-          "pnl_pct": 0.1683378598122065,
-          "reason": "NEAR_RESISTANCE"
+          "entry_i": 561,
+          "exit_i": 562,
+          "pnl": -1.568099177447094,
+          "pnl_pct": -1.5680991774470945,
+          "reason": "TREND_BREAK_SMA50"
         },
         {
-          "entry_i": 521,
-          "exit_i": 544,
-          "pnl": -2.803688138623769,
-          "pnl_pct": -2.803688138623772,
-          "reason": "NEAR_RESISTANCE"
+          "entry_i": 563,
+          "exit_i": 564,
+          "pnl": 2.113874012801349,
+          "pnl_pct": 2.113874012801349,
+          "reason": "TREND_BREAK_SMA50"
         },
         {
-          "entry_i": 560,
-          "exit_i": 578,
-          "pnl": -8.339320501831216,
-          "pnl_pct": -8.339320501831216,
-          "reason": "STOP_LOSS"
+          "entry_i": 572,
+          "exit_i": 579,
+          "pnl": -2.1347789631491563,
+          "pnl_pct": -2.1347789631491563,
+          "reason": "TREND_BREAK_SMA50"
         },
         {
-          "entry_i": 581,
-          "exit_i": 615,
-          "pnl": -9.148425309436448,
-          "pnl_pct": -9.148425309436448,
-          "reason": "STOP_LOSS"
+          "entry_i": 645,
+          "exit_i": 646,
+          "pnl": -1.209312460250081,
+          "pnl_pct": -1.209312460250081,
+          "reason": "NEAR_UPPER_BB"
         },
         {
-          "entry_i": 616,
-          "exit_i": 630,
-          "pnl": 10.82901903987285,
-          "pnl_pct": 10.829019039872856,
-          "reason": "NEAR_RESISTANCE"
+          "entry_i": 671,
+          "exit_i": 672,
+          "pnl": 2.553540466049168,
+          "pnl_pct": 2.553540466049168,
+          "reason": "RSI_OVERBOUGHT"
         },
         {
-          "entry_i": 669,
+          "entry_i": 673,
+          "exit_i": 674,
+          "pnl": -1.1156294185898779,
+          "pnl_pct": -1.1156294185898779,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 675,
           "exit_i": 676,
-          "pnl": -7.554854770915802,
-          "pnl_pct": -7.554854770915798,
-          "reason": "STOP_LOSS"
+          "pnl": -1.3967977950468535,
+          "pnl_pct": -1.3967977950468535,
+          "reason": "RSI_OVERBOUGHT"
         },
         {
-          "entry_i": 679,
-          "exit_i": 692,
-          "pnl": 12.130495400747101,
-          "pnl_pct": 12.13049540074711,
+          "entry_i": 678,
+          "exit_i": 685,
+          "pnl": 5.850089222695706,
+          "pnl_pct": 5.850089222695706,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 708,
+          "exit_i": 709,
+          "pnl": -1.2733619458030083,
+          "pnl_pct": -1.2733619458030083,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 741,
+          "exit_i": 747,
+          "pnl": 1.8002617884710859,
+          "pnl_pct": 1.8002617884710859,
+          "reason": "NEAR_UPPER_BB"
+        },
+        {
+          "entry_i": 764,
+          "exit_i": 770,
+          "pnl": -2.398612764150069,
+          "pnl_pct": -2.398612764150069,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 801,
+          "exit_i": 802,
+          "pnl": 0.6704880496820547,
+          "pnl_pct": 0.6704880496820547,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 803,
+          "exit_i": 805,
+          "pnl": 2.2923496339693132,
+          "pnl_pct": 2.2923496339693132,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 817,
+          "exit_i": 818,
+          "pnl": -1.3328558733964044,
+          "pnl_pct": -1.3328558733964044,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 821,
+          "exit_i": 822,
+          "pnl": 0.45239780977909927,
+          "pnl_pct": 0.45239780977909927,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 823,
+          "exit_i": 824,
+          "pnl": 0.2337005950167374,
+          "pnl_pct": 0.2337005950167374,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 825,
+          "exit_i": 826,
+          "pnl": -0.6928630055051561,
+          "pnl_pct": -0.6928630055051561,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 831,
+          "exit_i": 832,
+          "pnl": -3.680502227864661,
+          "pnl_pct": -3.680502227864661,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 856,
+          "exit_i": 857,
+          "pnl": -3.214567219234887,
+          "pnl_pct": -3.2145672192348864,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 961,
+          "exit_i": 962,
+          "pnl": -1.1324890176995688,
+          "pnl_pct": -1.1324890176995688,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 978,
+          "exit_i": 979,
+          "pnl": 0.2485101007960258,
+          "pnl_pct": 0.24851010079602584,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 982,
+          "exit_i": 990,
+          "pnl": 4.450696916278947,
+          "pnl_pct": 4.450696916278947,
+          "reason": "NEAR_UPPER_BB"
+        },
+        {
+          "entry_i": 991,
+          "exit_i": 992,
+          "pnl": -0.9433549755808537,
+          "pnl_pct": -0.9433549755808537,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 1019,
+          "exit_i": 1027,
+          "pnl": 1.2146021078933988,
+          "pnl_pct": 1.2146021078933988,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 1064,
+          "exit_i": 1065,
+          "pnl": -1.0725683820028613,
+          "pnl_pct": -1.0725683820028613,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1066,
+          "exit_i": 1067,
+          "pnl": -0.17281046644951048,
+          "pnl_pct": -0.17281046644951048,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1072,
+          "exit_i": 1073,
+          "pnl": -3.750385298302684,
+          "pnl_pct": -3.750385298302684,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1074,
+          "exit_i": 1075,
+          "pnl": -0.017771152409246205,
+          "pnl_pct": -0.017771152409246205,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1080,
+          "exit_i": 1081,
+          "pnl": 0.16392867399717354,
+          "pnl_pct": 0.16392867399717354,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1082,
+          "exit_i": 1084,
+          "pnl": 2.096296977754497,
+          "pnl_pct": 2.096296977754497,
+          "reason": "NEAR_UPPER_BB"
+        },
+        {
+          "entry_i": 1090,
+          "exit_i": 1091,
+          "pnl": -2.569927585748125,
+          "pnl_pct": -2.569927585748125,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1100,
+          "exit_i": 1101,
+          "pnl": -0.09591438950242037,
+          "pnl_pct": -0.09591438950242037,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1110,
+          "exit_i": 1111,
+          "pnl": 0.7778688024150591,
+          "pnl_pct": 0.7778688024150591,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1115,
+          "exit_i": 1116,
+          "pnl": 1.1092339540097864,
+          "pnl_pct": 1.1092339540097864,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1122,
+          "exit_i": 1123,
+          "pnl": 0.42392477319875804,
+          "pnl_pct": 0.42392477319875804,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1126,
+          "exit_i": 1127,
+          "pnl": 1.8269884262219813,
+          "pnl_pct": 1.826988426221981,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1147,
+          "exit_i": 1149,
+          "pnl": 1.7177579280898427,
+          "pnl_pct": 1.7177579280898427,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 1163,
+          "exit_i": 1165,
+          "pnl": 0.7047087822561551,
+          "pnl_pct": 0.7047087822561551,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 1170,
+          "exit_i": 1181,
+          "pnl": -5.592338511551807,
+          "pnl_pct": -5.592338511551807,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1205,
+          "exit_i": 1206,
+          "pnl": -7.642827652547965,
+          "pnl_pct": -7.642827652547965,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1240,
+          "exit_i": 1253,
+          "pnl": -0.1395863135477962,
+          "pnl_pct": -0.1395863135477962,
+          "reason": "END_OF_PERIOD"
+        }
+      ]
+    },
+    "short": {
+      "num_trades": 23,
+      "win_rate": 43.5,
+      "total_pnl": -53.1,
+      "total_invested": 2300.0,
+      "total_pnl_pct": -2.31,
+      "max_drawdown_pct": -55.87,
+      "avg_win": 2.34,
+      "avg_loss": -5.89,
+      "best_trade_pct": 7.1,
+      "worst_trade_pct": -15.65,
+      "trades": [
+        {
+          "entry_i": 224,
+          "exit_i": 225,
+          "pnl": 0.7651157531547015,
+          "pnl_pct": 0.7651157531547015,
+          "reason": "NEAR_LOWER_BB"
+        },
+        {
+          "entry_i": 229,
+          "exit_i": 232,
+          "pnl": -5.096869486042421,
+          "pnl_pct": -5.096869486042421,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 233,
+          "exit_i": 245,
+          "pnl": 7.09536277221315,
+          "pnl_pct": 7.09536277221315,
+          "reason": "NEAR_LOWER_BB"
+        },
+        {
+          "entry_i": 246,
+          "exit_i": 262,
+          "pnl": -8.452584338557132,
+          "pnl_pct": -8.452584338557132,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 266,
+          "exit_i": 267,
+          "pnl": 1.2433587304346176,
+          "pnl_pct": 1.2433587304346176,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 271,
+          "exit_i": 275,
+          "pnl": -6.444501060401111,
+          "pnl_pct": -6.444501060401111,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 310,
+          "exit_i": 318,
+          "pnl": -8.059282738985747,
+          "pnl_pct": -8.059282738985747,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 515,
+          "exit_i": 520,
+          "pnl": -6.709021485636319,
+          "pnl_pct": -6.709021485636319,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 600,
+          "exit_i": 602,
+          "pnl": 2.830533896597569,
+          "pnl_pct": 2.830533896597569,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 603,
+          "exit_i": 604,
+          "pnl": 0.288708903781679,
+          "pnl_pct": 0.288708903781679,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 606,
+          "exit_i": 641,
+          "pnl": -1.9248782378284357,
+          "pnl_pct": -1.9248782378284357,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 857,
+          "exit_i": 858,
+          "pnl": 1.4504900276645114,
+          "pnl_pct": 1.4504900276645114,
+          "reason": "NEAR_LOWER_BB"
+        },
+        {
+          "entry_i": 859,
+          "exit_i": 874,
+          "pnl": 2.7998390674250344,
+          "pnl_pct": 2.7998390674250344,
+          "reason": "NEAR_LOWER_BB"
+        },
+        {
+          "entry_i": 875,
+          "exit_i": 876,
+          "pnl": 3.3789541728815875,
+          "pnl_pct": 3.3789541728815875,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 877,
+          "exit_i": 878,
+          "pnl": -15.651834717344691,
+          "pnl_pct": -15.651834717344693,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 879,
+          "exit_i": 887,
+          "pnl": -7.757887926985848,
+          "pnl_pct": -7.757887926985848,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 913,
+          "exit_i": 918,
+          "pnl": -1.830790500071987,
+          "pnl_pct": -1.830790500071987,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 927,
+          "exit_i": 933,
+          "pnl": -2.3777414250883164,
+          "pnl_pct": -2.3777414250883164,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 934,
+          "exit_i": 935,
+          "pnl": -2.526412171061878,
+          "pnl_pct": -2.526412171061878,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 936,
+          "exit_i": 937,
+          "pnl": 1.3883036218605005,
+          "pnl_pct": 1.3883036218605005,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 955,
+          "exit_i": 956,
+          "pnl": 2.2040982496738595,
+          "pnl_pct": 2.2040982496738595,
+          "reason": "NEAR_LOWER_BB"
+        },
+        {
+          "entry_i": 957,
+          "exit_i": 959,
+          "pnl": -5.1757576749196454,
+          "pnl_pct": -5.1757576749196454,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 960,
+          "exit_i": 961,
+          "pnl": -4.542149058905706,
+          "pnl_pct": -4.542149058905706,
+          "reason": "TREND_BREAK_SMA50"
+        }
+      ]
+    },
+    "buy_hold_pct": 119.23,
+    "period_start": "2022-07-27",
+    "period_end": "2026-10-07"
+  },
+  "MSFT": {
+    "old": {
+      "num_trades": 35,
+      "win_rate": 42.9,
+      "total_pnl": -25.76,
+      "total_invested": 3500.0,
+      "total_pnl_pct": -0.74,
+      "max_drawdown_pct": -53.53,
+      "avg_win": 4.85,
+      "avg_loss": -4.92,
+      "best_trade_pct": 13.09,
+      "worst_trade_pct": -8.5,
+      "trades": [
+        {
+          "entry_i": 228,
+          "exit_i": 232,
+          "pnl": 4.983263765357066,
+          "pnl_pct": 4.983263765357066,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 693,
-          "exit_i": 694,
-          "pnl": -1.8150101813851518,
-          "pnl_pct": -1.8150101813851571,
+          "entry_i": 233,
+          "exit_i": 246,
+          "pnl": -7.864341875861433,
+          "pnl_pct": -7.864341875861433,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 248,
+          "exit_i": 252,
+          "pnl": -8.175507658302307,
+          "pnl_pct": -8.175507658302307,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 267,
+          "exit_i": 270,
+          "pnl": -7.991018092394049,
+          "pnl_pct": -7.991018092394049,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 304,
+          "exit_i": 312,
+          "pnl": -6.956941292413795,
+          "pnl_pct": -6.956941292413794,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 317,
+          "exit_i": 326,
+          "pnl": 3.672895441047906,
+          "pnl_pct": 3.672895441047906,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 696,
-          "exit_i": 703,
-          "pnl": 13.412955756261328,
-          "pnl_pct": 13.412955756261336,
+          "entry_i": 386,
+          "exit_i": 387,
+          "pnl": -2.5502224414502086,
+          "pnl_pct": -2.5502224414502086,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 455,
+          "exit_i": 478,
+          "pnl": 1.759862236051105,
+          "pnl_pct": 1.7598622360511054,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 493,
+          "exit_i": 504,
+          "pnl": 6.187330768093178,
+          "pnl_pct": 6.187330768093178,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 635,
+          "exit_i": 646,
+          "pnl": 3.3075335839437825,
+          "pnl_pct": 3.307533583943782,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 652,
+          "exit_i": 657,
+          "pnl": 2.8769770151951155,
+          "pnl_pct": 2.8769770151951155,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 664,
+          "exit_i": 665,
+          "pnl": -0.6872515231524712,
+          "pnl_pct": -0.6872515231524712,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 666,
+          "exit_i": 670,
+          "pnl": 2.531803985934805,
+          "pnl_pct": 2.531803985934805,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 695,
+          "exit_i": 707,
+          "pnl": -8.186330167468286,
+          "pnl_pct": -8.186330167468286,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 708,
+          "exit_i": 735,
+          "pnl": 7.942622334776121,
+          "pnl_pct": 7.942622334776122,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 770,
+          "exit_i": 775,
+          "pnl": 4.388420089675124,
+          "pnl_pct": 4.388420089675124,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 819,
+          "exit_i": 822,
+          "pnl": 2.909258746253264,
+          "pnl_pct": 2.909258746253264,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 830,
+          "exit_i": 856,
+          "pnl": -8.496970376961192,
+          "pnl_pct": -8.496970376961192,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 871,
+          "exit_i": 877,
+          "pnl": -5.840574072086366,
+          "pnl_pct": -5.8405740720863655,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 967,
+          "exit_i": 973,
+          "pnl": -3.048653944929676,
+          "pnl_pct": -3.048653944929676,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 981,
+          "exit_i": 982,
+          "pnl": -0.25791225334655565,
+          "pnl_pct": -0.25791225334655565,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 983,
+          "exit_i": 984,
+          "pnl": -0.1722827083191005,
+          "pnl_pct": -0.1722827083191005,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 986,
+          "exit_i": 997,
+          "pnl": 0.20181619087751013,
+          "pnl_pct": 0.20181619087751013,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 999,
+          "exit_i": 1000,
+          "pnl": 0.011692856484048497,
+          "pnl_pct": 0.011692856484048497,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 1011,
+          "exit_i": 1012,
+          "pnl": -0.13187893769818732,
+          "pnl_pct": -0.13187893769818732,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 1023,
+          "exit_i": 1035,
+          "pnl": -7.024727171951273,
+          "pnl_pct": -7.024727171951273,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1039,
+          "exit_i": 1046,
+          "pnl": -0.29798063074875036,
+          "pnl_pct": -0.29798063074875036,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 1062,
+          "exit_i": 1074,
+          "pnl": -6.3867677147458375,
+          "pnl_pct": -6.3867677147458375,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1076,
+          "exit_i": 1080,
+          "pnl": -7.253825136125794,
+          "pnl_pct": -7.253825136125794,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1083,
+          "exit_i": 1115,
+          "pnl": -7.212705730812846,
+          "pnl_pct": -7.212705730812846,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1116,
+          "exit_i": 1132,
+          "pnl": 7.057087820616055,
+          "pnl_pct": 7.057087820616055,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 1171,
+          "exit_i": 1178,
+          "pnl": -7.843522488759429,
+          "pnl_pct": -7.84352248875943,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1181,
+          "exit_i": 1194,
+          "pnl": 11.81229965764598,
+          "pnl_pct": 11.81229965764598,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 1195,
+          "exit_i": 1196,
+          "pnl": -2.1122876661130743,
+          "pnl_pct": -2.1122876661130743,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 1198,
+          "exit_i": 1205,
+          "pnl": 13.092836322626935,
+          "pnl_pct": 13.092836322626935,
           "reason": "RSI_OVERBOUGHT"
         }
       ]
     },
     "new": {
-      "num_trades": 1,
-      "win_rate": 0.0,
-      "total_pnl": -0.06,
-      "total_invested": 100.0,
-      "total_pnl_pct": -0.06,
-      "max_drawdown_pct": 0.0,
-      "avg_win": null,
-      "avg_loss": -0.06,
-      "best_trade_pct": -0.06,
-      "worst_trade_pct": -0.06,
+      "num_trades": 43,
+      "win_rate": 46.5,
+      "total_pnl": -18.72,
+      "total_invested": 4300.0,
+      "total_pnl_pct": -0.44,
+      "max_drawdown_pct": -33.13,
+      "avg_win": 1.88,
+      "avg_loss": -2.45,
+      "best_trade_pct": 8.19,
+      "worst_trade_pct": -7.49,
       "trades": [
         {
-          "entry_i": 522,
-          "exit_i": 523,
-          "pnl": -0.05632566285092281,
-          "pnl_pct": -0.05632566285092011,
+          "entry_i": 335,
+          "exit_i": 344,
+          "pnl": -5.761769186142402,
+          "pnl_pct": -5.761769186142402,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 360,
+          "exit_i": 361,
+          "pnl": 0.8677132463592763,
+          "pnl_pct": 0.8677132463592762,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 362,
+          "exit_i": 388,
+          "pnl": 8.187373735395177,
+          "pnl_pct": 8.187373735395177,
+          "reason": "NEAR_UPPER_BB"
+        },
+        {
+          "entry_i": 389,
+          "exit_i": 390,
+          "pnl": 0.49598847729596157,
+          "pnl_pct": 0.49598847729596157,
+          "reason": "NEAR_UPPER_BB"
+        },
+        {
+          "entry_i": 409,
+          "exit_i": 410,
+          "pnl": 1.8353384170937734,
+          "pnl_pct": 1.8353384170937732,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 412,
+          "exit_i": 413,
+          "pnl": 0.9739951302900458,
+          "pnl_pct": 0.9739951302900458,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 423,
+          "exit_i": 444,
+          "pnl": 2.967126667019123,
+          "pnl_pct": 2.967126667019123,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 445,
+          "exit_i": 451,
+          "pnl": -7.1501296037950235,
+          "pnl_pct": -7.1501296037950235,
           "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 486,
+          "exit_i": 487,
+          "pnl": -0.6507542458099924,
+          "pnl_pct": -0.6507542458099924,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 493,
+          "exit_i": 494,
+          "pnl": -0.09210001454854583,
+          "pnl_pct": -0.09210001454854583,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 514,
+          "exit_i": 519,
+          "pnl": 1.28270024129041,
+          "pnl_pct": 1.28270024129041,
+          "reason": "NEAR_UPPER_BB"
+        },
+        {
+          "entry_i": 531,
+          "exit_i": 532,
+          "pnl": 1.7491093149685866,
+          "pnl_pct": 1.7491093149685868,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 572,
+          "exit_i": 573,
+          "pnl": -0.8409854434017221,
+          "pnl_pct": -0.8409854434017219,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 579,
+          "exit_i": 587,
+          "pnl": 2.6227603878335053,
+          "pnl_pct": 2.6227603878335053,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 610,
+          "exit_i": 615,
+          "pnl": 0.6745017501621171,
+          "pnl_pct": 0.6745017501621171,
+          "reason": "NEAR_UPPER_BB"
+        },
+        {
+          "entry_i": 635,
+          "exit_i": 636,
+          "pnl": 0.16030700754364735,
+          "pnl_pct": 0.16030700754364732,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 642,
+          "exit_i": 643,
+          "pnl": 1.1387767420489052,
+          "pnl_pct": 1.1387767420489052,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 663,
+          "exit_i": 664,
+          "pnl": -0.18924359359285514,
+          "pnl_pct": -0.18924359359285514,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 678,
+          "exit_i": 680,
+          "pnl": -0.04026606622373158,
+          "pnl_pct": -0.04026606622373158,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 683,
+          "exit_i": 685,
+          "pnl": 2.454562329184118,
+          "pnl_pct": 2.454562329184118,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 700,
+          "exit_i": 701,
+          "pnl": -2.7444298314210536,
+          "pnl_pct": -2.7444298314210536,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 705,
+          "exit_i": 706,
+          "pnl": -0.5959840855512968,
+          "pnl_pct": -0.5959840855512968,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 707,
+          "exit_i": 708,
+          "pnl": -3.560787316348743,
+          "pnl_pct": -3.560787316348743,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 727,
+          "exit_i": 728,
+          "pnl": -2.1431357489349763,
+          "pnl_pct": -2.1431357489349763,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 740,
+          "exit_i": 749,
+          "pnl": -5.207257262933734,
+          "pnl_pct": -5.207257262933734,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 769,
+          "exit_i": 770,
+          "pnl": -6.343685286867117,
+          "pnl_pct": -6.343685286867117,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 823,
+          "exit_i": 824,
+          "pnl": 3.824493630111306,
+          "pnl_pct": 3.8244936301113057,
+          "reason": "NEAR_UPPER_BB"
+        },
+        {
+          "entry_i": 827,
+          "exit_i": 830,
+          "pnl": -4.796658844190528,
+          "pnl_pct": -4.796658844190528,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 893,
+          "exit_i": 894,
+          "pnl": 2.0190402742272715,
+          "pnl_pct": 2.0190402742272715,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 932,
+          "exit_i": 933,
+          "pnl": -0.004034472764296471,
+          "pnl_pct": -0.004034472764296471,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 955,
+          "exit_i": 957,
+          "pnl": 0.10050489838256438,
+          "pnl_pct": 0.10050489838256436,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 990,
+          "exit_i": 992,
+          "pnl": -1.9772312349908203,
+          "pnl_pct": -1.9772312349908203,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1005,
+          "exit_i": 1009,
+          "pnl": -0.1729816191294688,
+          "pnl_pct": -0.1729816191294688,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1017,
+          "exit_i": 1018,
+          "pnl": -0.395782921145096,
+          "pnl_pct": -0.39578292114509606,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 1019,
+          "exit_i": 1023,
+          "pnl": -3.8324402982200922,
+          "pnl_pct": -3.8324402982200927,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1024,
+          "exit_i": 1025,
+          "pnl": -0.35624735122397205,
+          "pnl_pct": -0.35624735122397205,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1036,
+          "exit_i": 1037,
+          "pnl": 0.32985769835199485,
+          "pnl_pct": 0.32985769835199485,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1047,
+          "exit_i": 1048,
+          "pnl": 0.7244646864017195,
+          "pnl_pct": 0.7244646864017195,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1054,
+          "exit_i": 1055,
+          "pnl": -0.5054901237801355,
+          "pnl_pct": -0.5054901237801355,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1164,
+          "exit_i": 1166,
+          "pnl": -7.494089227401604,
+          "pnl_pct": -7.494089227401604,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1206,
+          "exit_i": 1207,
+          "pnl": 4.626749826900287,
+          "pnl_pct": 4.626749826900287,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 1208,
+          "exit_i": 1209,
+          "pnl": -1.3839863690757743,
+          "pnl_pct": -1.3839863690757743,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 1251,
+          "exit_i": 1252,
+          "pnl": 0.4833152789297847,
+          "pnl_pct": 0.4833152789297847,
+          "reason": "NEAR_UPPER_BB"
         }
       ]
     },
-    "buy_hold_pct": 26.52,
-    "period_start": "2024-07-26",
+    "short": {
+      "num_trades": 29,
+      "win_rate": 65.5,
+      "total_pnl": 7.21,
+      "total_invested": 2900.0,
+      "total_pnl_pct": 0.25,
+      "max_drawdown_pct": -16.04,
+      "avg_win": 2.52,
+      "avg_loss": -4.07,
+      "best_trade_pct": 9.32,
+      "worst_trade_pct": -7.39,
+      "trades": [
+        {
+          "entry_i": 222,
+          "exit_i": 223,
+          "pnl": 0.7683765832619155,
+          "pnl_pct": 0.7683765832619155,
+          "reason": "NEAR_LOWER_BB"
+        },
+        {
+          "entry_i": 225,
+          "exit_i": 228,
+          "pnl": 2.848481294075514,
+          "pnl_pct": 2.848481294075514,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 233,
+          "exit_i": 238,
+          "pnl": 3.49156371487659,
+          "pnl_pct": 3.49156371487659,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 240,
+          "exit_i": 241,
+          "pnl": 0.9717277882053154,
+          "pnl_pct": 0.9717277882053155,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 246,
+          "exit_i": 253,
+          "pnl": 2.920785466648514,
+          "pnl_pct": 2.920785466648514,
+          "reason": "NEAR_LOWER_BB"
+        },
+        {
+          "entry_i": 255,
+          "exit_i": 262,
+          "pnl": -5.862456374594793,
+          "pnl_pct": -5.862456374594793,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 300,
+          "exit_i": 301,
+          "pnl": 1.435427757602558,
+          "pnl_pct": 1.435427757602558,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 708,
+          "exit_i": 709,
+          "pnl": -1.4303809311836282,
+          "pnl_pct": -1.4303809311836282,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 770,
+          "exit_i": 775,
+          "pnl": -5.002506479528931,
+          "pnl_pct": -5.002506479528931,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 831,
+          "exit_i": 849,
+          "pnl": 4.946343154881675,
+          "pnl_pct": 4.946343154881675,
+          "reason": "NEAR_LOWER_BB"
+        },
+        {
+          "entry_i": 850,
+          "exit_i": 851,
+          "pnl": 1.8443292741874457,
+          "pnl_pct": 1.8443292741874457,
+          "reason": "NEAR_LOWER_BB"
+        },
+        {
+          "entry_i": 852,
+          "exit_i": 856,
+          "pnl": 1.8776712326916871,
+          "pnl_pct": 1.8776712326916873,
+          "reason": "NEAR_LOWER_BB"
+        },
+        {
+          "entry_i": 857,
+          "exit_i": 875,
+          "pnl": 5.125391056617153,
+          "pnl_pct": 5.125391056617153,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 876,
+          "exit_i": 877,
+          "pnl": 0.623533883557945,
+          "pnl_pct": 0.623533883557945,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 878,
+          "exit_i": 888,
+          "pnl": 0.5181471933113573,
+          "pnl_pct": 0.5181471933113573,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1069,
+          "exit_i": 1070,
+          "pnl": 2.10230945927579,
+          "pnl_pct": 2.10230945927579,
+          "reason": "NEAR_LOWER_BB"
+        },
+        {
+          "entry_i": 1072,
+          "exit_i": 1074,
+          "pnl": 3.130090092653143,
+          "pnl_pct": 3.130090092653143,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 1076,
+          "exit_i": 1078,
+          "pnl": -3.4445273219159827,
+          "pnl_pct": -3.4445273219159827,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1080,
+          "exit_i": 1081,
+          "pnl": 0.4415868630359643,
+          "pnl_pct": 0.4415868630359643,
+          "reason": "NEAR_LOWER_BB"
+        },
+        {
+          "entry_i": 1082,
+          "exit_i": 1083,
+          "pnl": 2.576493823596191,
+          "pnl_pct": 2.576493823596191,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 1085,
+          "exit_i": 1086,
+          "pnl": -2.2003759189094225,
+          "pnl_pct": -2.2003759189094225,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 1115,
+          "exit_i": 1117,
+          "pnl": 2.09444965424982,
+          "pnl_pct": 2.09444965424982,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 1121,
+          "exit_i": 1130,
+          "pnl": -7.389398943757823,
+          "pnl_pct": -7.389398943757823,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1132,
+          "exit_i": 1133,
+          "pnl": -2.5016331654827915,
+          "pnl_pct": -2.5016331654827915,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1134,
+          "exit_i": 1135,
+          "pnl": 0.8180700999640023,
+          "pnl_pct": 0.8180700999640023,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1154,
+          "exit_i": 1155,
+          "pnl": -0.6845429481150351,
+          "pnl_pct": -0.6845429481150351,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1162,
+          "exit_i": 1163,
+          "pnl": -5.7532638461938355,
+          "pnl_pct": -5.7532638461938355,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1172,
+          "exit_i": 1181,
+          "pnl": 9.323991773708768,
+          "pnl_pct": 9.323991773708768,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 1182,
+          "exit_i": 1194,
+          "pnl": -6.384671538351752,
+          "pnl_pct": -6.3846715383517525,
+          "reason": "TRAILING_STOP_LOSS"
+        }
+      ]
+    },
+    "buy_hold_pct": 104.13,
+    "period_start": "2022-07-27",
     "period_end": "2026-10-07"
   },
   "NVDA": {
     "old": {
-      "num_trades": 15,
-      "win_rate": 66.7,
-      "total_pnl": 49.09,
-      "total_invested": 1500.0,
-      "total_pnl_pct": 3.27,
-      "max_drawdown_pct": -26.68,
-      "avg_win": 9.2,
-      "avg_loss": -8.59,
-      "best_trade_pct": 30.42,
-      "worst_trade_pct": -9.66,
+      "num_trades": 31,
+      "win_rate": 54.8,
+      "total_pnl": 62.97,
+      "total_invested": 3100.0,
+      "total_pnl_pct": 2.03,
+      "max_drawdown_pct": -16.94,
+      "avg_win": 8.14,
+      "avg_loss": -5.39,
+      "best_trade_pct": 22.8,
+      "worst_trade_pct": -10.29,
       "trades": [
         {
-          "entry_i": 213,
-          "exit_i": 226,
-          "pnl": -8.536582126304202,
-          "pnl_pct": -8.536582126304204,
-          "reason": "STOP_LOSS"
+          "entry_i": 226,
+          "exit_i": 233,
+          "pnl": -6.046559382246173,
+          "pnl_pct": -6.046559382246173,
+          "reason": "TRAILING_STOP_LOSS"
         },
         {
-          "entry_i": 299,
-          "exit_i": 311,
-          "pnl": 9.446980573922986,
-          "pnl_pct": 9.446980573922993,
+          "entry_i": 239,
+          "exit_i": 242,
+          "pnl": -8.07807877080271,
+          "pnl_pct": -8.07807877080271,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 249,
+          "exit_i": 251,
+          "pnl": -8.864625887900383,
+          "pnl_pct": -8.864625887900383,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 255,
+          "exit_i": 273,
+          "pnl": 21.75717324576812,
+          "pnl_pct": 21.75717324576812,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 316,
-          "exit_i": 322,
-          "pnl": 10.388047670146562,
-          "pnl_pct": 10.38804767014656,
+          "entry_i": 387,
+          "exit_i": 392,
+          "pnl": 7.192271132556652,
+          "pnl_pct": 7.192271132556652,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 326,
-          "exit_i": 330,
-          "pnl": -9.558880040533962,
-          "pnl_pct": -9.558880040533968,
-          "reason": "STOP_LOSS"
-        },
-        {
-          "entry_i": 334,
-          "exit_i": 347,
-          "pnl": -7.463025540099119,
-          "pnl_pct": -7.463025540099122,
-          "reason": "STOP_LOSS"
-        },
-        {
-          "entry_i": 353,
-          "exit_i": 372,
-          "pnl": -9.655373851996806,
-          "pnl_pct": -9.655373851996806,
-          "reason": "STOP_LOSS"
-        },
-        {
-          "entry_i": 373,
-          "exit_i": 398,
-          "pnl": 30.420945014818777,
-          "pnl_pct": 30.420945014818777,
+          "entry_i": 464,
+          "exit_i": 471,
+          "pnl": 7.024000316806149,
+          "pnl_pct": 7.024000316806148,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 475,
-          "exit_i": 489,
-          "pnl": 7.518653618344273,
-          "pnl_pct": 7.518653618344273,
+          "entry_i": 486,
+          "exit_i": 509,
+          "pnl": -4.175724030851009,
+          "pnl_pct": -4.175724030851009,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 515,
+          "exit_i": 528,
+          "pnl": 22.801713405156086,
+          "pnl_pct": 22.801713405156086,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 627,
+          "exit_i": 633,
+          "pnl": -1.8429984190157702,
+          "pnl_pct": -1.8429984190157702,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 634,
+          "exit_i": 635,
+          "pnl": -10.28956552423363,
+          "pnl_pct": -10.289565524233629,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 639,
+          "exit_i": 647,
+          "pnl": 9.272693326856759,
+          "pnl_pct": 9.272693326856759,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 533,
-          "exit_i": 536,
-          "pnl": 0.7714624147749207,
-          "pnl_pct": 0.771462414774926,
+          "entry_i": 695,
+          "exit_i": 700,
+          "pnl": -3.464995193055539,
+          "pnl_pct": -3.4649951930555396,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 715,
+          "exit_i": 726,
+          "pnl": -0.7143638059393251,
+          "pnl_pct": -0.7143638059393251,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 801,
+          "exit_i": 813,
+          "pnl": 9.1328101030621,
+          "pnl_pct": 9.1328101030621,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 537,
-          "exit_i": 544,
-          "pnl": 4.508644765746581,
-          "pnl_pct": 4.508644765746572,
+          "entry_i": 818,
+          "exit_i": 824,
+          "pnl": 10.072488530009721,
+          "pnl_pct": 10.072488530009721,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 548,
-          "exit_i": 555,
-          "pnl": 6.988488742638728,
-          "pnl_pct": 6.988488742638732,
+          "entry_i": 828,
+          "exit_i": 832,
+          "pnl": -9.844541720473162,
+          "pnl_pct": -9.844541720473162,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 836,
+          "exit_i": 846,
+          "pnl": 0.03838615898396219,
+          "pnl_pct": 0.03838615898396219,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 847,
+          "exit_i": 849,
+          "pnl": -5.409588902532147,
+          "pnl_pct": -5.409588902532147,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 855,
+          "exit_i": 869,
+          "pnl": -1.4073513950217054,
+          "pnl_pct": -1.4073513950217054,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 875,
+          "exit_i": 883,
+          "pnl": 10.47798616903637,
+          "pnl_pct": 10.47798616903637,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 977,
+          "exit_i": 991,
+          "pnl": 7.20738458115634,
+          "pnl_pct": 7.20738458115634,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 571,
-          "exit_i": 574,
-          "pnl": 5.391139946220614,
-          "pnl_pct": 5.391139946220624,
+          "entry_i": 1035,
+          "exit_i": 1038,
+          "pnl": 0.4703052870186215,
+          "pnl_pct": 0.4703052870186215,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 598,
-          "exit_i": 627,
-          "pnl": 6.462107090804961,
-          "pnl_pct": 6.462107090804969,
+          "entry_i": 1039,
+          "exit_i": 1046,
+          "pnl": 4.2018814095706345,
+          "pnl_pct": 4.2018814095706345,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 667,
-          "exit_i": 680,
-          "pnl": -7.721434853393007,
-          "pnl_pct": -7.7214348533930055,
-          "reason": "STOP_LOSS"
+          "entry_i": 1050,
+          "exit_i": 1057,
+          "pnl": 6.678006009524769,
+          "pnl_pct": 6.678006009524768,
+          "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 681,
-          "exit_i": 719,
-          "pnl": 10.12976923158889,
-          "pnl_pct": 10.129769231588881,
+          "entry_i": 1073,
+          "exit_i": 1076,
+          "pnl": 5.083053236301283,
+          "pnl_pct": 5.083053236301283,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 1100,
+          "exit_i": 1115,
+          "pnl": -2.8249301652951773,
+          "pnl_pct": -2.824930165295177,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1117,
+          "exit_i": 1121,
+          "pnl": -6.0162984532969634,
+          "pnl_pct": -6.0162984532969634,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1122,
+          "exit_i": 1129,
+          "pnl": 7.847178423440282,
+          "pnl_pct": 7.8471784234402815,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 1169,
+          "exit_i": 1181,
+          "pnl": -6.473621024607436,
+          "pnl_pct": -6.473621024607436,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1183,
+          "exit_i": 1202,
+          "pnl": 0.48868318797875654,
+          "pnl_pct": 0.48868318797875654,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1203,
+          "exit_i": 1221,
+          "pnl": 8.675912977280595,
+          "pnl_pct": 8.675912977280595,
           "reason": "NEAR_RESISTANCE"
         }
       ]
     },
     "new": {
-      "num_trades": 2,
-      "win_rate": 100.0,
-      "total_pnl": 19.17,
-      "total_invested": 200.0,
-      "total_pnl_pct": 9.59,
-      "max_drawdown_pct": 0.0,
-      "avg_win": 9.59,
-      "avg_loss": null,
-      "best_trade_pct": 12.81,
-      "worst_trade_pct": 6.36,
+      "num_trades": 52,
+      "win_rate": 61.5,
+      "total_pnl": 68.36,
+      "total_invested": 5200.0,
+      "total_pnl_pct": 1.31,
+      "max_drawdown_pct": -14.06,
+      "avg_win": 4.63,
+      "avg_loss": -3.99,
+      "best_trade_pct": 19.56,
+      "worst_trade_pct": -10.37,
       "trades": [
         {
-          "entry_i": 202,
-          "exit_i": 203,
-          "pnl": 12.812102764638267,
-          "pnl_pct": 12.812102764638267,
+          "entry_i": 297,
+          "exit_i": 300,
+          "pnl": -8.593217822552795,
+          "pnl_pct": -8.593217822552795,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 319,
+          "exit_i": 323,
+          "pnl": 8.110135912123877,
+          "pnl_pct": 8.110135912123877,
+          "reason": "NEAR_UPPER_BB"
+        },
+        {
+          "entry_i": 330,
+          "exit_i": 331,
+          "pnl": 3.352029332094006,
+          "pnl_pct": 3.3520293320940064,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 334,
+          "exit_i": 335,
+          "pnl": -0.15588223210880367,
+          "pnl_pct": -0.1558822321088037,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 339,
+          "exit_i": 343,
+          "pnl": -10.367147384949856,
+          "pnl_pct": -10.367147384949856,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 361,
+          "exit_i": 363,
+          "pnl": 1.5398281858943563,
+          "pnl_pct": 1.5398281858943563,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 364,
+          "exit_i": 365,
+          "pnl": 2.4275156651192997,
+          "pnl_pct": 2.4275156651192997,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 402,
+          "exit_i": 403,
+          "pnl": 2.9983646492525566,
+          "pnl_pct": 2.9983646492525566,
+          "reason": "NEAR_UPPER_BB"
+        },
+        {
+          "entry_i": 404,
+          "exit_i": 409,
+          "pnl": 19.5641035966596,
+          "pnl_pct": 19.5641035966596,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 410,
+          "exit_i": 411,
+          "pnl": 2.686836337967497,
+          "pnl_pct": 2.686836337967497,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 412,
+          "exit_i": 413,
+          "pnl": 4.8094193789443604,
+          "pnl_pct": 4.8094193789443604,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 422,
+          "exit_i": 423,
+          "pnl": -1.0988414437874732,
+          "pnl_pct": -1.098841443787473,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 442,
+          "exit_i": 443,
+          "pnl": 1.8784070376434145,
+          "pnl_pct": 1.8784070376434143,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 444,
+          "exit_i": 445,
+          "pnl": -1.1766921596552287,
+          "pnl_pct": -1.1766921596552287,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 446,
+          "exit_i": 460,
+          "pnl": -6.806043022009479,
+          "pnl_pct": -6.806043022009481,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 469,
+          "exit_i": 474,
+          "pnl": 6.5129301396904555,
+          "pnl_pct": 6.512930139690456,
+          "reason": "NEAR_UPPER_BB"
+        },
+        {
+          "entry_i": 490,
+          "exit_i": 491,
+          "pnl": 1.1435967947664354,
+          "pnl_pct": 1.1435967947664354,
           "reason": "TREND_BREAK_SMA50"
         },
         {
+          "entry_i": 508,
+          "exit_i": 509,
+          "pnl": -4.258729446131316,
+          "pnl_pct": -4.258729446131316,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 533,
+          "exit_i": 541,
+          "pnl": -9.164624408579655,
+          "pnl_pct": -9.164624408579655,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 564,
+          "exit_i": 565,
+          "pnl": 1.394973229680025,
+          "pnl_pct": 1.394973229680025,
+          "reason": "NEAR_UPPER_BB"
+        },
+        {
+          "entry_i": 566,
+          "exit_i": 567,
+          "pnl": 0.5671258509662334,
+          "pnl_pct": 0.5671258509662334,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 572,
+          "exit_i": 573,
+          "pnl": -0.026413410377027602,
+          "pnl_pct": -0.026413410377027602,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 575,
+          "exit_i": 576,
+          "pnl": 0.11493373139159802,
+          "pnl_pct": 0.114933731391598,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
           "entry_i": 583,
+          "exit_i": 584,
+          "pnl": -1.8971421183588704,
+          "pnl_pct": -1.8971421183588701,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 588,
           "exit_i": 589,
-          "pnl": 6.359094965932642,
-          "pnl_pct": 6.359094965932632,
+          "pnl": -0.4658540558138136,
+          "pnl_pct": -0.46585405581381367,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 596,
+          "exit_i": 597,
+          "pnl": 0.04839941301908596,
+          "pnl_pct": 0.04839941301908596,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 606,
+          "exit_i": 608,
+          "pnl": 4.702314929828625,
+          "pnl_pct": 4.702314929828625,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 635,
+          "exit_i": 636,
+          "pnl": 4.047794973336452,
+          "pnl_pct": 4.047794973336452,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 659,
+          "exit_i": 660,
+          "pnl": 2.2684115481554104,
+          "pnl_pct": 2.2684115481554104,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 661,
+          "exit_i": 662,
+          "pnl": 0.5100127670287955,
+          "pnl_pct": 0.5100127670287955,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 664,
+          "exit_i": 665,
+          "pnl": 4.588064510613471,
+          "pnl_pct": 4.588064510613471,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 668,
+          "exit_i": 669,
+          "pnl": -0.39077469605624815,
+          "pnl_pct": -0.39077469605624815,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 678,
+          "exit_i": 695,
+          "pnl": -7.068693518702764,
+          "pnl_pct": -7.068693518702764,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 700,
+          "exit_i": 701,
+          "pnl": -2.0217102344541265,
+          "pnl_pct": -2.0217102344541265,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 704,
+          "exit_i": 705,
+          "pnl": 12.492877246137217,
+          "pnl_pct": 12.492877246137217,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 725,
+          "exit_i": 726,
+          "pnl": -6.6752782807337,
+          "pnl_pct": -6.6752782807337,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 758,
+          "exit_i": 762,
+          "pnl": 8.888347061433894,
+          "pnl_pct": 8.888347061433894,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 901,
+          "exit_i": 902,
+          "pnl": 3.8575364930503557,
+          "pnl_pct": 3.8575364930503557,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 907,
+          "exit_i": 912,
+          "pnl": 5.298549330268618,
+          "pnl_pct": 5.298549330268618,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 913,
+          "exit_i": 930,
+          "pnl": 13.880356133319115,
+          "pnl_pct": 13.880356133319117,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 932,
+          "exit_i": 933,
+          "pnl": -0.14809032045242262,
+          "pnl_pct": -0.14809032045242262,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 943,
+          "exit_i": 944,
+          "pnl": 0.09190641928207649,
+          "pnl_pct": 0.09190641928207649,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 976,
+          "exit_i": 977,
+          "pnl": -2.249064496825979,
+          "pnl_pct": -2.249064496825979,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 980,
+          "exit_i": 981,
+          "pnl": 0.4712074617141461,
+          "pnl_pct": 0.4712074617141461,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 990,
+          "exit_i": 997,
+          "pnl": 5.300918595200308,
+          "pnl_pct": 5.300918595200308,
+          "reason": "NEAR_UPPER_BB"
+        },
+        {
+          "entry_i": 1005,
+          "exit_i": 1017,
+          "pnl": 9.441868940024806,
+          "pnl_pct": 9.441868940024804,
+          "reason": "NEAR_UPPER_BB"
+        },
+        {
+          "entry_i": 1018,
+          "exit_i": 1024,
+          "pnl": -9.443909103206135,
+          "pnl_pct": -9.443909103206135,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1139,
+          "exit_i": 1140,
+          "pnl": 3.6984125045757272,
+          "pnl_pct": 3.6984125045757272,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 1143,
+          "exit_i": 1150,
+          "pnl": 9.641474947261102,
+          "pnl_pct": 9.641474947261102,
+          "reason": "NEAR_UPPER_BB"
+        },
+        {
+          "entry_i": 1168,
+          "exit_i": 1171,
+          "pnl": -2.5783934871644765,
+          "pnl_pct": -2.5783934871644765,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1209,
+          "exit_i": 1222,
+          "pnl": -5.191839719250793,
+          "pnl_pct": -5.191839719250793,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1250,
+          "exit_i": 1251,
+          "pnl": 1.8126616872379324,
+          "pnl_pct": 1.8126616872379324,
+          "reason": "NEAR_UPPER_BB"
+        }
+      ]
+    },
+    "short": {
+      "num_trades": 12,
+      "win_rate": 50.0,
+      "total_pnl": -17.7,
+      "total_invested": 1200.0,
+      "total_pnl_pct": -1.48,
+      "max_drawdown_pct": -26.07,
+      "avg_win": 3.22,
+      "avg_loss": -6.17,
+      "best_trade_pct": 7.07,
+      "worst_trade_pct": -17.42,
+      "trades": [
+        {
+          "entry_i": 226,
+          "exit_i": 227,
+          "pnl": 1.7838980700688423,
+          "pnl_pct": 1.783898070068842,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 233,
+          "exit_i": 242,
+          "pnl": 6.587154480676603,
+          "pnl_pct": 6.587154480676603,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 275,
+          "exit_i": 276,
+          "pnl": -3.968993452107457,
+          "pnl_pct": -3.968993452107457,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 277,
+          "exit_i": 278,
+          "pnl": -2.580186155247511,
+          "pnl_pct": -2.580186155247511,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 304,
+          "exit_i": 305,
+          "pnl": 0.5683597153178532,
+          "pnl_pct": 0.5683597153178532,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 831,
+          "exit_i": 834,
+          "pnl": -4.270307384699282,
+          "pnl_pct": -4.270307384699282,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 851,
+          "exit_i": 854,
+          "pnl": 2.764379000545366,
+          "pnl_pct": 2.764379000545366,
+          "reason": "NEAR_LOWER_BB"
+        },
+        {
+          "entry_i": 855,
+          "exit_i": 858,
+          "pnl": -3.020054082295586,
+          "pnl_pct": -3.020054082295586,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 874,
+          "exit_i": 875,
+          "pnl": 7.068595158338771,
+          "pnl_pct": 7.068595158338771,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 876,
+          "exit_i": 878,
+          "pnl": -17.419056649961714,
+          "pnl_pct": -17.419056649961714,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1115,
+          "exit_i": 1119,
+          "pnl": 0.5466616059713842,
+          "pnl_pct": 0.5466616059713842,
+          "reason": "NEAR_LOWER_BB"
+        },
+        {
+          "entry_i": 1122,
+          "exit_i": 1128,
+          "pnl": -5.761179005020603,
+          "pnl_pct": -5.761179005020603,
           "reason": "TREND_BREAK_SMA50"
         }
       ]
     },
-    "buy_hold_pct": 110.49,
-    "period_start": "2024-07-26",
+    "buy_hold_pct": 1240.05,
+    "period_start": "2022-07-27",
     "period_end": "2026-10-07"
   },
   "TSLA": {
     "old": {
-      "num_trades": 16,
-      "win_rate": 37.5,
-      "total_pnl": 11.86,
-      "total_invested": 1600.0,
-      "total_pnl_pct": 0.74,
-      "max_drawdown_pct": -47.5,
-      "avg_win": 18.51,
-      "avg_loss": -9.92,
-      "best_trade_pct": 38.97,
-      "worst_trade_pct": -20.4,
+      "num_trades": 47,
+      "win_rate": 34.0,
+      "total_pnl": -2.14,
+      "total_invested": 4700.0,
+      "total_pnl_pct": -0.05,
+      "max_drawdown_pct": -91.89,
+      "avg_win": 15.97,
+      "avg_loss": -8.31,
+      "best_trade_pct": 56.16,
+      "worst_trade_pct": -20.67,
       "trades": [
         {
-          "entry_i": 201,
-          "exit_i": 205,
-          "pnl": -10.525638643746795,
-          "pnl_pct": -10.525638643746793,
-          "reason": "STOP_LOSS"
+          "entry_i": 246,
+          "exit_i": 247,
+          "pnl": -8.901595134537361,
+          "pnl_pct": -8.901595134537361,
+          "reason": "TRAILING_STOP_LOSS"
         },
         {
-          "entry_i": 214,
-          "exit_i": 232,
-          "pnl": 6.53311176475157,
-          "pnl_pct": 6.533111764751576,
-          "reason": "NEAR_RESISTANCE"
+          "entry_i": 251,
+          "exit_i": 256,
+          "pnl": -8.392922058351546,
+          "pnl_pct": -8.392922058351546,
+          "reason": "TRAILING_STOP_LOSS"
         },
         {
-          "entry_i": 262,
-          "exit_i": 273,
-          "pnl": 38.97028417701024,
-          "pnl_pct": 38.97028417701025,
+          "entry_i": 273,
+          "exit_i": 274,
+          "pnl": -7.456007049353048,
+          "pnl_pct": -7.45600704935305,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 282,
+          "exit_i": 292,
+          "pnl": 6.80793324345491,
+          "pnl_pct": 6.807933243454908,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 300,
+          "exit_i": 302,
+          "pnl": -8.561564294574776,
+          "pnl_pct": -8.561564294574776,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 303,
+          "exit_i": 304,
+          "pnl": -9.169432425096952,
+          "pnl_pct": -9.169432425096952,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 305,
+          "exit_i": 306,
+          "pnl": -11.691740051446219,
+          "pnl_pct": -11.691740051446219,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 307,
+          "exit_i": 310,
+          "pnl": -4.384008204086812,
+          "pnl_pct": -4.384008204086812,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 311,
+          "exit_i": 327,
+          "pnl": 56.162165487234596,
+          "pnl_pct": 56.162165487234596,
           "reason": "RSI_OVERBOUGHT"
         },
         {
-          "entry_i": 333,
-          "exit_i": 334,
-          "pnl": -3.3928221731495865,
-          "pnl_pct": -3.39282217314959,
-          "reason": "NEAR_RESISTANCE"
-        },
-        {
-          "entry_i": 345,
-          "exit_i": 350,
-          "pnl": -10.158514031737072,
-          "pnl_pct": -10.158514031737075,
-          "reason": "STOP_LOSS"
-        },
-        {
-          "entry_i": 351,
-          "exit_i": 354,
-          "pnl": -20.404876732933143,
-          "pnl_pct": -20.40487673293314,
-          "reason": "STOP_LOSS"
-        },
-        {
-          "entry_i": 355,
-          "exit_i": 389,
-          "pnl": 26.65018495110709,
-          "pnl_pct": 26.650184951107093,
-          "reason": "NEAR_RESISTANCE"
-        },
-        {
-          "entry_i": 414,
-          "exit_i": 415,
-          "pnl": -14.259893789082124,
-          "pnl_pct": -14.259893789082124,
-          "reason": "STOP_LOSS"
-        },
-        {
-          "entry_i": 446,
-          "exit_i": 448,
-          "pnl": -8.072626160340654,
-          "pnl_pct": -8.072626160340658,
-          "reason": "STOP_LOSS"
-        },
-        {
-          "entry_i": 578,
-          "exit_i": 612,
-          "pnl": -8.704630780233435,
-          "pnl_pct": -8.704630780233435,
-          "reason": "STOP_LOSS"
-        },
-        {
-          "entry_i": 614,
-          "exit_i": 623,
-          "pnl": -7.359852522013162,
-          "pnl_pct": -7.359852522013166,
-          "reason": "STOP_LOSS"
-        },
-        {
-          "entry_i": 631,
-          "exit_i": 648,
-          "pnl": 14.425303930050477,
-          "pnl_pct": 14.425303930050482,
+          "entry_i": 328,
+          "exit_i": 331,
+          "pnl": 12.647068963938683,
+          "pnl_pct": 12.647068963938683,
           "reason": "RSI_OVERBOUGHT"
         },
         {
-          "entry_i": 677,
-          "exit_i": 698,
-          "pnl": -16.22598602945669,
-          "pnl_pct": -16.225986029456685,
-          "reason": "STOP_LOSS"
+          "entry_i": 353,
+          "exit_i": 355,
+          "pnl": -8.167360824623266,
+          "pnl_pct": -8.167360824623266,
+          "reason": "TRAILING_STOP_LOSS"
         },
         {
-          "entry_i": 699,
+          "entry_i": 374,
+          "exit_i": 384,
+          "pnl": -12.426025907205807,
+          "pnl_pct": -12.426025907205805,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 388,
+          "exit_i": 411,
+          "pnl": 30.489521077473956,
+          "pnl_pct": 30.48952107747396,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 455,
+          "exit_i": 463,
+          "pnl": -5.938692322200821,
+          "pnl_pct": -5.938692322200821,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 466,
+          "exit_i": 490,
+          "pnl": 16.315854178960635,
+          "pnl_pct": 16.315854178960635,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 511,
+          "exit_i": 517,
+          "pnl": -7.19091914569498,
+          "pnl_pct": -7.19091914569498,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 518,
+          "exit_i": 537,
+          "pnl": 22.509791730137326,
+          "pnl_pct": 22.509791730137326,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 541,
+          "exit_i": 550,
+          "pnl": 7.295346817478963,
+          "pnl_pct": 7.295346817478963,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 567,
+          "exit_i": 573,
+          "pnl": -8.394519880680326,
+          "pnl_pct": -8.394519880680326,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 574,
+          "exit_i": 576,
+          "pnl": -12.956703448563676,
+          "pnl_pct": -12.956703448563674,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 577,
+          "exit_i": 601,
+          "pnl": 10.265301168111305,
+          "pnl_pct": 10.265301168111305,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 603,
+          "exit_i": 610,
+          "pnl": -10.37670960019593,
+          "pnl_pct": -10.37670960019593,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 611,
+          "exit_i": 622,
+          "pnl": 1.5679509845589306,
+          "pnl_pct": 1.5679509845589306,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 629,
+          "exit_i": 631,
+          "pnl": -7.803052636003785,
+          "pnl_pct": -7.803052636003785,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 636,
+          "exit_i": 643,
+          "pnl": 26.36884310022924,
+          "pnl_pct": 26.36884310022924,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 670,
+          "exit_i": 675,
+          "pnl": 7.542531024844722,
+          "pnl_pct": 7.542531024844721,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 703,
+          "exit_i": 707,
+          "pnl": -10.809850185781174,
+          "pnl_pct": -10.809850185781174,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 716,
           "exit_i": 725,
-          "pnl": 17.544648641313117,
-          "pnl_pct": 17.54464864131311,
-          "reason": "NEAR_RESISTANCE"
+          "pnl": -4.212120301878048,
+          "pnl_pct": -4.212120301878048,
+          "reason": "TRAILING_STOP_LOSS"
         },
         {
-          "entry_i": 730,
+          "entry_i": 727,
           "exit_i": 731,
-          "pnl": -0.09506901891408451,
-          "pnl_pct": -0.09506901891408459,
+          "pnl": -1.87626213902552,
+          "pnl_pct": -1.87626213902552,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 764,
+          "exit_i": 770,
+          "pnl": 16.618190134015954,
+          "pnl_pct": 16.618190134015954,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 835,
+          "exit_i": 836,
+          "pnl": -3.687732939889862,
+          "pnl_pct": -3.6877329398898624,
           "reason": "NEAR_RESISTANCE"
         },
         {
-          "entry_i": 745,
-          "exit_i": 751,
-          "pnl": 6.935155162304754,
-          "pnl_pct": 6.9351551623047625,
+          "entry_i": 847,
+          "exit_i": 852,
+          "pnl": -10.443276260689466,
+          "pnl_pct": -10.443276260689467,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 853,
+          "exit_i": 856,
+          "pnl": -20.674269417833745,
+          "pnl_pct": -20.674269417833745,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 857,
+          "exit_i": 862,
+          "pnl": -2.5821143309330754,
+          "pnl_pct": -2.5821143309330754,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 916,
+          "exit_i": 917,
+          "pnl": -14.538503948398501,
+          "pnl_pct": -14.538503948398501,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 948,
+          "exit_i": 950,
+          "pnl": -8.360517221100142,
+          "pnl_pct": -8.360517221100142,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1080,
+          "exit_i": 1085,
+          "pnl": -4.93822287487954,
+          "pnl_pct": -4.93822287487954,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1087,
+          "exit_i": 1102,
+          "pnl": -6.255305087291592,
+          "pnl_pct": -6.255305087291592,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1114,
+          "exit_i": 1121,
+          "pnl": -6.869145367354457,
+          "pnl_pct": -6.869145367354457,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1123,
+          "exit_i": 1125,
+          "pnl": -7.748287706649607,
+          "pnl_pct": -7.748287706649607,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1133,
+          "exit_i": 1150,
+          "pnl": 14.103665974155401,
+          "pnl_pct": 14.103665974155403,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 1179,
+          "exit_i": 1186,
+          "pnl": 2.797997240374659,
+          "pnl_pct": 2.797997240374659,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1189,
+          "exit_i": 1197,
+          "pnl": -6.505465005462125,
+          "pnl_pct": -6.505465005462124,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1198,
+          "exit_i": 1200,
+          "pnl": -15.910041799893662,
+          "pnl_pct": -15.910041799893659,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1201,
+          "exit_i": 1227,
+          "pnl": 17.218331668351148,
+          "pnl_pct": 17.218331668351148,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 1232,
+          "exit_i": 1233,
+          "pnl": -0.3949264153857134,
+          "pnl_pct": -0.3949264153857134,
+          "reason": "NEAR_RESISTANCE"
+        },
+        {
+          "entry_i": 1247,
+          "exit_i": 1253,
+          "pnl": 6.766247159518697,
+          "pnl_pct": 6.766247159518697,
           "reason": "END_OF_PERIOD"
         }
       ]
     },
     "new": {
-      "num_trades": 4,
-      "win_rate": 75.0,
-      "total_pnl": 5.89,
-      "total_invested": 400.0,
-      "total_pnl_pct": 1.47,
-      "max_drawdown_pct": -3.96,
-      "avg_win": 3.28,
-      "avg_loss": -3.96,
-      "best_trade_pct": 3.91,
-      "worst_trade_pct": -3.96,
+      "num_trades": 38,
+      "win_rate": 60.5,
+      "total_pnl": 7.79,
+      "total_invested": 3800.0,
+      "total_pnl_pct": 0.2,
+      "max_drawdown_pct": -16.91,
+      "avg_win": 3.37,
+      "avg_loss": -4.65,
+      "best_trade_pct": 9.88,
+      "worst_trade_pct": -8.73,
       "trades": [
         {
-          "entry_i": 336,
-          "exit_i": 337,
-          "pnl": 2.43835913717656,
-          "pnl_pct": 2.43835913717656,
+          "entry_i": 412,
+          "exit_i": 413,
+          "pnl": 1.4577731123561102,
+          "pnl_pct": 1.4577731123561102,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 414,
+          "exit_i": 415,
+          "pnl": 1.3986210075379002,
+          "pnl_pct": 1.3986210075379002,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 417,
+          "exit_i": 418,
+          "pnl": 4.275213947145628,
+          "pnl_pct": 4.275213947145628,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 419,
+          "exit_i": 420,
+          "pnl": 1.9184382397999924,
+          "pnl_pct": 1.9184382397999924,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 426,
+          "exit_i": 427,
+          "pnl": 1.681912077003194,
+          "pnl_pct": 1.6819120770031937,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 465,
+          "exit_i": 466,
+          "pnl": -3.1237742478452035,
+          "pnl_pct": -3.1237742478452035,
           "reason": "TREND_BREAK_SMA50"
         },
         {
-          "entry_i": 345,
-          "exit_i": 346,
-          "pnl": -3.963012048799907,
-          "pnl_pct": -3.9630120487999076,
+          "entry_i": 467,
+          "exit_i": 468,
+          "pnl": 7.016491667500451,
+          "pnl_pct": 7.016491667500451,
           "reason": "TREND_BREAK_SMA50"
         },
         {
-          "entry_i": 347,
-          "exit_i": 348,
-          "pnl": 3.9120405397243707,
-          "pnl_pct": 3.912040539724382,
+          "entry_i": 474,
+          "exit_i": 477,
+          "pnl": -5.024995535329692,
+          "pnl_pct": -5.024995535329692,
           "reason": "TREND_BREAK_SMA50"
         },
         {
-          "entry_i": 583,
-          "exit_i": 584,
-          "pnl": 3.4994069120883067,
-          "pnl_pct": 3.4994069120882987,
+          "entry_i": 482,
+          "exit_i": 490,
+          "pnl": -6.825758650430931,
+          "pnl_pct": -6.825758650430931,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 684,
+          "exit_i": 685,
+          "pnl": 9.881975528206327,
+          "pnl_pct": 9.881975528206327,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 686,
+          "exit_i": 687,
+          "pnl": 1.7789439052628548,
+          "pnl_pct": 1.7789439052628548,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 688,
+          "exit_i": 689,
+          "pnl": 3.406768033591294,
+          "pnl_pct": 3.4067680335912938,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 691,
+          "exit_i": 693,
+          "pnl": 4.509602816307932,
+          "pnl_pct": 4.509602816307932,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 730,
+          "exit_i": 731,
+          "pnl": -8.733263497485254,
+          "pnl_pct": -8.733263497485254,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 740,
+          "exit_i": 742,
+          "pnl": 2.1888823687606194,
+          "pnl_pct": 2.1888823687606194,
+          "reason": "NEAR_UPPER_BB"
+        },
+        {
+          "entry_i": 756,
+          "exit_i": 757,
+          "pnl": 0.32348971093142287,
+          "pnl_pct": 0.32348971093142287,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 765,
+          "exit_i": 770,
+          "pnl": -4.374807827018014,
+          "pnl_pct": -4.374807827018014,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 774,
+          "exit_i": 775,
+          "pnl": 2.600022497102189,
+          "pnl_pct": 2.600022497102189,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 776,
+          "exit_i": 777,
+          "pnl": 8.646151756404326,
+          "pnl_pct": 8.646151756404326,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 778,
+          "exit_i": 779,
+          "pnl": 0.23194162743079688,
+          "pnl_pct": 0.23194162743079685,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 798,
+          "exit_i": 799,
+          "pnl": -1.8679021842516879,
+          "pnl_pct": -1.867902184251688,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 801,
+          "exit_i": 802,
+          "pnl": 3.3315357311468663,
+          "pnl_pct": 3.331535731146866,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 803,
+          "exit_i": 810,
+          "pnl": -5.454368247380077,
+          "pnl_pct": -5.454368247380077,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 838,
+          "exit_i": 839,
+          "pnl": 2.1347015984707953,
+          "pnl_pct": 2.1347015984707953,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 847,
+          "exit_i": 848,
+          "pnl": -4.257067530726707,
+          "pnl_pct": -4.257067530726707,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 849,
+          "exit_i": 850,
+          "pnl": 3.606172478914784,
+          "pnl_pct": 3.606172478914784,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 851,
+          "exit_i": 852,
+          "pnl": -4.72335171035135,
+          "pnl_pct": -4.72335171035135,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 867,
+          "exit_i": 868,
+          "pnl": -5.872255239800325,
+          "pnl_pct": -5.872255239800325,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 901,
+          "exit_i": 902,
+          "pnl": 3.7678810056558962,
+          "pnl_pct": 3.767881005655896,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 984,
+          "exit_i": 985,
+          "pnl": 7.045058446032103,
+          "pnl_pct": 7.045058446032101,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 986,
+          "exit_i": 987,
+          "pnl": 2.5198752198446717,
+          "pnl_pct": 2.5198752198446717,
+          "reason": "RSI_OVERBOUGHT"
+        },
+        {
+          "entry_i": 999,
+          "exit_i": 1005,
+          "pnl": -5.455102007104716,
+          "pnl_pct": -5.455102007104716,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1030,
+          "exit_i": 1031,
+          "pnl": 0.8285154555096587,
+          "pnl_pct": 0.8285154555096587,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1051,
+          "exit_i": 1060,
+          "pnl": -7.52561379029712,
+          "pnl_pct": -7.52561379029712,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1080,
+          "exit_i": 1081,
+          "pnl": 3.0198653676329346,
+          "pnl_pct": 3.0198653676329346,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1084,
+          "exit_i": 1085,
+          "pnl": -2.4641875992548483,
+          "pnl_pct": -2.4641875992548483,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1134,
+          "exit_i": 1136,
+          "pnl": -3.839184736091733,
+          "pnl_pct": -3.839184736091733,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1150,
+          "exit_i": 1152,
+          "pnl": -0.2394193190671085,
+          "pnl_pct": -0.2394193190671085,
+          "reason": "RSI_OVERBOUGHT"
+        }
+      ]
+    },
+    "short": {
+      "num_trades": 44,
+      "win_rate": 43.2,
+      "total_pnl": -29.44,
+      "total_invested": 4400.0,
+      "total_pnl_pct": -0.67,
+      "max_drawdown_pct": -87.42,
+      "avg_win": 5.25,
+      "avg_loss": -5.17,
+      "best_trade_pct": 11.7,
+      "worst_trade_pct": -23.02,
+      "trades": [
+        {
+          "entry_i": 202,
+          "exit_i": 203,
+          "pnl": -0.34269509914284785,
+          "pnl_pct": -0.34269509914284785,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 245,
+          "exit_i": 247,
+          "pnl": 9.337490540415226,
+          "pnl_pct": 9.337490540415226,
+          "reason": "NEAR_LOWER_BB"
+        },
+        {
+          "entry_i": 248,
+          "exit_i": 249,
+          "pnl": 3.1649413909330595,
+          "pnl_pct": 3.16494139093306,
+          "reason": "NEAR_LOWER_BB"
+        },
+        {
+          "entry_i": 255,
+          "exit_i": 256,
+          "pnl": 7.256869307632795,
+          "pnl_pct": 7.256869307632795,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 260,
+          "exit_i": 263,
+          "pnl": -7.61508562236028,
+          "pnl_pct": -7.61508562236028,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 273,
+          "exit_i": 274,
+          "pnl": 6.87750732090844,
+          "pnl_pct": 6.877507320908441,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 275,
+          "exit_i": 282,
+          "pnl": 11.69888892942538,
+          "pnl_pct": 11.698888929425381,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 284,
+          "exit_i": 288,
+          "pnl": -6.586708620008254,
+          "pnl_pct": -6.586708620008254,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 297,
+          "exit_i": 298,
+          "pnl": 2.2823044213325745,
+          "pnl_pct": 2.2823044213325745,
+          "reason": "NEAR_LOWER_BB"
+        },
+        {
+          "entry_i": 299,
+          "exit_i": 300,
+          "pnl": 4.425795986300672,
+          "pnl_pct": 4.425795986300672,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 301,
+          "exit_i": 302,
+          "pnl": 7.765721923908661,
+          "pnl_pct": 7.765721923908663,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 303,
+          "exit_i": 304,
+          "pnl": 8.596080694776761,
+          "pnl_pct": 8.596080694776761,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 305,
+          "exit_i": 306,
+          "pnl": 11.125966611440548,
+          "pnl_pct": 11.125966611440548,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 307,
+          "exit_i": 308,
+          "pnl": -8.394814732834115,
+          "pnl_pct": -8.394814732834115,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 310,
+          "exit_i": 311,
+          "pnl": -5.432572613522181,
+          "pnl_pct": -5.432572613522181,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 313,
+          "exit_i": 316,
+          "pnl": -9.299861920507457,
+          "pnl_pct": -9.299861920507457,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 326,
+          "exit_i": 327,
+          "pnl": -11.316680687449987,
+          "pnl_pct": -11.316680687449987,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 406,
+          "exit_i": 407,
+          "pnl": 1.3437978033871005,
+          "pnl_pct": 1.3437978033871005,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 410,
+          "exit_i": 411,
+          "pnl": -4.442460308150605,
+          "pnl_pct": -4.442460308150604,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 512,
+          "exit_i": 514,
+          "pnl": -0.4605556061192003,
+          "pnl_pct": -0.4605556061192003,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 576,
+          "exit_i": 577,
+          "pnl": -0.6399907426283584,
+          "pnl_pct": -0.6399907426283584,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 610,
+          "exit_i": 611,
+          "pnl": -0.9594537447415866,
+          "pnl_pct": -0.9594537447415866,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 637,
+          "exit_i": 638,
+          "pnl": -12.379201071363635,
+          "pnl_pct": -12.379201071363635,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 641,
+          "exit_i": 642,
+          "pnl": 5.258443241040661,
+          "pnl_pct": 5.258443241040661,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 673,
+          "exit_i": 674,
+          "pnl": 2.1479074335815787,
+          "pnl_pct": 2.147907433581578,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 675,
+          "exit_i": 676,
+          "pnl": 1.0785060820242935,
+          "pnl_pct": 1.0785060820242935,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 681,
+          "exit_i": 682,
+          "pnl": -0.8355085208959243,
+          "pnl_pct": -0.8355085208959242,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 683,
+          "exit_i": 684,
+          "pnl": -6.3632531964185794,
+          "pnl_pct": -6.36325319641858,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 852,
+          "exit_i": 853,
+          "pnl": -2.8990984167183913,
+          "pnl_pct": -2.8990984167183913,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 856,
+          "exit_i": 857,
+          "pnl": -4.100429069742043,
+          "pnl_pct": -4.100429069742043,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 858,
+          "exit_i": 862,
+          "pnl": 8.895924508940558,
+          "pnl_pct": 8.895924508940558,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 877,
+          "exit_i": 878,
+          "pnl": -23.024024824383964,
+          "pnl_pct": -23.024024824383964,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 917,
+          "exit_i": 918,
+          "pnl": -3.972519141820443,
+          "pnl_pct": -3.972519141820443,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1115,
+          "exit_i": 1120,
+          "pnl": 1.3684422308685193,
+          "pnl_pct": 1.3684422308685191,
+          "reason": "NEAR_LOWER_BB"
+        },
+        {
+          "entry_i": 1122,
+          "exit_i": 1132,
+          "pnl": -5.741913174268136,
+          "pnl_pct": -5.741913174268136,
+          "reason": "TRAILING_STOP_LOSS"
+        },
+        {
+          "entry_i": 1168,
+          "exit_i": 1169,
+          "pnl": -4.897682154818874,
+          "pnl_pct": -4.897682154818874,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1170,
+          "exit_i": 1171,
+          "pnl": 3.5097790691323016,
+          "pnl_pct": 3.5097790691323016,
+          "reason": "NEAR_LOWER_BB"
+        },
+        {
+          "entry_i": 1173,
+          "exit_i": 1174,
+          "pnl": -1.4630739137662716,
+          "pnl_pct": -1.4630739137662716,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1177,
+          "exit_i": 1178,
+          "pnl": -1.440312533718766,
+          "pnl_pct": -1.440312533718766,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1183,
+          "exit_i": 1184,
+          "pnl": -2.4302325801973788,
+          "pnl_pct": -2.4302325801973788,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1200,
+          "exit_i": 1201,
+          "pnl": 1.7863941995887203,
+          "pnl_pct": 1.7863941995887205,
+          "reason": "RSI_OVERSOLD"
+        },
+        {
+          "entry_i": 1221,
+          "exit_i": 1227,
+          "pnl": -1.7048564464370477,
+          "pnl_pct": -1.704856446437048,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1230,
+          "exit_i": 1232,
+          "pnl": 1.8846338839260088,
+          "pnl_pct": 1.8846338839260086,
+          "reason": "TREND_BREAK_SMA50"
+        },
+        {
+          "entry_i": 1250,
+          "exit_i": 1251,
+          "pnl": -2.499796203612914,
+          "pnl_pct": -2.499796203612914,
           "reason": "TREND_BREAK_SMA50"
         }
       ]
     },
-    "buy_hold_pct": 71.66,
-    "period_start": "2024-07-26",
+    "buy_hold_pct": 37.48,
+    "period_start": "2022-07-27",
     "period_end": "2026-10-07"
   }
 }
