@@ -203,12 +203,22 @@ def _trading_panel_html(trading_summary: dict | None) -> str:
 
     positions = trading_summary["positions"]
     if positions:
-        positions_html = "".join(
-            f'<div class="event-row">{t}: {p["qty"]} шт. по {p["buy_price"]:.4f} '
-            f'(трейлінг стоп-лос ≈{p.get("peak_price", p["buy_price"]) * (1 - trading_summary["stop_loss_pct"] / 100):.4f}, '
-            f'пік ціни {p.get("peak_price", p["buy_price"]):.4f})</div>'
-            for t, p in positions.items()
-        )
+        rows = []
+        sl = trading_summary["stop_loss_pct"] / 100
+        for t, p in positions.items():
+            if p.get("side") == "SHORT":
+                trough = p.get("trough_price", p["buy_price"])
+                rows.append(
+                    f'<div class="event-row">🔻 ШОРТ {t}: {p["qty"]} шт. від {p["buy_price"]:.4f} '
+                    f'(трейлінг стоп-лос ≈{trough * (1 + sl):.4f}, мінімум ціни {trough:.4f})</div>'
+                )
+            else:
+                peak = p.get("peak_price", p["buy_price"])
+                rows.append(
+                    f'<div class="event-row">{t}: {p["qty"]} шт. по {p["buy_price"]:.4f} '
+                    f'(трейлінг стоп-лос ≈{peak * (1 - sl):.4f}, пік ціни {peak:.4f})</div>'
+                )
+        positions_html = "".join(rows)
     else:
         positions_html = '<p class="empty">Немає відкритих позицій.</p>'
 

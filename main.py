@@ -59,6 +59,8 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
+import pandas as pd
+
 import data_collector
 import analyzer
 import strategy
@@ -83,6 +85,14 @@ TRADING_ENABLED = t212.is_configured()
 MAX_PER_TRADE_GBP = float(_env("MAX_PER_TRADE_GBP", "20"))
 MAX_DAILY_GBP = float(_env("MAX_DAILY_GBP", "200"))
 STOP_LOSS_PCT = float(_env("STOP_LOSS_PCT", "7"))
+# Старі описові сповіщення про індикатори (RSI, Bollinger тощо) по тікерах
+# дашборда. За замовчуванням ВИМКНЕНІ: в Telegram приходять лише повідомлення
+# про віртуальні/реальні угоди. Щоб повернути — змінна INDICATOR_ALERTS=true.
+INDICATOR_ALERTS = _env("INDICATOR_ALERTS", "false").lower() == "true"
+# Віртуальні ШОРТИ (ставка на падіння). Працюють ЛИШЕ коли TRADING212_DRY_RUN
+# не "false": в Trading 212 Invest/ISA шортів немає, тож реальні ордери на
+# шорт бот не відправляє ніколи. Вимкнути: ENABLE_SHORTS=false.
+ENABLE_SHORTS = _env("ENABLE_SHORTS", "true").lower() != "false"
 MAX_OPEN_POSITIONS = int(float(_env("MAX_OPEN_POSITIONS", "10")))
 MAX_POSITIONS_PER_SECTOR = int(float(_env("MAX_POSITIONS_PER_SECTOR", "3")))
 AVOID_EARNINGS_DAYS = int(float(_env("AVOID_EARNINGS_DAYS", "3")))
@@ -137,6 +147,107 @@ def log_trade(trading_state: dict, **entry) -> None:
     trading_state["trade_log"] = trading_state["trade_log"][-TRADE_LOG_MAX:]
 
 
+REASON_TEXT = {
+    "TRAILING_STOP_LOSS": "спрацював трейлінг стоп-лос",
+    "RSI_OVERBOUGHT": "RSI вище 70 (перекупленість)",
+    "NEAR_UPPER_BB": "ціна біля верхньої межі Bollinger",
+    "TREND_BREAK_SMA50": "злам тренду відносно SMA50",
+    "RSI_OVERSOLD": "RSI нижче 30 (перепроданість)",
+    "NEAR_LOWER_BB": "ціна біля нижньої межі Bollinger",
+}
+
+
+def _mode_label() -> str:
+    return "🧪 ВІРТУАЛЬНО (dry-run)" if t212.DRY_RUN else f"💷 РЕАЛЬНО ({t212.MODE})"
+
+
+def _notify_open(ticker: str, price: float, qty: float, value_gbp: float,
+                 reason: str, stop_price: float, levels: dict, side: str = "LONG") -> None:
+    """Повідомлення в Telegram про відкриття позиції: вхід, стоп, цілі виходу."""
+    try:
+        if side == "SHORT":
+            lines = [
+                f"🔻 <b>ШОРТ {ticker}</b> ({sector_of(ticker)}) — ставка на падіння",
+                _mode_label() + " · шорти лише віртуально",
+                "",
+                f"Вхід: <b>${price:.2f}</b> × {qty:.4f} шт (≈ £{value_gbp:.0f})",
+                f"🛑 Початковий стоп-лос: <b>${stop_price:.2f}</b> (+{STOP_LOSS_PCT:g}% вище входу)",
+                f"   Стоп трейлінговий: опускається за ціною на {STOP_LOSS_PCT:g}% вище мінімуму.",
+            ]
+            bb = levels.get("bb_lower")
+            sma50 = levels.get("sma50")
+            if bb:
+                gain = (1 - bb / price) * 100
+                lines.append(f"🎯 Орієнтир виходу (нижня межа Bollinger): <b>${bb:.2f}</b> (+{gain:.1f}% прибутку)")
+            if sma50:
+                lines.append(f"⚠️ Вихід при зламі тренду: ціна вище SMA50 <b>${sma50:.2f}</b>")
+            lines.append("📉 Також вихід при RSI &lt; 30.")
+            risk = stop_price - price
+            if bb and risk > 0 and bb < price:
+                lines.append(f"Співвідношення прибуток/ризик ≈ {(price - bb) / risk:.1f} : 1")
+        else:
+            lines = [
+                f"🟢 <b>КУПІВЛЯ {ticker}</b> ({sector_of(ticker)})",
+                _mode_label(),
+                "",
+                f"Вхід: <b>${price:.2f}</b> × {qty:.4f} шт (≈ £{value_gbp:.0f})",
+                f"🛑 Початковий стоп-лос: <b>${stop_price:.2f}</b> (−{STOP_LOSS_PCT:g}%)",
+                f"   Стоп трейлінговий: підтягується за ціною на {STOP_LOSS_PCT:g}% нижче піку.",
+            ]
+            bb = levels.get("bb_upper")
+            sma50 = levels.get("sma50")
+            if bb:
+                gain = (bb / price - 1) * 100
+                lines.append(f"🎯 Орієнтир виходу (верхня межа Bollinger): <b>${bb:.2f}</b> (+{gain:.1f}%)")
+            if sma50:
+                lines.append(f"⚠️ Вихід при зламі тренду: ціна нижче SMA50 <b>${sma50:.2f}</b>")
+            lines.append("📈 Також вихід при RSI &gt; 70.")
+            risk = price - stop_price
+            if bb and risk > 0 and bb > price:
+                lines.append(f"Співвідношення прибуток/ризик ≈ {(bb - price) / risk:.1f} : 1")
+        lines.append("")
+        lines.append(f"Причина входу: {reason}")
+        telegram_notifier.send_alert("\n".join(lines))
+    except Exception as e:
+        print(f"[telegram] Не вдалося надіслати повідомлення про відкриття: {e}", file=sys.stderr)
+
+
+def _notify_close(ticker: str, price: float, position: dict, reason: str, cumulative: float) -> None:
+    """Повідомлення в Telegram про закриття позиції: результат угоди."""
+    try:
+        side = position.get("side", "LONG")
+        buy_price = position.get("buy_price") or price
+        qty = position.get("qty", 0)
+        if side == "SHORT":
+            pnl = (buy_price - price) * qty
+            pnl_pct = (1 - price / buy_price) * 100
+            extreme_txt = f"Мінімум за час позиції: ${position.get('trough_price', buy_price):.2f}"
+            title = f"ЗАКРИТО ШОРТ {ticker}"
+        else:
+            pnl = (price - buy_price) * qty
+            pnl_pct = (price / buy_price - 1) * 100
+            extreme_txt = f"Максимум за час позиції: ${position.get('peak_price', buy_price):.2f}"
+            title = f"ПРОДАЖ {ticker}"
+        icon = "✅" if pnl >= 0 else "🔴"
+        opened = position.get("opened", "")[:16].replace("T", " ")
+        reason_txt = REASON_TEXT.get(reason, reason)
+        lines = [
+            f"{icon} <b>{title}</b>",
+            _mode_label(),
+            "",
+            f"Вхід: ${buy_price:.2f} → Вихід: <b>${price:.2f}</b> ({pnl_pct:+.1f}%)",
+            f"Результат угоди: <b>{pnl:+.2f}</b> (кількість {qty:.4f})",
+            extreme_txt,
+            f"Причина: {reason_txt}",
+        ]
+        if opened:
+            lines.append(f"Відкрито: {opened} UTC")
+        lines.append(f"Сукупний результат: {cumulative:+.2f}")
+        telegram_notifier.send_alert("\n".join(lines))
+    except Exception as e:
+        print(f"[telegram] Не вдалося надіслати повідомлення про продаж: {e}", file=sys.stderr)
+
+
 def _execute_sell(ticker: str, t212_ticker: str, qty: float, price: float, reason: str, trading_state: dict) -> None:
     position = trading_state["positions"].get(ticker, {})
     order = t212.place_market_order(t212_ticker, -qty)
@@ -151,13 +262,57 @@ def _execute_sell(ticker: str, t212_ticker: str, qty: float, price: float, reaso
             pnl_gbp = (price - buy_price) * qty
             trading_state["cumulative_pnl_gbp"] = round(trading_state["cumulative_pnl_gbp"] + pnl_gbp, 2)
             trading_state["peak_pnl_gbp"] = max(trading_state["peak_pnl_gbp"], trading_state["cumulative_pnl_gbp"])
+        _notify_close(ticker, price, position, reason, trading_state["cumulative_pnl_gbp"])
         del trading_state["positions"][ticker]
         print(f"[trading212] {ticker}: ПРОДАНО ({reason}) — {order['detail']}")
     else:
         print(f"[trading212] {ticker}: продаж НЕ вдався — {order['detail']}")
 
 
-def _execute_buy(ticker: str, t212_ticker: str, price: float, reason: str, trading_state: dict) -> None:
+def _execute_cover(ticker: str, price: float, reason: str, trading_state: dict) -> None:
+    """Закриття віртуального шорту. Реальних ордерів не існує (лише dry-run)."""
+    position = trading_state["positions"].get(ticker, {})
+    qty = position.get("qty", 0)
+    log_trade(
+        trading_state, ticker=ticker, action="COVER", reason=reason,
+        qty=qty, price=price, ok=True, dry_run=True, detail="(virtual short) COVER",
+    )
+    entry = position.get("buy_price")
+    if entry:
+        pnl = (entry - price) * qty
+        trading_state["cumulative_pnl_gbp"] = round(trading_state["cumulative_pnl_gbp"] + pnl, 2)
+        trading_state["peak_pnl_gbp"] = max(trading_state["peak_pnl_gbp"], trading_state["cumulative_pnl_gbp"])
+    _notify_close(ticker, price, position, reason, trading_state["cumulative_pnl_gbp"])
+    trading_state["positions"].pop(ticker, None)
+    print(f"[trading212] {ticker}: ШОРТ ЗАКРИТО ({reason}) — віртуально")
+
+
+def _execute_short(ticker: str, price: float, reason: str, trading_state: dict, levels: dict) -> None:
+    """Відкриття віртуального шорту. Реальних ордерів НЕ відправляє ніколи."""
+    remaining_budget = MAX_DAILY_GBP - trading_state["daily_spent_gbp"]
+    trade_value = min(MAX_PER_TRADE_GBP, remaining_budget)
+    if trade_value < MIN_TRADE_GBP:
+        return
+    qty = round(trade_value / price, 4)
+    if qty <= 0:
+        return
+    log_trade(
+        trading_state, ticker=ticker, action="SHORT", reason=reason,
+        qty=qty, price=price, value_gbp=round(trade_value, 2), ok=True,
+        dry_run=True, detail="(virtual short) SHORT",
+    )
+    trading_state["positions"][ticker] = {
+        "side": "SHORT", "qty": qty, "buy_price": price, "trough_price": price,
+        "peak_price": price, "t212_ticker": "", "opened": datetime.now(timezone.utc).isoformat(),
+    }
+    trading_state["daily_spent_gbp"] = round(trading_state["daily_spent_gbp"] + trade_value, 2)
+    _notify_open(ticker, price, qty, trade_value, reason,
+                 price * (1 + STOP_LOSS_PCT / 100), levels, side="SHORT")
+    print(f"[trading212] {ticker}: ШОРТ ВІДКРИТО ({reason}) — віртуально")
+
+
+def _execute_buy(ticker: str, t212_ticker: str, price: float, reason: str, trading_state: dict,
+                 levels: dict | None = None) -> None:
     remaining_budget = MAX_DAILY_GBP - trading_state["daily_spent_gbp"]
     trade_value = min(MAX_PER_TRADE_GBP, remaining_budget)
     if trade_value < MIN_TRADE_GBP:
@@ -179,6 +334,8 @@ def _execute_buy(ticker: str, t212_ticker: str, price: float, reason: str, tradi
             "opened": datetime.now(timezone.utc).isoformat(),
         }
         trading_state["daily_spent_gbp"] = round(trading_state["daily_spent_gbp"] + trade_value, 2)
+        _notify_open(ticker, price, qty, trade_value, reason,
+                     price * (1 - STOP_LOSS_PCT / 100), levels or {})
         print(f"[trading212] {ticker}: КУПЛЕНО ({reason}) — {order['detail']}")
     else:
         print(f"[trading212] {ticker}: купівля НЕ вдалася — {order['detail']}")
@@ -216,17 +373,32 @@ def run_trading_scan(trading_state: dict) -> None:
             continue
 
         position = trading_state["positions"].get(ticker)
-        t212_ticker = position["t212_ticker"] if position else t212.find_instrument_ticker(ticker)
+        t212_ticker = (position.get("t212_ticker") if position else None) or t212.find_instrument_ticker(ticker)
         if not t212_ticker:
             continue
         scanned += 1
+        shorts_active = ENABLE_SHORTS and t212.DRY_RUN  # шорти лише віртуально
 
         try:
             dfi = strategy.add_all_indicators(df)
             i = len(dfi) - 1
             price = float(dfi["close"].iloc[i])
+            last = dfi.iloc[i]
 
-            if position:
+            if position and position.get("side") == "SHORT":
+                # Трейлінг-стоп шорту: рахується від найнижчої ціни з моменту
+                # входу, стоп знаходиться на STOP_LOSS_PCT% ВИЩЕ мінімуму.
+                position["trough_price"] = min(position.get("trough_price", position["buy_price"]), price)
+                stop_price = position["trough_price"] * (1 + STOP_LOSS_PCT / 100)
+                if price >= stop_price:
+                    _execute_cover(ticker, price, "TRAILING_STOP_LOSS", trading_state)
+                    signals_found += 1
+                    continue
+                action, reason = strategy.short_strategy_signal(dfi, i, True)
+                if action == "COVER":
+                    _execute_cover(ticker, price, reason, trading_state)
+                    signals_found += 1
+            elif position:
                 # Трейлінг стоп-лос: рахуємо від найвищої ціни з моменту
                 # купівлі, а не від самої ціни купівлі — фіксує частину
                 # прибутку, якщо ціна встигла вирости, перш ніж впасти.
@@ -254,10 +426,30 @@ def run_trading_scan(trading_state: dict) -> None:
                         continue  # годинний сигнал є, але денний тренд не підтверджує — пропускаємо
                     if AVOID_EARNINGS_DAYS > 0 and _earnings_too_soon(ticker, AVOID_EARNINGS_DAYS):
                         continue  # скоро звітність — надто непередбачувано
-                    _execute_buy(ticker, t212_ticker, price, f"{reason}+DAILY_TREND_UP", trading_state)
+                    levels = {
+                        "bb_upper": None if pd.isna(last["bb_upper"]) else float(last["bb_upper"]),
+                        "sma50": None if pd.isna(last["sma50"]) else float(last["sma50"]),
+                    }
+                    _execute_buy(ticker, t212_ticker, price, f"{reason}+DAILY_TREND_UP", trading_state, levels)
                     open_positions_count += 1
                     sector_counts[sector] = sector_counts.get(sector, 0) + 1
                     signals_found += 1
+                elif shorts_active:
+                    s_action, s_reason = strategy.short_strategy_signal(dfi, i, False)
+                    if s_action == "SHORT":
+                        daily_df = daily_batch.get(ticker)
+                        if not strategy.daily_trend_bearish(daily_df):
+                            continue  # денний тренд не низхідний — не шортимо
+                        if AVOID_EARNINGS_DAYS > 0 and _earnings_too_soon(ticker, AVOID_EARNINGS_DAYS):
+                            continue
+                        levels = {
+                            "bb_lower": None if pd.isna(last["bb_lower"]) else float(last["bb_lower"]),
+                            "sma50": None if pd.isna(last["sma50"]) else float(last["sma50"]),
+                        }
+                        _execute_short(ticker, price, f"{s_reason}+DAILY_TREND_DOWN", trading_state, levels)
+                        open_positions_count += 1
+                        sector_counts[sector] = sector_counts.get(sector, 0) + 1
+                        signals_found += 1
         except Exception as e:
             print(f"[trading212] Помилка аналізу {ticker}: {e}", file=sys.stderr)
 
@@ -317,9 +509,11 @@ def run_check() -> None:
                 lines.append(f"• {ev['type']}: {ev['detail']}")
             lines.append(f"\nПоточна ціна: {result['price']:.4f} | RSI: {result['rsi']:.1f}")
             lines.append("\n<i>Описові відмітки індикаторів, не торгові рекомендації.</i>")
-            telegram_notifier.send_alert("\n".join(lines))
+            if INDICATOR_ALERTS:
+                telegram_notifier.send_alert("\n".join(lines))
             dashboard_builder.append_alerts_log(sent, ticker)
-            print(f"[{ticker}] Надіслано {len(sent)} нове(их) сповіщення(ь).")
+            print(f"[{ticker}] Нових відміток індикаторів: {len(sent)} "
+                  f"({'надіслано в Telegram' if INDICATOR_ALERTS else 'лише в журнал дашборда'}).")
         else:
             print(f"[{ticker}] Ціна={result['price']:.4f}, RSI={result['rsi']:.1f}. Нічого нового.")
 

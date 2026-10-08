@@ -181,6 +181,64 @@ def new_strategy_signal(df: pd.DataFrame, i: int, has_position: bool) -> tuple:
         return None, ""
 
 
+def short_strategy_signal(df: pd.DataFrame, i: int, has_short: bool) -> tuple:
+    """Дзеркальна до new_strategy_signal стратегія для ШОРТУ (ставка на
+    падіння ціни). ТІЛЬКИ для віртуального режиму: у Trading 212 Invest/ISA
+    шортів немає. НЕ перевірена бектестом.
+    Повертає ("SHORT"|"COVER"|None, reason)."""
+    row = df.iloc[i]
+    rsi, price = row["rsi"], row["close"]
+    sma50, sma200 = row["sma50"], row["sma200"]
+    macd, macd_signal = row["macd"], row["macd_signal"]
+    bb_upper, bb_lower = row["bb_upper"], row["bb_lower"]
+    adx = row.get("adx")
+    volume, vol_sma20 = row.get("volume"), row.get("vol_sma20")
+
+    if pd.isna(rsi) or pd.isna(sma200) or pd.isna(macd) or pd.isna(bb_upper):
+        return None, ""
+
+    if not has_short:
+        if not price < sma200:
+            return None, ""  # шортимо лише в довгостроковому низхідному тренді
+        if adx is not None and not pd.isna(adx) and adx < 15:
+            return None, ""
+
+        votes = []
+        if rsi > 65:
+            votes.append("RSI>65")
+        if price >= bb_upper:
+            votes.append("NEAR_UPPER_BB")
+        if macd < macd_signal:
+            votes.append("MACD_BEARISH")
+        if volume is not None and vol_sma20 is not None and not pd.isna(vol_sma20) and vol_sma20 > 0 \
+                and volume > 1.2 * vol_sma20:
+            votes.append("VOLUME_CONFIRMED")
+
+        if len(votes) >= 2:
+            return "SHORT", "+".join(votes)
+        return None, ""
+    else:
+        if rsi < 30:
+            return "COVER", "RSI_OVERSOLD"
+        if price <= bb_lower:
+            return "COVER", "NEAR_LOWER_BB"
+        if not pd.isna(sma50) and price > sma50:
+            return "COVER", "TREND_BREAK_SMA50"
+        return None, ""
+
+
+def daily_trend_bearish(daily_df: pd.DataFrame) -> bool:
+    """Дзеркало daily_trend_bullish: на денному графіку ціна нижче SMA50,
+    а SMA50 нижче SMA200 (низхідний тренд). False, якщо даних мало."""
+    if daily_df is None or len(daily_df) < 200:
+        return False
+    d = add_all_indicators(daily_df)
+    last = d.iloc[-1]
+    if pd.isna(last["sma50"]) or pd.isna(last["sma200"]):
+        return False
+    return bool(last["close"] < last["sma50"] < last["sma200"])
+
+
 def daily_trend_bullish(daily_df: pd.DataFrame) -> bool:
     """Мультитаймфрейм-фільтр: дивимось на ЩОДЕННИЙ графік (окремо від
     того таймфрейму, яким торгуємо — напр. 1h) і визначаємо загальний

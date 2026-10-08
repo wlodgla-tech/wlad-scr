@@ -70,19 +70,24 @@ def fetch_history(ticker: str, years: int) -> pd.DataFrame:
 
 
 def simulate(df: pd.DataFrame, signal_fn, trade_value: float, stop_loss_pct: float,
-             commission_pct: float = 0.0) -> dict:
+             commission_pct: float = 0.0, side: str = "LONG") -> dict:
     """Проходить по барах один раз (без зазирання вперед — на кожному
     кроці рахуємо сигнал лише з даних ДО цього бара включно) і симулює
     угоди з фіксованим розміром `trade_value` на вхід. Стоп-лос —
-    ТРЕЙЛІНГ (від найвищої ціни з моменту купівлі, не від ціни купівлі),
-    так само як у живому боті. `commission_pct` — умовна комісія/спред
-    в % від суми угоди, знімається і при купівлі, і при продажу."""
+    ТРЕЙЛІНГ, так само як у живому боті: для LONG від найвищої ціни з
+    моменту купівлі, для SHORT від найнижчої з моменту входу (стоп вище).
+    `commission_pct` — умовна комісія/спред в % від суми угоди, знімається
+    і при вході, і при виході. side="SHORT" — ставка на падіння
+    (signal_fn має повертати "SHORT"/"COVER")."""
+    is_short = side == "SHORT"
+    entry_action, exit_action = ("SHORT", "COVER") if is_short else ("BUY", "SELL")
     trades = []
-    position = None  # {"buy_price", "peak_price", "qty", "entry_i"}
+    position = None  # {"buy_price", "extreme", "qty", "entry_i"}
     commission_frac = commission_pct / 100
 
     def _close(exit_i: int, price: float, reason: str) -> None:
-        gross_pnl = (price - position["buy_price"]) * position["qty"]
+        move = (position["buy_price"] - price) if is_short else (price - position["buy_price"])
+        gross_pnl = move * position["qty"]
         commission = (position["buy_price"] + price) * position["qty"] * commission_frac
         pnl = gross_pnl - commission
         trades.append({
@@ -95,22 +100,26 @@ def simulate(df: pd.DataFrame, signal_fn, trade_value: float, stop_loss_pct: flo
         price = float(df["close"].iloc[i])
 
         if position is not None:
-            position["peak_price"] = max(position["peak_price"], price)
-            stop_price = position["peak_price"] * (1 - stop_loss_pct / 100)
-            if price <= stop_price:
+            if is_short:
+                position["extreme"] = min(position["extreme"], price)
+                stop_hit = price >= position["extreme"] * (1 + stop_loss_pct / 100)
+            else:
+                position["extreme"] = max(position["extreme"], price)
+                stop_hit = price <= position["extreme"] * (1 - stop_loss_pct / 100)
+            if stop_hit:
                 _close(i, price, "TRAILING_STOP_LOSS")
                 position = None
                 continue
 
             action, reason = signal_fn(df, i, True)
-            if action == "SELL":
+            if action == exit_action:
                 _close(i, price, reason)
                 position = None
         else:
             action, reason = signal_fn(df, i, False)
-            if action == "BUY":
+            if action == entry_action:
                 qty = trade_value / price
-                position = {"buy_price": price, "peak_price": price, "qty": qty, "entry_i": i}
+                position = {"buy_price": price, "extreme": price, "qty": qty, "entry_i": i}
 
     # якщо позиція лишилась відкритою в кінці періоду — закриваємо по
     # останній ціні, щоб статистика не ігнорувала "завислу" угоду
@@ -175,17 +184,20 @@ def run_all() -> dict:
 
         old_result = simulate(df, strategy.old_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT)
         new_result = simulate(df, strategy.new_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT)
+        short_result = simulate(df, strategy.short_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT,
+                                side="SHORT")
 
         buy_hold_pct = (float(df["close"].iloc[-1]) / float(df["close"].iloc[MIN_WARMUP_BARS]) - 1) * 100
 
         results[ticker] = {
-            "old": old_result, "new": new_result, "buy_hold_pct": round(buy_hold_pct, 2),
+            "old": old_result, "new": new_result, "short": short_result, "buy_hold_pct": round(buy_hold_pct, 2),
             "period_start": str(df["timestamp"].iloc[MIN_WARMUP_BARS])[:10],
             "period_end": str(df["timestamp"].iloc[-1])[:10],
         }
         print(f"[backtest] {ticker}: OLD {old_result['num_trades']} угод, "
               f"{old_result['total_pnl_pct']}% | NEW {new_result['num_trades']} угод, "
-              f"{new_result['total_pnl_pct']}% | Buy&Hold {buy_hold_pct:.1f}%")
+              f"{new_result['total_pnl_pct']}% | SHORT {short_result['num_trades']} угод, "
+              f"{short_result['total_pnl_pct']}% | Buy&Hold {buy_hold_pct:.1f}%")
 
     return results
 
@@ -193,7 +205,8 @@ def run_all() -> dict:
 def build_report_html(results: dict) -> str:
     rows = ""
     for ticker, r in results.items():
-        for label, key in (("Стара (RSI+рівні)", "old"), ("Нова (RSI+тренд+MACD+BB)", "new")):
+        for label, key in (("Стара (RSI+рівні)", "old"), ("Нова (RSI+тренд+MACD+BB)", "new"),
+                           ("Шорт (ставка на падіння)", "short")):
             res = r[key]
             pnl_class = "bull" if res["total_pnl_pct"] > 0 else ("bear" if res["total_pnl_pct"] < 0 else "neutral")
             rows += f"""
