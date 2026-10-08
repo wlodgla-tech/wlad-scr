@@ -100,6 +100,7 @@ def add_all_indicators(df: pd.DataFrame) -> pd.DataFrame:
     df["bb_lower"] = bb_lower
     df["adx"] = compute_adx(df)
     df["vol_sma20"] = df["volume"].rolling(20).mean()
+    df["hh50"] = df["close"].rolling(50).max().shift(1)  # максимум закриття за попередні 50 барів
     return df
 
 
@@ -330,3 +331,37 @@ STRATEGIES = {
     "old": old_strategy_signal,
     "new": new_strategy_signal,
 }
+
+
+# ---------------------------------------------------------------------------
+# Трендова стратегія та перемикання режимів (для бектесту)
+# ---------------------------------------------------------------------------
+
+def trend_signal(df: pd.DataFrame, i: int, has_position) -> tuple:
+    """Трендова: вхід на пробої 50-барного максимуму вище SMA200, вихід
+    лише при закритті нижче SMA200 (плюс широкий трейлінг-стоп у simulate)."""
+    row = df.iloc[i]
+    price, sma200, hh50 = row["close"], row["sma200"], row["hh50"]
+    if pd.isna(sma200) or pd.isna(hh50):
+        return None, ""
+    if not has_position:
+        if price > sma200 and price > hh50:
+            return "BUY", "TREND_BREAKOUT"
+        return None, ""
+    if price < sma200:
+        return "SELL", "TREND_BREAK"
+    return None, ""
+
+
+def regime_signal(df: pd.DataFrame, i: int, has_position) -> tuple:
+    """Перемикання режимів: пробій вище SMA200 = трендова логіка (широкий
+    стоп, без продажу на RSI), інакше — стара логіка відскоку.
+    has_position == "TREND" означає, що відкрита позиція трендова."""
+    if has_position == "TREND":
+        return trend_signal(df, i, True)
+    if not has_position:
+        action, reason = trend_signal(df, i, False)
+        if action == "BUY":
+            return action, reason
+        return old_strategy_signal(df, i, False)
+    return old_strategy_signal(df, i, True)
