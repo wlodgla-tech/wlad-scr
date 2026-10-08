@@ -45,7 +45,14 @@ def _env(name: str, default: str) -> str:
     return val.strip() if val.strip() else default
 
 
-TICKERS = [t.strip() for t in _env("BACKTEST_TICKERS", "AAPL,MSFT,NVDA,TSLA").split(",") if t.strip()]
+def _parse_tickers(raw: str) -> list:
+    if raw.strip().upper() in ("ALL", "ALL_US"):
+        import watchlist
+        return [t for t in watchlist.TRADING_UNIVERSE if not t.endswith(".L")]
+    return [t.strip() for t in raw.split(",") if t.strip()]
+
+
+TICKERS = _parse_tickers(_env("BACKTEST_TICKERS", "AAPL,MSFT,NVDA,TSLA"))
 YEARS = int(_env("BACKTEST_YEARS", "3"))
 TRADE_VALUE = float(_env("MAX_PER_TRADE_GBP", "20"))
 STOP_LOSS_PCT = float(_env("STOP_LOSS_PCT", "7"))
@@ -233,6 +240,34 @@ def build_report_html(results: dict) -> str:
               <td class="mono">—</td>
             </tr>"""
 
+    summary_rows = ""
+    if len(results) > 1:
+        for label, key in (("Стара (RSI+рівні)", "old"), ("Попередня нова (без вимоги просадки)", "prev"),
+                           ("Нова (вхід після просадки)", "new"), ("Шорт (ставка на падіння)", "short")):
+            rs = [r[key] for r in results.values() if r.get(key)]
+            n = sum(x["num_trades"] for x in rs)
+            inv = sum(x["total_invested"] for x in rs)
+            pnl = sum(x["total_pnl"] for x in rs)
+            wins = sum(x["win_rate"] * x["num_trades"] / 100 for x in rs)
+            pct = pnl / inv * 100 if inv else 0.0
+            cls = "bull" if pct > 0 else ("bear" if pct < 0 else "neutral")
+            summary_rows += f"""
+            <tr><td>{label}</td><td class="mono">{n}</td>
+            <td class="mono">{(wins / n * 100) if n else 0:.1f}%</td>
+            <td class="mono {cls}">{pct:+.2f}%</td></tr>"""
+        bh = sum(r["buy_hold_pct"] for r in results.values()) / len(results)
+        summary_rows += f"""
+            <tr class="benchmark-row"><td>Купив і тримав (середнє по {len(results)} акціях за весь період)</td>
+            <td class="mono">—</td><td class="mono">—</td><td class="mono">{bh:+.2f}%</td></tr>"""
+        summary_html = f"""
+  <h1 style="margin-top:18px">ПІДСУМОК по {len(results)} акціях</h1>
+  <div class="updated">«Прибуток» = середній % за одну угоду (всі угоди разом).</div>
+  <table><tr><th>Стратегія</th><th>Угод</th><th>Win rate</th><th>Сер. % за угоду</th></tr>{summary_rows}</table>
+  <details><summary style="margin-top:18px;color:var(--muted)">Деталі по кожній акції</summary>"""
+        details_end = "</details>"
+    else:
+        summary_html = details_end = ""
+
     periods = ", ".join(f"{t}: {r['period_start']} → {r['period_end']}" for t, r in results.items())
     updated = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
@@ -272,10 +307,12 @@ def build_report_html(results: dict) -> str:
     комісія/спред {COMMISSION_PCT:.2f}% врахована в розрахунку (і при купівлі,
     і при продажу) — реальний результат все одно може трохи відрізнятись.
   </div>
+  {summary_html}
   <table>
     <tr><th>Тікер</th><th>Стратегія</th><th>Угод</th><th>Win rate</th><th>Прибуток</th><th>Макс. просадка</th></tr>
     {rows}
   </table>
+  {details_end}
   <div class="period">Період: {periods}</div>
 </div>
 </body>
