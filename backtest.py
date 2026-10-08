@@ -184,19 +184,21 @@ def run_all() -> dict:
 
         old_result = simulate(df, strategy.old_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT)
         new_result = simulate(df, strategy.new_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT)
+        prev_result = simulate(df, strategy.new_strategy_signal_no_dip, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT)
         short_result = simulate(df, strategy.short_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT,
                                 side="SHORT")
 
         buy_hold_pct = (float(df["close"].iloc[-1]) / float(df["close"].iloc[MIN_WARMUP_BARS]) - 1) * 100
 
         results[ticker] = {
-            "old": old_result, "new": new_result, "short": short_result, "buy_hold_pct": round(buy_hold_pct, 2),
+            "old": old_result, "new": new_result, "prev": prev_result, "short": short_result, "buy_hold_pct": round(buy_hold_pct, 2),
             "period_start": str(df["timestamp"].iloc[MIN_WARMUP_BARS])[:10],
             "period_end": str(df["timestamp"].iloc[-1])[:10],
         }
         print(f"[backtest] {ticker}: OLD {old_result['num_trades']} угод, "
               f"{old_result['total_pnl_pct']}% | NEW {new_result['num_trades']} угод, "
-              f"{new_result['total_pnl_pct']}% | SHORT {short_result['num_trades']} угод, "
+              f"{new_result['total_pnl_pct']}% | PREV {prev_result['num_trades']} угод, "
+              f"{prev_result['total_pnl_pct']}% | SHORT {short_result['num_trades']} угод, "
               f"{short_result['total_pnl_pct']}% | Buy&Hold {buy_hold_pct:.1f}%")
 
     return results
@@ -205,9 +207,12 @@ def run_all() -> dict:
 def build_report_html(results: dict) -> str:
     rows = ""
     for ticker, r in results.items():
-        for label, key in (("Стара (RSI+рівні)", "old"), ("Нова (RSI+тренд+MACD+BB)", "new"),
+        for label, key in (("Стара (RSI+рівні)", "old"), ("Попередня нова (без вимоги просадки)", "prev"),
+                           ("Нова (вхід після просадки)", "new"),
                            ("Шорт (ставка на падіння)", "short")):
-            res = r[key]
+            res = r.get(key)
+            if not res:
+                continue
             pnl_class = "bull" if res["total_pnl_pct"] > 0 else ("bear" if res["total_pnl_pct"] < 0 else "neutral")
             rows += f"""
             <tr>

@@ -132,9 +132,14 @@ def old_strategy_signal(df: pd.DataFrame, i: int, has_position: bool) -> tuple:
         return None, ""
 
 
-def new_strategy_signal(df: pd.DataFrame, i: int, has_position: bool) -> tuple:
+def new_strategy_signal(df: pd.DataFrame, i: int, has_position: bool, require_dip: bool = True) -> tuple:
     """Посилена стратегія зі збігом кількох сигналів + фільтр тренду +
-    фільтр сили тренду (ADX) + підтвердження обсягом."""
+    фільтр сили тренду (ADX) + підтвердження обсягом.
+
+    require_dip=True (за замовчуванням): серед голосів за купівлю ОБОВ'ЯЗКОВО
+    має бути хоча б один "ціна впала" (RSI<35 або ціна біля нижньої межі
+    Bollinger). Без цього бот купував на піку за MACD+обсягом і одразу ж
+    продавав за правилами виходу (верхня межа Bollinger / RSI>70)."""
     row = df.iloc[i]
     rsi, price = row["rsi"], row["close"]
     sma50, sma200 = row["sma50"], row["sma200"]
@@ -168,7 +173,8 @@ def new_strategy_signal(df: pd.DataFrame, i: int, has_position: bool) -> tuple:
                 and volume > 1.2 * vol_sma20:
             votes.append("VOLUME_CONFIRMED")
 
-        if len(votes) >= 2:
+        has_dip = "RSI<35" in votes or "NEAR_LOWER_BB" in votes
+        if len(votes) >= 2 and (has_dip or not require_dip):
             return "BUY", "+".join(votes)
         return None, ""
     else:
@@ -179,6 +185,12 @@ def new_strategy_signal(df: pd.DataFrame, i: int, has_position: bool) -> tuple:
         if not pd.isna(sma50) and price < sma50:
             return "SELL", "TREND_BREAK_SMA50"
         return None, ""
+
+
+def new_strategy_signal_no_dip(df: pd.DataFrame, i: int, has_position: bool) -> tuple:
+    """Попередня версія нової стратегії (без вимоги "ціна впала") — лише
+    для порівняння в бектесті."""
+    return new_strategy_signal(df, i, has_position, require_dip=False)
 
 
 def short_strategy_signal(df: pd.DataFrame, i: int, has_short: bool) -> tuple:
@@ -228,8 +240,8 @@ def short_strategy_signal(df: pd.DataFrame, i: int, has_short: bool) -> tuple:
 
 
 def entry_radar(df: pd.DataFrame, max_distance_pct: float = 5.0):
-    """"Радар входів": акція, яка ЩЕ НЕ дала сигналу на купівлю (має рівно 1
-    голос з 4), але може дати його, якщо ціна впаде до певного рівня.
+    """"Радар входів": акція, яка ЩЕ НЕ дала сигналу на купівлю (має 1–2
+    голоси з 4), але може дати його, якщо ціна впаде до певного рівня.
     Повертає dict з рівнем входу (`trigger`) або None.
 
     Рівні рахуємо наближено: нижня межа Bollinger (вона трохи зміщується
@@ -257,8 +269,10 @@ def entry_radar(df: pd.DataFrame, max_distance_pct: float = 5.0):
         have.append("MACD вгору")
     if vol is not None and vol_sma is not None and not pd.isna(vol_sma) and vol_sma > 0 and vol > 1.2 * vol_sma:
         have.append("підвищений обсяг")
-    if len(have) != 1:
-        return None  # 0 голосів — далеко від сигналу; 2+ — бот уже діє сам
+    if not have or len(have) > 2:
+        return None  # 0 голосів — далеко від сигналу
+    if new_strategy_signal(df, len(df) - 1, False)[0] == "BUY":
+        return None  # сигнал уже є — бот діє сам
 
     # Шукаємо ціну входу СИМУЛЯЦІЄЮ: поступово опускаємо останню ціну (кроки
     # по 0.25%) і дивимось, при якій стратегія реально дасть BUY. Це точніше
