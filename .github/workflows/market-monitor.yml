@@ -12,7 +12,9 @@ on:
 
 permissions:
   contents: write   # потрібно, щоб зберігати файл стану (дедуплікація сповіщень)
-
+concurrency:
+  group: market-monitor
+  cancel-in-progress: false
 jobs:
   check-market:
     runs-on: ubuntu-latest
