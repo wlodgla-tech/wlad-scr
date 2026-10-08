@@ -1,11 +1,11 @@
 {
   "date": "2026-10-08",
-  "daily_spent_gbp": 900.0,
+  "daily_spent_gbp": 1200.0,
   "positions": {
     "SHEL.L": {
       "qty": 2.6802,
       "buy_price": 37.31,
-      "peak_price": 37.325,
+      "peak_price": 37.425000000000004,
       "t212_ticker": "SHEL.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:19:58.572016+00:00",
       "stop_pct": 20.0,
@@ -14,7 +14,7 @@
     "HSBA.L": {
       "qty": 7.2812,
       "buy_price": 13.734000244140626,
-      "peak_price": 13.75199951171875,
+      "peak_price": 13.76,
       "t212_ticker": "HSBA.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:19:59.164387+00:00",
       "stop_pct": 7.0,
@@ -23,7 +23,7 @@
     "BP.L": {
       "qty": 17.2117,
       "buy_price": 5.8100000000000005,
-      "peak_price": 5.8100000000000005,
+      "peak_price": 5.830999755859375,
       "t212_ticker": "BP.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:19:59.715151+00:00",
       "stop_pct": 20.0,
@@ -50,7 +50,7 @@
     "BA.L": {
       "qty": 5.484,
       "buy_price": 18.235,
-      "peak_price": 18.235,
+      "peak_price": 18.275000000000002,
       "t212_ticker": "BA.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:20:01.386565+00:00",
       "stop_pct": 7.0,
@@ -64,6 +64,15 @@
       "opened": "2026-10-08T11:20:02.010530+00:00",
       "stop_pct": 7.0,
       "mode": null
+    },
+    "TSCO.L": {
+      "qty": 59.7566,
+      "buy_price": 5.020369873046875,
+      "peak_price": 5.020369873046875,
+      "t212_ticker": "TSCO.L_UK_VIRTUAL",
+      "opened": "2026-10-08T11:42:59.754950+00:00",
+      "stop_pct": 20.0,
+      "mode": "TREND"
     }
   },
   "trade_log": [
@@ -196,6 +205,18 @@
       "dry_run": true,
       "detail": "(dry-run) BUY 0.6880 x NXT.L_UK_VIRTUAL",
       "time": "2026-10-08T11:20:02.010519+00:00"
+    },
+    {
+      "ticker": "TSCO.L",
+      "action": "BUY",
+      "reason": "TREND_BREAKOUT",
+      "qty": 59.7566,
+      "price": 5.020369873046875,
+      "value_gbp": 300.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 59.7566 x TSCO.L_UK_VIRTUAL",
+      "time": "2026-10-08T11:42:59.754943+00:00"
     }
   ],
   "cumulative_pnl_gbp": -0.15,
