@@ -5,7 +5,7 @@
     "SHEL.L": {
       "qty": 2.6802,
       "buy_price": 37.31,
-      "peak_price": 37.425000000000004,
+      "peak_price": 37.44,
       "t212_ticker": "SHEL.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:19:58.572016+00:00",
       "stop_pct": 20.0,
@@ -14,7 +14,7 @@
     "HSBA.L": {
       "qty": 7.2812,
       "buy_price": 13.734000244140626,
-      "peak_price": 13.804000244140624,
+      "peak_price": 13.834000244140626,
       "t212_ticker": "HSBA.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:19:59.164387+00:00",
       "stop_pct": 7.0,
@@ -41,7 +41,7 @@
     "PRU.L": {
       "qty": 11.4077,
       "buy_price": 8.765999755859376,
-      "peak_price": 8.805999755859375,
+      "peak_price": 8.822000122070312,
       "t212_ticker": "PRU.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:20:00.856686+00:00",
       "stop_pct": 7.0,
@@ -50,7 +50,7 @@
     "BA.L": {
       "qty": 5.484,
       "buy_price": 18.235,
-      "peak_price": 18.3331005859375,
+      "peak_price": 18.36,
       "t212_ticker": "BA.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:20:01.386565+00:00",
       "stop_pct": 7.0,
@@ -77,7 +77,7 @@
     "INF.L": {
       "qty": 34.0445,
       "buy_price": 8.812000122070312,
-      "peak_price": 8.862000122070313,
+      "peak_price": 8.92,
       "t212_ticker": "INF.L_UK_VIRTUAL",
       "opened": "2026-10-08T12:00:08.276820+00:00",
       "stop_pct": 7.0,
