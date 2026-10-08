@@ -109,7 +109,8 @@
       "t212_ticker": "BATS.L_UK_VIRTUAL",
       "opened": "2026-10-08T23:17:01.706041+00:00",
       "stop_pct": 7.0,
-      "mode": null
+      "mode": null,
+      "last_price": 40.84
     }
   },
   "trade_log": [
