@@ -45,11 +45,83 @@ def _env(name: str, default: str) -> str:
     return val.strip() if val.strip() else default
 
 
+def _wiki_table_column(url: str, header_words: tuple) -> list:
+    """Тягне таблицю складу індексу з Вікіпедії (без lxml: простий парсер
+    зі стандартної бібліотеки) і повертає значення колонки, чий заголовок
+    містить одне зі слів header_words."""
+    import requests
+    from html.parser import HTMLParser
+
+    html = requests.get(url, headers={"User-Agent": "Mozilla/5.0 (market-monitor backtest)"}, timeout=30).text
+
+    class P(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.tables, self.row, self.cell, self.in_cell = [], None, "", False
+            self.cur = None
+
+        def handle_starttag(self, tag, attrs):
+            if tag == "table":
+                self.cur = []
+            elif tag == "tr" and self.cur is not None:
+                self.row = []
+            elif tag in ("td", "th") and self.row is not None:
+                self.in_cell, self.cell = True, ""
+
+        def handle_endtag(self, tag):
+            if tag in ("td", "th") and self.in_cell:
+                self.row.append(self.cell.strip()); self.in_cell = False
+            elif tag == "tr" and self.row is not None and self.cur is not None:
+                self.cur.append(self.row); self.row = None
+            elif tag == "table" and self.cur is not None:
+                self.tables.append(self.cur); self.cur = None
+
+        def handle_data(self, data):
+            if self.in_cell:
+                self.cell += data
+
+    p = P(); p.feed(html)
+    for t in p.tables:
+        if not t:
+            continue
+        for hi, h in enumerate(t[0]):
+            if any(w in h.lower() for w in header_words) and len(t) > 20:
+                return [r[hi] for r in t[1:] if len(r) > hi and r[hi]]
+    raise RuntimeError("не знайшов таблицю складу індексу на " + url)
+
+
+def _sp500() -> list:
+    syms = _wiki_table_column("https://en.wikipedia.org/wiki/List_of_S%26P_500_companies", ("symbol", "ticker"))
+    return [s.replace(".", "-") for s in syms]
+
+
+def _ftse100() -> list:
+    syms = _wiki_table_column("https://en.wikipedia.org/wiki/FTSE_100_Index", ("ticker", "epic"))
+    return [s.strip().rstrip(".").replace(".", "-") + ".L" for s in syms]
+
+
 def _parse_tickers(raw: str) -> list:
-    if raw.strip().upper() in ("ALL", "ALL_US"):
-        import watchlist
-        return [t for t in watchlist.TRADING_UNIVERSE if not t.endswith(".L")]
-    return [t.strip() for t in raw.split(",") if t.strip()]
+    out = []
+    for tok in [t.strip() for t in raw.split(",") if t.strip()]:
+        u = tok.upper()
+        try:
+            if u in ("ALL", "ALL_US"):
+                import watchlist
+                out += [t for t in watchlist.TRADING_UNIVERSE if not t.endswith(".L")]
+            elif u == "SP500":
+                out += _sp500()
+            elif u == "FTSE100":
+                out += _ftse100()
+            else:
+                out.append(tok)
+        except Exception as e:
+            print(f"[backtest] Не вдалось отримати список {tok}: {e}")
+    seen, uniq = set(), []
+    for t in out:
+        if t not in seen:
+            seen.add(t); uniq.append(t)
+    print(f"[backtest] Усього тікерів: {len(uniq)}")
+    return uniq
 
 
 TICKERS = _parse_tickers(_env("BACKTEST_TICKERS", "AAPL,MSFT,NVDA,TSLA"))
@@ -59,6 +131,7 @@ STOP_LOSS_PCT = float(_env("STOP_LOSS_PCT", "7"))
 # Trading 212 Invest/ISA не бере комісію за акції США, але спред
 # (різниця між ціною купівлі й продажу) все одно "з'їдає" трохи — типово
 # ~0.15% в одну сторону. За замовчуванням рахуємо консервативно.
+TREND_STOP_PCT = float(_env("BACKTEST_TREND_STOP_PCT", "20"))
 COMMISSION_PCT = float(_env("BACKTEST_COMMISSION_PCT", "0.15"))
 
 DOCS_DIR = Path(__file__).parent / "docs"
@@ -77,7 +150,8 @@ def fetch_history(ticker: str, years: int) -> pd.DataFrame:
 
 
 def simulate(df: pd.DataFrame, signal_fn, trade_value: float, stop_loss_pct: float,
-             commission_pct: float = 0.0, side: str = "LONG") -> dict:
+             commission_pct: float = 0.0, side: str = "LONG",
+             trend_stop_pct: float = None, start_i: int = None, end_i: int = None) -> dict:
     """Проходить по барах один раз (без зазирання вперед — на кожному
     кроці рахуємо сигнал лише з даних ДО цього бара включно) і симулює
     угоди з фіксованим розміром `trade_value` на вхід. Стоп-лос —
@@ -102,23 +176,23 @@ def simulate(df: pd.DataFrame, signal_fn, trade_value: float, stop_loss_pct: flo
             "pnl_pct": (pnl / (position["buy_price"] * position["qty"])) * 100, "reason": reason,
         })
 
-    n = len(df)
-    for i in range(MIN_WARMUP_BARS, n):
+    n = len(df) if end_i is None else end_i
+    for i in range(max(MIN_WARMUP_BARS, start_i or 0), n):
         price = float(df["close"].iloc[i])
 
         if position is not None:
             if is_short:
                 position["extreme"] = min(position["extreme"], price)
-                stop_hit = price >= position["extreme"] * (1 + stop_loss_pct / 100)
+                stop_hit = price >= position["extreme"] * (1 + position["stop"] / 100)
             else:
                 position["extreme"] = max(position["extreme"], price)
-                stop_hit = price <= position["extreme"] * (1 - stop_loss_pct / 100)
+                stop_hit = price <= position["extreme"] * (1 - position["stop"] / 100)
             if stop_hit:
                 _close(i, price, "TRAILING_STOP_LOSS")
                 position = None
                 continue
 
-            action, reason = signal_fn(df, i, True)
+            action, reason = signal_fn(df, i, position.get("mode") or True)
             if action == exit_action:
                 _close(i, price, reason)
                 position = None
@@ -126,12 +200,15 @@ def simulate(df: pd.DataFrame, signal_fn, trade_value: float, stop_loss_pct: flo
             action, reason = signal_fn(df, i, False)
             if action == entry_action:
                 qty = trade_value / price
-                position = {"buy_price": price, "extreme": price, "qty": qty, "entry_i": i}
+                is_trend = trend_stop_pct is not None and str(reason).startswith("TREND")
+                position = {"buy_price": price, "extreme": price, "qty": qty, "entry_i": i,
+                            "stop": trend_stop_pct if is_trend else stop_loss_pct,
+                            "mode": "TREND" if is_trend else None}
 
     # якщо позиція лишилась відкритою в кінці періоду — закриваємо по
     # останній ціні, щоб статистика не ігнорувала "завислу" угоду
     if position is not None:
-        price = float(df["close"].iloc[-1])
+        price = float(df["close"].iloc[n - 1])
         _close(n - 1, price, "END_OF_PERIOD")
 
     return _summarize(trades, trade_value)
@@ -140,7 +217,7 @@ def simulate(df: pd.DataFrame, signal_fn, trade_value: float, stop_loss_pct: flo
 def _summarize(trades: list, trade_value: float) -> dict:
     if not trades:
         return {
-            "num_trades": 0, "win_rate": None, "total_pnl": 0.0, "total_invested": 0.0,
+            "num_trades": 0, "sum_pct": 0.0, "win_rate": None, "total_pnl": 0.0, "total_invested": 0.0,
             "total_pnl_pct": 0.0, "max_drawdown_pct": 0.0, "avg_win": None, "avg_loss": None,
             "best_trade_pct": None, "worst_trade_pct": None, "trades": [],
         }
@@ -161,6 +238,7 @@ def _summarize(trades: list, trade_value: float) -> dict:
 
     return {
         "num_trades": len(trades),
+        "sum_pct": round(sum(pnl_pcts), 2),
         "win_rate": round(len(wins) / len(trades) * 100, 1),
         "total_pnl": round(total_pnl, 2),
         "total_invested": round(total_invested, 2),
@@ -179,7 +257,11 @@ def run_all() -> dict:
     for ticker in TICKERS:
         print(f"[backtest] Завантажую історію для {ticker} ({YEARS} роки)...")
         try:
-            raw = fetch_history(ticker, YEARS)
+            try:
+                raw = fetch_history(ticker, YEARS)
+            except Exception:
+                import time; time.sleep(2)
+                raw = fetch_history(ticker, YEARS)
         except Exception as e:
             print(f"[backtest] Пропускаю {ticker}: {e}")
             continue
@@ -195,10 +277,24 @@ def run_all() -> dict:
         short_result = simulate(df, strategy.short_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT,
                                 side="SHORT")
 
+        mid = (MIN_WARMUP_BARS + len(df)) // 2
+        extra = {}
+        for nm, fn, tsp in (("old", strategy.old_strategy_signal, None),
+                            ("trend", strategy.trend_signal, TREND_STOP_PCT),
+                            ("regime", strategy.regime_signal, TREND_STOP_PCT)):
+            extra[nm] = simulate(df, fn, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT, trend_stop_pct=tsp) if nm != "old" else old_result
+            for hn, a, z in (("h1", MIN_WARMUP_BARS, mid), ("h2", mid, len(df))):
+                extra[f"{nm}_{hn}"] = simulate(df, fn, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT,
+                                               trend_stop_pct=tsp, start_i=a, end_i=z)
+        cl = df["close"]
+        bh_h1 = (float(cl.iloc[mid - 1]) / float(cl.iloc[MIN_WARMUP_BARS]) - 1) * 100
+        bh_h2 = (float(cl.iloc[-1]) / float(cl.iloc[mid - 1]) - 1) * 100
+
         buy_hold_pct = (float(df["close"].iloc[-1]) / float(df["close"].iloc[MIN_WARMUP_BARS]) - 1) * 100
 
         results[ticker] = {
             "old": old_result, "new": new_result, "prev": prev_result, "short": short_result, "buy_hold_pct": round(buy_hold_pct, 2),
+            "bh_h1": round(bh_h1, 2), "bh_h2": round(bh_h2, 2), **{f"x_{k}": v for k, v in extra.items()},
             "period_start": str(df["timestamp"].iloc[MIN_WARMUP_BARS])[:10],
             "period_end": str(df["timestamp"].iloc[-1])[:10],
         }
@@ -248,7 +344,7 @@ def build_report_html(results: dict) -> str:
             n = sum(x["num_trades"] for x in rs)
             inv = sum(x["total_invested"] for x in rs)
             pnl = sum(x["total_pnl"] for x in rs)
-            wins = sum(x["win_rate"] * x["num_trades"] / 100 for x in rs)
+            wins = sum((x["win_rate"] or 0) * x["num_trades"] / 100 for x in rs)
             pct = pnl / inv * 100 if inv else 0.0
             cls = "bull" if pct > 0 else ("bear" if pct < 0 else "neutral")
             summary_rows += f"""
@@ -267,6 +363,31 @@ def build_report_html(results: dict) -> str:
         details_end = "</details>"
     else:
         summary_html = details_end = ""
+
+    halves_html = ""
+    rs_all = [r for r in results.values() if "x_trend" in r]
+    if len(rs_all) > 1:
+        def avg(key, sub):
+            vals = [r[key][sub] for r in rs_all if r.get(key)]
+            return sum(vals) / len(vals) if vals else 0.0
+
+        def cell(v):
+            return f'<td class="mono {"bull" if v > 0 else "bear"}">{v:+.1f}%</td>'
+        hrows = ""
+        for label, nm in (("Стара (відскок)", "old"), ("Трендова (пробій, широкий стоп)", "trend"),
+                          ("Перемикання режимів", "regime")):
+            nt = sum(r[f"x_{nm}"]["num_trades"] for r in rs_all)
+            hrows += (f"<tr><td>{label}</td><td class='mono'>{nt}</td>"
+                      + cell(avg(f"x_{nm}", "sum_pct")) + cell(avg(f"x_{nm}_h1", "sum_pct"))
+                      + cell(avg(f"x_{nm}_h2", "sum_pct")) + "</tr>")
+        bh = lambda k: sum(r[k] for r in rs_all) / len(rs_all)
+        hrows += ("<tr class='benchmark-row'><td>Купив і тримав</td><td class='mono'>—</td>"
+                  + cell(bh("buy_hold_pct")) + cell(bh("bh_h1")) + cell(bh("bh_h2")) + "</tr>")
+        halves_html = f"""
+  <h1 style="margin-top:18px">Порівняння стратегій: сумарний результат на акцію</h1>
+  <div class="updated">Середнє по {len(rs_all)} акціях: сума % усіх угод (стартовий капітал = одна ставка, без реінвестування).
+  Обидві половини періоду — окремо, щоб побачити, чи результат стабільний.</div>
+  <table><tr><th>Стратегія</th><th>Угод</th><th>Весь період</th><th>Перша половина</th><th>Друга половина</th></tr>{hrows}</table>"""
 
     periods = ", ".join(f"{t}: {r['period_start']} → {r['period_end']}" for t, r in results.items())
     updated = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
@@ -307,6 +428,7 @@ def build_report_html(results: dict) -> str:
     комісія/спред {COMMISSION_PCT:.2f}% врахована в розрахунку (і при купівлі,
     і при продажу) — реальний результат все одно може трохи відрізнятись.
   </div>
+  {halves_html}
   {summary_html}
   <table>
     <tr><th>Тікер</th><th>Стратегія</th><th>Угод</th><th>Win rate</th><th>Прибуток</th><th>Макс. просадка</th></tr>
