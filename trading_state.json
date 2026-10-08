@@ -51,5 +51,8 @@
     }
   ],
   "cumulative_pnl_gbp": -0.15,
-  "peak_pnl_gbp": 0.33
+  "peak_pnl_gbp": 0.33,
+  "radar_sent": [
+    "2026-10-08 10"
+  ]
 }
