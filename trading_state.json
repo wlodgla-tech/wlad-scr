@@ -1,7 +1,71 @@
 {
   "date": "2026-10-08",
-  "daily_spent_gbp": 200.0,
-  "positions": {},
+  "daily_spent_gbp": 900.0,
+  "positions": {
+    "SHEL.L": {
+      "qty": 2.6802,
+      "buy_price": 37.31,
+      "peak_price": 37.31,
+      "t212_ticker": "SHEL.L_UK_VIRTUAL",
+      "opened": "2026-10-08T11:19:58.572016+00:00",
+      "stop_pct": 20.0,
+      "mode": "TREND"
+    },
+    "HSBA.L": {
+      "qty": 7.2812,
+      "buy_price": 13.734000244140626,
+      "peak_price": 13.734000244140626,
+      "t212_ticker": "HSBA.L_UK_VIRTUAL",
+      "opened": "2026-10-08T11:19:59.164387+00:00",
+      "stop_pct": 7.0,
+      "mode": null
+    },
+    "BP.L": {
+      "qty": 17.2117,
+      "buy_price": 5.8100000000000005,
+      "peak_price": 5.8100000000000005,
+      "t212_ticker": "BP.L_UK_VIRTUAL",
+      "opened": "2026-10-08T11:19:59.715151+00:00",
+      "stop_pct": 20.0,
+      "mode": "TREND"
+    },
+    "BARC.L": {
+      "qty": 23.6714,
+      "buy_price": 4.224500122070313,
+      "peak_price": 4.224500122070313,
+      "t212_ticker": "BARC.L_UK_VIRTUAL",
+      "opened": "2026-10-08T11:20:00.320643+00:00",
+      "stop_pct": 7.0,
+      "mode": null
+    },
+    "PRU.L": {
+      "qty": 11.4077,
+      "buy_price": 8.765999755859376,
+      "peak_price": 8.765999755859376,
+      "t212_ticker": "PRU.L_UK_VIRTUAL",
+      "opened": "2026-10-08T11:20:00.856686+00:00",
+      "stop_pct": 7.0,
+      "mode": null
+    },
+    "BA.L": {
+      "qty": 5.484,
+      "buy_price": 18.235,
+      "peak_price": 18.235,
+      "t212_ticker": "BA.L_UK_VIRTUAL",
+      "opened": "2026-10-08T11:20:01.386565+00:00",
+      "stop_pct": 7.0,
+      "mode": null
+    },
+    "NXT.L": {
+      "qty": 0.688,
+      "buy_price": 145.35,
+      "peak_price": 145.35,
+      "t212_ticker": "NXT.L_UK_VIRTUAL",
+      "opened": "2026-10-08T11:20:02.010530+00:00",
+      "stop_pct": 7.0,
+      "mode": null
+    }
+  },
   "trade_log": [
     {
       "ticker": "TSCO.L",
@@ -48,6 +112,90 @@
       "dry_run": true,
       "detail": "(dry-run) SELL 9.5923 x SGE.L_UK_VIRTUAL",
       "time": "2026-10-08T09:23:23.303261+00:00"
+    },
+    {
+      "ticker": "SHEL.L",
+      "action": "BUY",
+      "reason": "TREND_BREAKOUT",
+      "qty": 2.6802,
+      "price": 37.31,
+      "value_gbp": 100.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 2.6802 x SHEL.L_UK_VIRTUAL",
+      "time": "2026-10-08T11:19:58.572007+00:00"
+    },
+    {
+      "ticker": "HSBA.L",
+      "action": "BUY",
+      "reason": "RSI_OVERSOLD",
+      "qty": 7.2812,
+      "price": 13.734000244140626,
+      "value_gbp": 100.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 7.2812 x HSBA.L_UK_VIRTUAL",
+      "time": "2026-10-08T11:19:59.164377+00:00"
+    },
+    {
+      "ticker": "BP.L",
+      "action": "BUY",
+      "reason": "TREND_BREAKOUT",
+      "qty": 17.2117,
+      "price": 5.8100000000000005,
+      "value_gbp": 100.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 17.2117 x BP.L_UK_VIRTUAL",
+      "time": "2026-10-08T11:19:59.715137+00:00"
+    },
+    {
+      "ticker": "BARC.L",
+      "action": "BUY",
+      "reason": "RSI_OVERSOLD",
+      "qty": 23.6714,
+      "price": 4.224500122070313,
+      "value_gbp": 100.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 23.6714 x BARC.L_UK_VIRTUAL",
+      "time": "2026-10-08T11:20:00.320632+00:00"
+    },
+    {
+      "ticker": "PRU.L",
+      "action": "BUY",
+      "reason": "RSI_OVERSOLD",
+      "qty": 11.4077,
+      "price": 8.765999755859376,
+      "value_gbp": 100.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 11.4077 x PRU.L_UK_VIRTUAL",
+      "time": "2026-10-08T11:20:00.856676+00:00"
+    },
+    {
+      "ticker": "BA.L",
+      "action": "BUY",
+      "reason": "RSI_OVERSOLD",
+      "qty": 5.484,
+      "price": 18.235,
+      "value_gbp": 100.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 5.4840 x BA.L_UK_VIRTUAL",
+      "time": "2026-10-08T11:20:01.386556+00:00"
+    },
+    {
+      "ticker": "NXT.L",
+      "action": "BUY",
+      "reason": "NEAR_SUPPORT",
+      "qty": 0.688,
+      "price": 145.35,
+      "value_gbp": 100.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 0.6880 x NXT.L_UK_VIRTUAL",
+      "time": "2026-10-08T11:20:02.010519+00:00"
     }
   ],
   "cumulative_pnl_gbp": -0.15,
