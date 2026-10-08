@@ -1,6 +1,6 @@
 {
   "date": "2026-10-08",
-  "daily_spent_gbp": 1200.0,
+  "daily_spent_gbp": 1500.0,
   "positions": {
     "SHEL.L": {
       "qty": 2.6802,
@@ -41,7 +41,7 @@
     "PRU.L": {
       "qty": 11.4077,
       "buy_price": 8.765999755859376,
-      "peak_price": 8.767999877929688,
+      "peak_price": 8.777999877929688,
       "t212_ticker": "PRU.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:20:00.856686+00:00",
       "stop_pct": 7.0,
@@ -50,7 +50,7 @@
     "BA.L": {
       "qty": 5.484,
       "buy_price": 18.235,
-      "peak_price": 18.275000000000002,
+      "peak_price": 18.3331005859375,
       "t212_ticker": "BA.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:20:01.386565+00:00",
       "stop_pct": 7.0,
@@ -68,11 +68,20 @@
     "TSCO.L": {
       "qty": 59.7566,
       "buy_price": 5.020369873046875,
-      "peak_price": 5.020369873046875,
+      "peak_price": 5.040020141601563,
       "t212_ticker": "TSCO.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:42:59.754950+00:00",
       "stop_pct": 20.0,
       "mode": "TREND"
+    },
+    "INF.L": {
+      "qty": 34.0445,
+      "buy_price": 8.812000122070312,
+      "peak_price": 8.812000122070312,
+      "t212_ticker": "INF.L_UK_VIRTUAL",
+      "opened": "2026-10-08T12:00:08.276820+00:00",
+      "stop_pct": 7.0,
+      "mode": null
     }
   },
   "trade_log": [
@@ -217,6 +226,18 @@
       "dry_run": true,
       "detail": "(dry-run) BUY 59.7566 x TSCO.L_UK_VIRTUAL",
       "time": "2026-10-08T11:42:59.754943+00:00"
+    },
+    {
+      "ticker": "INF.L",
+      "action": "BUY",
+      "reason": "NEAR_SUPPORT",
+      "qty": 34.0445,
+      "price": 8.812000122070312,
+      "value_gbp": 300.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 34.0445 x INF.L_UK_VIRTUAL",
+      "time": "2026-10-08T12:00:08.276810+00:00"
     }
   ],
   "cumulative_pnl_gbp": -0.15,
