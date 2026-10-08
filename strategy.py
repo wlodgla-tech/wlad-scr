@@ -29,6 +29,7 @@ analyzer.py, щоб ОДНАКОВИЙ код можна було і бекте�
   зменшити кількість хибних входів, хоч і не усуває їх повністю.
 """
 
+import numpy as np
 import pandas as pd
 
 import analyzer  # перевикористовуємо compute_rsi і find_swing_levels
@@ -55,6 +56,34 @@ def compute_bollinger(close: pd.Series, window: int = 20, num_std: float = 2.0):
     return upper, mid, lower
 
 
+def compute_adx(df: pd.DataFrame, period: int = 14) -> pd.Series:
+    """ADX (Average Directional Index) — показує СИЛУ тренду (0-100),
+    незалежно від напрямку. Низький ADX (<15-20) = ринок "в боці", без
+    чіткого тренду — саме там технічні сигнали найчастіше хибні. Високий
+    ADX = чіткий тренд, сигналам можна довіряти більше."""
+    high, low, close = df["high"], df["low"], df["close"]
+    prev_close = close.shift(1)
+
+    up_move = high.diff()
+    down_move = -low.diff()
+    plus_dm = np.where((up_move > down_move) & (up_move > 0), up_move, 0.0)
+    minus_dm = np.where((down_move > up_move) & (down_move > 0), down_move, 0.0)
+
+    tr = pd.concat([
+        high - low,
+        (high - prev_close).abs(),
+        (low - prev_close).abs(),
+    ], axis=1).max(axis=1)
+
+    atr = tr.ewm(alpha=1 / period, adjust=False).mean()
+    plus_di = 100 * pd.Series(plus_dm, index=df.index).ewm(alpha=1 / period, adjust=False).mean() / atr
+    minus_di = 100 * pd.Series(minus_dm, index=df.index).ewm(alpha=1 / period, adjust=False).mean() / atr
+
+    dx = 100 * (plus_di - minus_di).abs() / (plus_di + minus_di)
+    adx = dx.ewm(alpha=1 / period, adjust=False).mean()
+    return adx
+
+
 def add_all_indicators(df: pd.DataFrame) -> pd.DataFrame:
     """Додає всі колонки-індикатори одразу (векторизовано, швидко для
     бектесту). Повертає НОВИЙ DataFrame, оригінал не чіпає."""
@@ -69,6 +98,8 @@ def add_all_indicators(df: pd.DataFrame) -> pd.DataFrame:
     bb_upper, bb_mid, bb_lower = compute_bollinger(df["close"])
     df["bb_upper"] = bb_upper
     df["bb_lower"] = bb_lower
+    df["adx"] = compute_adx(df)
+    df["vol_sma20"] = df["volume"].rolling(20).mean()
     return df
 
 
@@ -102,12 +133,15 @@ def old_strategy_signal(df: pd.DataFrame, i: int, has_position: bool) -> tuple:
 
 
 def new_strategy_signal(df: pd.DataFrame, i: int, has_position: bool) -> tuple:
-    """Посилена стратегія зі збігом кількох сигналів + фільтр тренду."""
+    """Посилена стратегія зі збігом кількох сигналів + фільтр тренду +
+    фільтр сили тренду (ADX) + підтвердження обсягом."""
     row = df.iloc[i]
     rsi, price = row["rsi"], row["close"]
     sma50, sma200 = row["sma50"], row["sma200"]
     macd, macd_signal = row["macd"], row["macd_signal"]
     bb_upper, bb_lower = row["bb_upper"], row["bb_lower"]
+    adx = row.get("adx")
+    volume, vol_sma20 = row.get("volume"), row.get("vol_sma20")
 
     if pd.isna(rsi) or pd.isna(sma200) or pd.isna(macd) or pd.isna(bb_lower):
         return None, ""  # недостатньо історії ще для всіх індикаторів
@@ -117,6 +151,12 @@ def new_strategy_signal(df: pd.DataFrame, i: int, has_position: bool) -> tuple:
         if not trend_ok:
             return None, ""  # не купуємо проти довгострокового тренду
 
+        # ADX < 15 означає "млявий", безнапрямковий ринок — там технічні
+        # сигнали частіше хибні. Якщо ADX ще не порахувався (мало історії)
+        # — не блокуємо, просто не враховуємо цей фільтр.
+        if adx is not None and not pd.isna(adx) and adx < 15:
+            return None, ""
+
         votes = []
         if rsi < 35:
             votes.append("RSI<35")
@@ -124,6 +164,9 @@ def new_strategy_signal(df: pd.DataFrame, i: int, has_position: bool) -> tuple:
             votes.append("NEAR_LOWER_BB")
         if macd > macd_signal:
             votes.append("MACD_BULLISH")
+        if volume is not None and vol_sma20 is not None and not pd.isna(vol_sma20) and vol_sma20 > 0 \
+                and volume > 1.2 * vol_sma20:
+            votes.append("VOLUME_CONFIRMED")
 
         if len(votes) >= 2:
             return "BUY", "+".join(votes)

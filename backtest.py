@@ -49,6 +49,10 @@ TICKERS = [t.strip() for t in _env("BACKTEST_TICKERS", "AAPL,MSFT,NVDA,TSLA").sp
 YEARS = int(_env("BACKTEST_YEARS", "3"))
 TRADE_VALUE = float(_env("MAX_PER_TRADE_GBP", "20"))
 STOP_LOSS_PCT = float(_env("STOP_LOSS_PCT", "7"))
+# Trading 212 Invest/ISA не бере комісію за акції США, але спред
+# (різниця між ціною купівлі й продажу) все одно "з'їдає" трохи — типово
+# ~0.15% в одну сторону. За замовчуванням рахуємо консервативно.
+COMMISSION_PCT = float(_env("BACKTEST_COMMISSION_PCT", "0.15"))
 
 DOCS_DIR = Path(__file__).parent / "docs"
 MIN_WARMUP_BARS = 200  # SMA200 потребує мінімум стільки барів історії
@@ -65,45 +69,54 @@ def fetch_history(ticker: str, years: int) -> pd.DataFrame:
     return df[["timestamp", "open", "high", "low", "close", "volume"]].dropna(subset=["close"]).reset_index(drop=True)
 
 
-def simulate(df: pd.DataFrame, signal_fn, trade_value: float, stop_loss_pct: float) -> dict:
+def simulate(df: pd.DataFrame, signal_fn, trade_value: float, stop_loss_pct: float,
+             commission_pct: float = 0.0) -> dict:
     """Проходить по барах один раз (без зазирання вперед — на кожному
     кроці рахуємо сигнал лише з даних ДО цього бара включно) і симулює
-    угоди з фіксованим розміром `trade_value` на вхід."""
+    угоди з фіксованим розміром `trade_value` на вхід. Стоп-лос —
+    ТРЕЙЛІНГ (від найвищої ціни з моменту купівлі, не від ціни купівлі),
+    так само як у живому боті. `commission_pct` — умовна комісія/спред
+    в % від суми угоди, знімається і при купівлі, і при продажу."""
     trades = []
-    position = None  # {"buy_price", "qty", "entry_i"}
+    position = None  # {"buy_price", "peak_price", "qty", "entry_i"}
+    commission_frac = commission_pct / 100
+
+    def _close(exit_i: int, price: float, reason: str) -> None:
+        gross_pnl = (price - position["buy_price"]) * position["qty"]
+        commission = (position["buy_price"] + price) * position["qty"] * commission_frac
+        pnl = gross_pnl - commission
+        trades.append({
+            "entry_i": position["entry_i"], "exit_i": exit_i, "pnl": pnl,
+            "pnl_pct": (pnl / (position["buy_price"] * position["qty"])) * 100, "reason": reason,
+        })
 
     n = len(df)
     for i in range(MIN_WARMUP_BARS, n):
         price = float(df["close"].iloc[i])
 
         if position is not None:
-            stop_price = position["buy_price"] * (1 - stop_loss_pct / 100)
+            position["peak_price"] = max(position["peak_price"], price)
+            stop_price = position["peak_price"] * (1 - stop_loss_pct / 100)
             if price <= stop_price:
-                pnl = (price - position["buy_price"]) * position["qty"]
-                trades.append({"entry_i": position["entry_i"], "exit_i": i, "pnl": pnl,
-                                "pnl_pct": (price / position["buy_price"] - 1) * 100, "reason": "STOP_LOSS"})
+                _close(i, price, "TRAILING_STOP_LOSS")
                 position = None
                 continue
 
             action, reason = signal_fn(df, i, True)
             if action == "SELL":
-                pnl = (price - position["buy_price"]) * position["qty"]
-                trades.append({"entry_i": position["entry_i"], "exit_i": i, "pnl": pnl,
-                                "pnl_pct": (price / position["buy_price"] - 1) * 100, "reason": reason})
+                _close(i, price, reason)
                 position = None
         else:
             action, reason = signal_fn(df, i, False)
             if action == "BUY":
                 qty = trade_value / price
-                position = {"buy_price": price, "qty": qty, "entry_i": i}
+                position = {"buy_price": price, "peak_price": price, "qty": qty, "entry_i": i}
 
     # якщо позиція лишилась відкритою в кінці періоду — закриваємо по
     # останній ціні, щоб статистика не ігнорувала "завислу" угоду
     if position is not None:
         price = float(df["close"].iloc[-1])
-        pnl = (price - position["buy_price"]) * position["qty"]
-        trades.append({"entry_i": position["entry_i"], "exit_i": n - 1, "pnl": pnl,
-                        "pnl_pct": (price / position["buy_price"] - 1) * 100, "reason": "END_OF_PERIOD"})
+        _close(n - 1, price, "END_OF_PERIOD")
 
     return _summarize(trades, trade_value)
 
@@ -160,8 +173,8 @@ def run_all() -> dict:
 
         df = strategy.add_all_indicators(raw)
 
-        old_result = simulate(df, strategy.old_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT)
-        new_result = simulate(df, strategy.new_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT)
+        old_result = simulate(df, strategy.old_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT)
+        new_result = simulate(df, strategy.new_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT)
 
         buy_hold_pct = (float(df["close"].iloc[-1]) / float(df["close"].iloc[MIN_WARMUP_BARS]) - 1) * 100
 
@@ -237,8 +250,9 @@ def build_report_html(results: dict) -> str:
   <div class="warn">
     Це перевірка ЛОГІКИ на минулих цінах, не гарантія майбутнього результату.
     Бектест рахує на ЩОДЕННИХ свічках (для достатньої історії), тоді як живий
-    бот працює на ГОДИННИХ — це наближення, не точна копія. Комісії/спред
-    брокера тут НЕ враховані (реальний результат буде трохи гіршим).
+    бот працює на ГОДИННИХ — це наближення, не точна копія. Умовна
+    комісія/спред {COMMISSION_PCT:.2f}% врахована в розрахунку (і при купівлі,
+    і при продажу) — реальний результат все одно може трохи відрізнятись.
   </div>
   <table>
     <tr><th>Тікер</th><th>Стратегія</th><th>Угод</th><th>Win rate</th><th>Прибуток</th><th>Макс. просадка</th></tr>

@@ -40,3 +40,41 @@ TRADING_UNIVERSE = [
     # Нерухомість / матеріали
     "PLD", "AMT", "EQIX", "LIN", "APD", "SHW",
 ]
+
+# Сектор кожного тікера — щоб бот міг обмежити, скільки позицій
+# одночасно тримати в одному секторі (диверсифікація: кілька акцій
+# однієї галузі зазвичай рухаються разом, тобто це по суті одна й та
+# сама ставка, а не кілька незалежних).
+TICKER_SECTORS = {
+    **{t: "Технології" for t in (
+        "AAPL", "MSFT", "GOOGL", "AMZN", "META", "NVDA", "TSLA", "AMD", "INTC",
+        "CSCO", "ORCL", "ADBE", "CRM", "NFLX", "QCOM", "TXN", "IBM", "AVGO",
+        "NOW", "UBER", "SHOP", "PYPL", "SNOW", "PLTR",
+    )},
+    **{t: "Фінанси" for t in (
+        "JPM", "V", "MA", "BAC", "WFC", "GS", "MS", "C", "AXP", "BLK", "SCHW",
+        "COF", "SPGI", "ICE",
+    )},
+    **{t: "Охорона здоров'я" for t in (
+        "UNH", "JNJ", "ABBV", "MRK", "ABT", "TMO", "DHR", "BMY", "LLY", "PFE",
+        "GILD", "AMGN", "CVS", "CI", "ISRG", "SYK", "MDT",
+    )},
+    **{t: "Споживчі товари" for t in (
+        "PG", "KO", "PEP", "COST", "WMT", "HD", "LOW", "NKE", "MCD", "SBUX",
+        "TGT", "DIS", "EL", "CL", "KMB",
+    )},
+    **{t: "Промисловість/енергетика" for t in (
+        "XOM", "CVX", "COP", "SLB", "CAT", "BA", "GE", "HON",
+        "UPS", "LMT", "RTX", "DE", "MMM", "UNP",
+    )},
+    **{t: "Телеком/комунальні" for t in (
+        "T", "VZ", "TMUS", "CMCSA", "SO", "DUK", "NEE",
+    )},
+    **{t: "Нерухомість/матеріали" for t in (
+        "PLD", "AMT", "EQIX", "LIN", "APD", "SHW",
+    )},
+}
+
+
+def sector_of(ticker: str) -> str:
+    return TICKER_SECTORS.get(ticker, "Інше")

@@ -27,8 +27,23 @@ trading212_executor. Останній — опціональний: якщо TRA
                               live — залежно від TRADING212_MODE).
     MAX_PER_TRADE_GBP      — максимум на одну угоду, default 20
     MAX_DAILY_GBP          — максимум нових покупок на добу, default 200
-    STOP_LOSS_PCT          — автопродаж при падінні від ціни купівлі
-                              на N%, default 7
+    STOP_LOSS_PCT          — ТРЕЙЛІНГ стоп-лос: автопродаж при падінні на
+                              N% від НАЙВИЩОЇ ціни з моменту купівлі (не
+                              від ціни купівлі) — фіксує частину прибутку,
+                              якщо ціна встигла вирости. default 7
+    MAX_OPEN_POSITIONS     — макс. кількість одночасно відкритих позицій
+                              (щоб не "розпорошуватись"), default 10
+    MAX_POSITIONS_PER_SECTOR — макс. позицій в одному секторі одночасно
+                              (диверсифікація — див. watchlist.py), default 3
+    AVOID_EARNINGS_DAYS    — не купувати, якщо звітність компанії
+                              очікується протягом N днів (різкий
+                              непередбачуваний стрибок ціни), default 3
+    DRAWDOWN_PAUSE_GBP     — "запобіжник": якщо сукупний збиток з початку
+                              (сума по закритих угодах) падає на цю суму
+                              від максимуму — нові купівлі ставляться на
+                              паузу (продажі й стоп-лоси далі працюють),
+                              поки збиток не скоротиться. default 0
+                              (вимкнено; 0 = без обмеження)
 
 Запуск:
     python main.py                       # одна перевірка (для cron/Actions)
@@ -51,7 +66,7 @@ import telegram_notifier
 import dashboard_builder
 import fundamentals
 import trading212_executor as t212
-from watchlist import TRADING_UNIVERSE
+from watchlist import TRADING_UNIVERSE, sector_of
 
 def _env(name: str, default: str) -> str:
     # GitHub Actions підставляє ПОРОЖНІЙ РЯДОК для незаданої vars.X (не
@@ -68,6 +83,10 @@ TRADING_ENABLED = t212.is_configured()
 MAX_PER_TRADE_GBP = float(_env("MAX_PER_TRADE_GBP", "20"))
 MAX_DAILY_GBP = float(_env("MAX_DAILY_GBP", "200"))
 STOP_LOSS_PCT = float(_env("STOP_LOSS_PCT", "7"))
+MAX_OPEN_POSITIONS = int(float(_env("MAX_OPEN_POSITIONS", "10")))
+MAX_POSITIONS_PER_SECTOR = int(float(_env("MAX_POSITIONS_PER_SECTOR", "3")))
+AVOID_EARNINGS_DAYS = int(float(_env("AVOID_EARNINGS_DAYS", "3")))
+DRAWDOWN_PAUSE_GBP = float(_env("DRAWDOWN_PAUSE_GBP", "0"))
 MIN_TRADE_GBP = 1.0  # не морочитись з угодами менше £1
 
 TRADING_STATE_FILE = Path(__file__).parent / "trading_state.json"
@@ -100,7 +119,16 @@ def load_trading_state() -> dict:
         state["daily_spent_gbp"] = 0.0
     state.setdefault("positions", {})
     state.setdefault("trade_log", [])
+    state.setdefault("cumulative_pnl_gbp", 0.0)
+    state.setdefault("peak_pnl_gbp", 0.0)
     return state
+
+
+def _is_paused_for_drawdown(trading_state: dict) -> bool:
+    if DRAWDOWN_PAUSE_GBP <= 0:
+        return False
+    drawdown = trading_state["peak_pnl_gbp"] - trading_state["cumulative_pnl_gbp"]
+    return drawdown >= DRAWDOWN_PAUSE_GBP
 
 
 def log_trade(trading_state: dict, **entry) -> None:
@@ -110,6 +138,7 @@ def log_trade(trading_state: dict, **entry) -> None:
 
 
 def _execute_sell(ticker: str, t212_ticker: str, qty: float, price: float, reason: str, trading_state: dict) -> None:
+    position = trading_state["positions"].get(ticker, {})
     order = t212.place_market_order(t212_ticker, -qty)
     log_trade(
         trading_state, ticker=ticker, action="SELL", reason=reason,
@@ -117,6 +146,11 @@ def _execute_sell(ticker: str, t212_ticker: str, qty: float, price: float, reaso
         dry_run=order.get("dry_run", False), detail=order["detail"],
     )
     if order["ok"]:
+        buy_price = position.get("buy_price")
+        if buy_price:
+            pnl_gbp = (price - buy_price) * qty
+            trading_state["cumulative_pnl_gbp"] = round(trading_state["cumulative_pnl_gbp"] + pnl_gbp, 2)
+            trading_state["peak_pnl_gbp"] = max(trading_state["peak_pnl_gbp"], trading_state["cumulative_pnl_gbp"])
         del trading_state["positions"][ticker]
         print(f"[trading212] {ticker}: ПРОДАНО ({reason}) — {order['detail']}")
     else:
@@ -141,7 +175,7 @@ def _execute_buy(ticker: str, t212_ticker: str, price: float, reason: str, tradi
     )
     if order["ok"]:
         trading_state["positions"][ticker] = {
-            "qty": qty, "buy_price": price, "t212_ticker": t212_ticker,
+            "qty": qty, "buy_price": price, "peak_price": price, "t212_ticker": t212_ticker,
             "opened": datetime.now(timezone.utc).isoformat(),
         }
         trading_state["daily_spent_gbp"] = round(trading_state["daily_spent_gbp"] + trade_value, 2)
@@ -164,6 +198,18 @@ def run_trading_scan(trading_state: dict) -> None:
     # список — дешево порівняно з кількістю хибних сигналів, яких уникаємо.
     daily_batch = data_collector.fetch_candles_batch(TRADING_UNIVERSE, interval="1d", period="2y")
 
+    paused = _is_paused_for_drawdown(trading_state)
+    if paused:
+        print(f"[trading212] ПАУЗА нових купівель: сукупний збиток досяг £{DRAWDOWN_PAUSE_GBP:.0f} "
+              f"від максимуму (поточний: £{trading_state['cumulative_pnl_gbp']:.2f}, "
+              f"пік: £{trading_state['peak_pnl_gbp']:.2f}). Продажі й стоп-лоси продовжують працювати.")
+
+    open_positions_count = len(trading_state["positions"])
+    sector_counts = {}
+    for t, pos in trading_state["positions"].items():
+        sec = sector_of(t)
+        sector_counts[sec] = sector_counts.get(sec, 0) + 1
+
     scanned, signals_found = 0, 0
     for ticker, df in batch.items():
         if df is None or len(df) < 210:  # замало історії для SMA200
@@ -181,27 +227,65 @@ def run_trading_scan(trading_state: dict) -> None:
             price = float(dfi["close"].iloc[i])
 
             if position:
-                stop_price = position["buy_price"] * (1 - STOP_LOSS_PCT / 100)
+                # Трейлінг стоп-лос: рахуємо від найвищої ціни з моменту
+                # купівлі, а не від самої ціни купівлі — фіксує частину
+                # прибутку, якщо ціна встигла вирости, перш ніж впасти.
+                position["peak_price"] = max(position.get("peak_price", position["buy_price"]), price)
+                stop_price = position["peak_price"] * (1 - STOP_LOSS_PCT / 100)
                 if price <= stop_price:
-                    _execute_sell(ticker, t212_ticker, position["qty"], price, "STOP_LOSS", trading_state)
+                    _execute_sell(ticker, t212_ticker, position["qty"], price, "TRAILING_STOP_LOSS", trading_state)
                     signals_found += 1
                     continue
                 action, reason = strategy.new_strategy_signal(dfi, i, True)
                 if action == "SELL":
                     _execute_sell(ticker, t212_ticker, position["qty"], price, reason, trading_state)
                     signals_found += 1
-            else:
+            elif not paused:
+                if open_positions_count >= MAX_OPEN_POSITIONS:
+                    continue  # досягнуто ліміту одночасних позицій
+                sector = sector_of(ticker)
+                if sector_counts.get(sector, 0) >= MAX_POSITIONS_PER_SECTOR:
+                    continue  # досягнуто ліміту позицій у цьому секторі (диверсифікація)
+
                 action, reason = strategy.new_strategy_signal(dfi, i, False)
                 if action == "BUY":
                     daily_df = daily_batch.get(ticker)
                     if not strategy.daily_trend_bullish(daily_df):
                         continue  # годинний сигнал є, але денний тренд не підтверджує — пропускаємо
+                    if AVOID_EARNINGS_DAYS > 0 and _earnings_too_soon(ticker, AVOID_EARNINGS_DAYS):
+                        continue  # скоро звітність — надто непередбачувано
                     _execute_buy(ticker, t212_ticker, price, f"{reason}+DAILY_TREND_UP", trading_state)
+                    open_positions_count += 1
+                    sector_counts[sector] = sector_counts.get(sector, 0) + 1
                     signals_found += 1
         except Exception as e:
             print(f"[trading212] Помилка аналізу {ticker}: {e}", file=sys.stderr)
 
     print(f"[trading212] Проскановано {scanned} акцій, оброблено сигналів: {signals_found}.")
+
+
+def _earnings_too_soon(ticker: str, days: int) -> bool:
+    """True, якщо звітність компанії очікується протягом найближчих
+    `days` днів — тоді краще не відкривати нову позицію (непередбачувані
+    різкі стрибки ціни на новинах, які жоден технічний індикатор не
+    бачить наперед). Викликається лише для тікерів, що ВЖЕ пройшли всі
+    інші фільтри (рідко), тож не навантажує Yahoo Finance на кожному скані."""
+    try:
+        events = fundamentals.get_upcoming_events(ticker)
+    except Exception:
+        return False  # немає даних — не блокуємо через це
+    for ev in events:
+        if ev.get("type") != "EARNINGS":
+            continue
+        try:
+            ev_date = datetime.fromisoformat(ev["date"][:19]).replace(tzinfo=timezone.utc) \
+                if "T" in ev["date"] else datetime.strptime(ev["date"][:10], "%Y-%m-%d").replace(tzinfo=timezone.utc)
+        except (ValueError, KeyError):
+            continue
+        days_until = (ev_date - datetime.now(timezone.utc)).days
+        if 0 <= days_until <= days:
+            return True
+    return False
 
 
 def run_check() -> None:
@@ -276,6 +360,10 @@ def _build_trading_summary(trading_state: dict) -> dict:
         "stop_loss_pct": STOP_LOSS_PCT,
         "positions": trading_state["positions"],
         "trade_log": list(reversed(trading_state["trade_log"][-15:])),
+        "open_positions_count": len(trading_state["positions"]),
+        "max_open_positions": MAX_OPEN_POSITIONS,
+        "cumulative_pnl_gbp": trading_state["cumulative_pnl_gbp"],
+        "paused_for_drawdown": _is_paused_for_drawdown(trading_state),
     }
 
 

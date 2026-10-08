@@ -205,11 +205,20 @@ def _trading_panel_html(trading_summary: dict | None) -> str:
     if positions:
         positions_html = "".join(
             f'<div class="event-row">{t}: {p["qty"]} шт. по {p["buy_price"]:.4f} '
-            f'(стоп-лос ≈{p["buy_price"] * (1 - trading_summary["stop_loss_pct"] / 100):.4f})</div>'
+            f'(трейлінг стоп-лос ≈{p.get("peak_price", p["buy_price"]) * (1 - trading_summary["stop_loss_pct"] / 100):.4f}, '
+            f'пік ціни {p.get("peak_price", p["buy_price"]):.4f})</div>'
             for t, p in positions.items()
         )
     else:
         positions_html = '<p class="empty">Немає відкритих позицій.</p>'
+
+    pause_html = ""
+    if trading_summary.get("paused_for_drawdown"):
+        pause_html = (
+            '<div class="stat bear" style="margin-top:10px; padding:10px 12px; border-radius:6px;">'
+            '⏸ Нові купівлі на паузі — спрацював запобіжник від серії збитків. '
+            'Продажі й стоп-лоси продовжують працювати.</div>'
+        )
 
     log = trading_summary["trade_log"]
     if log:
@@ -232,8 +241,11 @@ def _trading_panel_html(trading_summary: dict | None) -> str:
   <div class="stat-strip">
     <div class="stat {mode_class}"><div class="val mono" style="font-size:14px;">{mode_label}</div><div class="lbl">режим</div></div>
     <div class="stat"><div class="val mono">£{trading_summary['daily_spent_gbp']:.2f} / £{trading_summary['max_daily_gbp']:.0f}</div><div class="lbl">витрачено сьогодні</div></div>
+    <div class="stat"><div class="val mono">{trading_summary.get('open_positions_count', 0)} / {trading_summary.get('max_open_positions', '—')}</div><div class="lbl">відкритих позицій</div></div>
+    <div class="stat {'bull' if trading_summary.get('cumulative_pnl_gbp', 0) >= 0 else 'bear'}"><div class="val mono">£{trading_summary.get('cumulative_pnl_gbp', 0):+.2f}</div><div class="lbl">сукупний P&amp;L</div></div>
   </div>
-  <p class="empty">Макс. £{trading_summary['max_per_trade_gbp']:.0f} на угоду · стоп-лос {trading_summary['stop_loss_pct']:.0f}%</p>
+  <p class="empty">Макс. £{trading_summary['max_per_trade_gbp']:.0f} на угоду · трейлінг стоп-лос {trading_summary['stop_loss_pct']:.0f}%</p>
+  {pause_html}
   <h2 style="margin-top:14px;">Відкриті позиції</h2>
   {positions_html}
   <h2 style="margin-top:14px;">Останні угоди</h2>
