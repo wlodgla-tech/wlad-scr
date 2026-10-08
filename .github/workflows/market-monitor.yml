@@ -66,6 +66,6 @@ jobs:
               break
             fi
             echo "Push відхилено (спроба $i), підтягую свіжі зміни і пробую ще раз..."
-            git pull --rebase --autostash
+            git pull --rebase -X theirs --autostash
             sleep 3
           done
