@@ -41,6 +41,10 @@ jobs:
           MAX_PER_TRADE_GBP: ${{ vars.MAX_PER_TRADE_GBP }}
           MAX_DAILY_GBP: ${{ vars.MAX_DAILY_GBP }}
           STOP_LOSS_PCT: ${{ vars.STOP_LOSS_PCT }}
+          MAX_OPEN_POSITIONS: ${{ vars.MAX_OPEN_POSITIONS }}
+          MAX_POSITIONS_PER_SECTOR: ${{ vars.MAX_POSITIONS_PER_SECTOR }}
+          AVOID_EARNINGS_DAYS: ${{ vars.AVOID_EARNINGS_DAYS }}
+          DRAWDOWN_PAUSE_GBP: ${{ vars.DRAWDOWN_PAUSE_GBP }}
         run: python main.py
 
       - name: Save state and dashboard back to repo
