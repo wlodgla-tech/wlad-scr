@@ -214,8 +214,10 @@ def _trading_panel_html(trading_summary: dict | None) -> str:
                 )
             else:
                 peak = p.get("peak_price", p["buy_price"])
+                sl = p.get("stop_pct", trading_summary["stop_loss_pct"]) / 100
+                kind = "ТРЕНД " if p.get("mode") == "TREND" else ""
                 rows.append(
-                    f'<div class="event-row">{t}: {p["qty"]} шт. по {p["buy_price"]:.4f} '
+                    f'<div class="event-row">{kind}{t}: {p["qty"]} шт. по {p["buy_price"]:.4f} '
                     f'(трейлінг стоп-лос ≈{peak * (1 - sl):.4f}, пік ціни {peak:.4f})</div>'
                 )
         positions_html = "".join(rows)

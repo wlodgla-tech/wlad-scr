@@ -92,6 +92,8 @@ INDICATOR_ALERTS = _env("INDICATOR_ALERTS", "false").lower() == "true"
 # Віртуальні ШОРТИ (ставка на падіння). Працюють ЛИШЕ коли TRADING212_DRY_RUN
 # не "false": в Trading 212 Invest/ISA шортів немає, тож реальні ордери на
 # шорт бот не відправляє ніколи. За замовчуванням ВИМКНЕНО (бектест не показав переваги). Увімкнути: ENABLE_SHORTS=true.
+STRATEGY_MODE = _env("STRATEGY_MODE", "regime").lower()  # regime | legacy
+TREND_STOP_PCT = float(_env("TREND_STOP_PCT", "20"))
 ENABLE_SHORTS = _env("ENABLE_SHORTS", "false").lower() == "true"
 # "Радар входів": у задані години (UTC) бот шле в Telegram список акцій, які
 # ще не дали сигналу, але дадуть, якщо ціна впаде до вказаного рівня.
@@ -178,6 +180,10 @@ REASON_TEXT = {
     "TREND_BREAK_SMA50": "злам тренду відносно SMA50",
     "RSI_OVERSOLD": "RSI нижче 30 (перепроданість)",
     "NEAR_LOWER_BB": "ціна біля нижньої межі Bollinger",
+    "TREND_BREAKOUT": "пробій 50-денного максимуму вище SMA200 (трендовий вхід)",
+    "TREND_BREAK": "ціна закрилась нижче SMA200 (тренд зламано)",
+    "NEAR_SUPPORT": "ціна біля рівня підтримки (відскок)",
+    "NEAR_RESISTANCE": "ціна біля рівня опору",
 }
 
 
@@ -211,22 +217,32 @@ def _notify_open(ticker: str, price: float, qty: float, value_gbp: float,
             if bb and risk > 0 and bb < price:
                 lines.append(f"Співвідношення прибуток/ризик ≈ {(price - bb) / risk:.1f} : 1")
         else:
+            sp = levels.get("stop_pct", STOP_LOSS_PCT)
             lines = [
-                f"🟢 <b>КУПІВЛЯ {ticker}</b> ({sector_of(ticker)})",
+                f"🟢 <b>КУПІВЛЯ {ticker}</b> ({sector_of(ticker)})"
+                + (" — ТРЕНД" if levels.get("trend") else " — ВІДСКОК"),
                 _mode_label(),
                 "",
                 f"Вхід: <b>{c}{price:.2f}</b> × {qty:.4f} шт (≈ £{value_gbp:.0f})",
-                f"🛑 Початковий стоп-лос: <b>{c}{stop_price:.2f}</b> (−{STOP_LOSS_PCT:g}%)",
-                f"   Стоп трейлінговий: підтягується за ціною на {STOP_LOSS_PCT:g}% нижче піку.",
+                f"🛑 Початковий стоп-лос: <b>{c}{stop_price:.2f}</b> (−{sp:g}%)",
+                f"   Стоп трейлінговий: підтягується за ціною на {sp:g}% нижче піку.",
             ]
             bb = levels.get("bb_upper")
             sma50 = levels.get("sma50")
-            if bb:
+            if levels.get("trend"):
+                sma200 = levels.get("sma200")
+                lines.append("🎯 Цілі немає: тримаємо, поки тренд живий (великі прибутки приходять рідко).")
+                if sma200:
+                    lines.append(f"⚠️ Вихід, якщо ціна закриється нижче SMA200 <b>{c}{sma200:.2f}</b>")
+                bb = None
+                lines.append("📈 Продажу на RSI немає — це свідомо.")
+            elif bb:
                 gain = (bb / price - 1) * 100
                 lines.append(f"🎯 Орієнтир виходу (верхня межа Bollinger): <b>{c}{bb:.2f}</b> (+{gain:.1f}%)")
-            if sma50:
+            if sma50 and not levels.get("trend"):
                 lines.append(f"⚠️ Вихід при зламі тренду: ціна нижче SMA50 <b>{c}{sma50:.2f}</b>")
-            lines.append("📈 Також вихід при RSI &gt; 70.")
+            if not levels.get("trend"):
+                lines.append("📈 Також вихід при RSI &gt; 70 або біля рівня опору.")
             risk = price - stop_price
             if bb and risk > 0 and bb > price:
                 lines.append(f"Співвідношення прибуток/ризик ≈ {(bb - price) / risk:.1f} : 1")
@@ -323,11 +339,18 @@ def _send_radar(radar: list, trading_state: dict) -> None:
             lines.append("Поблизу від сигналу нічого немає (всі акції далі "
                          f"ніж {RADAR_MAX_DISTANCE_PCT:g}% від рівня входу).")
         else:
-            lines.append("Акції, які дадуть сигнал на купівлю, якщо ціна впаде до рівня входу:")
+            lines.append("Акції біля сигналу на вхід:")
             lines.append("")
             for c in radar:
                 cur = _cur(c["ticker"])
                 entry = c["trigger"]
+                if c.get("kind") == "TREND":
+                    stop = entry * (1 - TREND_STOP_PCT / 100)
+                    lines.append(f"• <b>{c['ticker']}</b> ({sector_of(c['ticker'])}) — трендовий вхід\n"
+                                 f"  зараз {cur}{c['price']:.2f} → <b>вхід при закритті вище {cur}{entry:.2f}</b> "
+                                 f"(+{c['distance_pct']:.1f}%)\n"
+                                 f"  стоп ≈ {cur}{stop:.2f} (−{TREND_STOP_PCT:g}%), вихід — закриття нижче SMA200")
+                    continue
                 stop = entry * (1 - STOP_LOSS_PCT / 100)
                 row = (f"• <b>{c['ticker']}</b> ({sector_of(c['ticker'])})\n"
                        f"  зараз {cur}{c['price']:.2f} → <b>вхід ≤ {cur}{entry:.2f}</b> "
@@ -410,10 +433,12 @@ def _execute_buy(ticker: str, t212_ticker: str, price: float, reason: str, tradi
         trading_state["positions"][ticker] = {
             "qty": qty, "buy_price": price, "peak_price": price, "t212_ticker": t212_ticker,
             "opened": datetime.now(timezone.utc).isoformat(),
+            "stop_pct": (levels or {}).get("stop_pct", STOP_LOSS_PCT),
+            "mode": "TREND" if (levels or {}).get("trend") else None,
         }
         trading_state["daily_spent_gbp"] = round(trading_state["daily_spent_gbp"] + trade_value, 2)
         _notify_open(ticker, price, qty, trade_value, reason,
-                     price * (1 - STOP_LOSS_PCT / 100), levels or {})
+                     price * (1 - (levels or {}).get("stop_pct", STOP_LOSS_PCT) / 100), levels or {})
         print(f"[trading212] {ticker}: КУПЛЕНО ({reason}) — {order['detail']}")
     else:
         print(f"[trading212] {ticker}: купівля НЕ вдалася — {order['detail']}")
@@ -425,6 +450,8 @@ def run_trading_scan(trading_state: dict) -> None:
     RSI + SMA200-тренд + MACD + Bollinger, збіг мінімум 2 з 3 сигналів) і
     виконує купівлю/продаж там, де є сигнал. Окремо від дашбордних
     тікерів (TICKER) — ті лишаються для огляду/сповіщень, як і раніше."""
+    if STRATEGY_MODE == "regime":
+        return run_regime_scan(trading_state)
     print(f"[trading212] Сканую {len(TRADING_UNIVERSE)} акцій на наявність сигналів...")
     batch = data_collector.fetch_candles_batch(TRADING_UNIVERSE, interval=INTERVAL)
     # Мультитаймфрейм-фільтр: окремий пакетний запит ЩОДЕННИХ свічок, щоб
@@ -547,6 +574,95 @@ def run_trading_scan(trading_state: dict) -> None:
     _send_radar(radar, trading_state)
     print(f"[trading212] Проскановано {scanned} акцій, оброблено сигналів: {signals_found}, "
           f"у радарі: {len(radar)}.")
+
+
+def run_regime_scan(trading_state: dict) -> None:
+    """Стратегія "перемикання режимів" на ЩОДЕННИХ свічках (так, як її
+    перевіряв бектест): пробій 50-денного максимуму вище SMA200 = трендовий
+    вхід (широкий стоп, вихід лише при закритті нижче SMA200); інакше —
+    відскок за старими правилами (RSI/рівні, стоп STOP_LOSS_PCT%)."""
+    print(f"[trading212] [режими] Сканую {len(TRADING_UNIVERSE)} акцій на ЩОДЕННИХ свічках...")
+    batch = data_collector.fetch_candles_batch(TRADING_UNIVERSE, interval="1d", period="2y")
+
+    paused = _is_paused_for_drawdown(trading_state)
+    open_positions_count = len(trading_state["positions"])
+    sector_counts = {}
+    for t in trading_state["positions"]:
+        sec = sector_of(t)
+        sector_counts[sec] = sector_counts.get(sec, 0) + 1
+
+    scanned, signals_found = 0, 0
+    radar = []
+    for ticker, df in batch.items():
+        if df is None or len(df) < 210:
+            continue
+        position = trading_state["positions"].get(ticker)
+        if _is_uk(ticker):
+            if not t212.DRY_RUN:
+                continue
+            t212_ticker = ticker + "_UK_VIRTUAL"
+            df = _uk_pence_to_pounds(df)
+        else:
+            t212_ticker = (position.get("t212_ticker") if position else None) or t212.find_instrument_ticker(ticker)
+        if not t212_ticker:
+            continue
+        scanned += 1
+        try:
+            dfi = strategy.add_all_indicators(df)
+            i = len(dfi) - 1
+            price = float(dfi["close"].iloc[i])
+            last = dfi.iloc[i]
+
+            if position:
+                if position.get("side") == "SHORT":
+                    continue  # шорти в цьому режимі не використовуються
+                stop_pct = position.get("stop_pct", STOP_LOSS_PCT)
+                position["peak_price"] = max(position.get("peak_price", position["buy_price"]), price)
+                if price <= position["peak_price"] * (1 - stop_pct / 100):
+                    _execute_sell(ticker, t212_ticker, position["qty"], price, "TRAILING_STOP_LOSS", trading_state)
+                    signals_found += 1
+                    continue
+                action, reason = strategy.regime_signal(dfi, i, position.get("mode") or True)
+                if action == "SELL":
+                    _execute_sell(ticker, t212_ticker, position["qty"], price, reason, trading_state)
+                    signals_found += 1
+                continue
+
+            # радар: акції під пробоєм 50-денного максимуму вище SMA200
+            hh50, sma200 = last["hh50"], last["sma200"]
+            if not pd.isna(hh50) and not pd.isna(sma200) and price > sma200 and price <= hh50:
+                dist = (hh50 / price - 1) * 100
+                if 0 < dist <= RADAR_MAX_DISTANCE_PCT:
+                    radar.append({"ticker": ticker, "price": price, "trigger": float(hh50),
+                                  "distance_pct": dist, "kind": "TREND"})
+
+            if paused or open_positions_count >= MAX_OPEN_POSITIONS:
+                continue
+            sector = sector_of(ticker)
+            if sector_counts.get(sector, 0) >= MAX_POSITIONS_PER_SECTOR:
+                continue
+            action, reason = strategy.regime_signal(dfi, i, False)
+            if action != "BUY":
+                continue
+            if AVOID_EARNINGS_DAYS > 0 and _earnings_too_soon(ticker, AVOID_EARNINGS_DAYS):
+                continue
+            trend = reason.startswith("TREND")
+            levels = {
+                "trend": trend,
+                "stop_pct": TREND_STOP_PCT if trend else STOP_LOSS_PCT,
+                "sma200": None if pd.isna(sma200) else float(sma200),
+                "bb_upper": None if pd.isna(last["bb_upper"]) else float(last["bb_upper"]),
+                "sma50": None if pd.isna(last["sma50"]) else float(last["sma50"]),
+            }
+            _execute_buy(ticker, t212_ticker, price, reason, trading_state, levels)
+            open_positions_count += 1
+            sector_counts[sector] = sector_counts.get(sector, 0) + 1
+            signals_found += 1
+        except Exception as e:
+            print(f"[trading212] Помилка аналізу {ticker}: {e}", file=sys.stderr)
+
+    _send_radar(radar, trading_state)
+    print(f"[trading212] [режими] Проскановано {scanned} акцій, сигналів: {signals_found}, у радарі: {len(radar)}.")
 
 
 def _earnings_too_soon(ticker: str, days: int) -> bool:
