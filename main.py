@@ -93,6 +93,11 @@ INDICATOR_ALERTS = _env("INDICATOR_ALERTS", "false").lower() == "true"
 # не "false": в Trading 212 Invest/ISA шортів немає, тож реальні ордери на
 # шорт бот не відправляє ніколи. За замовчуванням ВИМКНЕНО (бектест не показав переваги). Увімкнути: ENABLE_SHORTS=true.
 ENABLE_SHORTS = _env("ENABLE_SHORTS", "false").lower() == "true"
+# "Радар входів": у задані години (UTC) бот шле в Telegram список акцій, які
+# ще не дали сигналу, але дадуть, якщо ціна впаде до вказаного рівня.
+RADAR_MAX_DISTANCE_PCT = float(_env("RADAR_MAX_DISTANCE_PCT", "5"))
+RADAR_MAX = int(_env("RADAR_MAX", "8"))
+RADAR_HOURS_UTC = [int(x) for x in _env("RADAR_HOURS_UTC", "7,10,13,16").split(",") if x.strip().isdigit()]
 MAX_OPEN_POSITIONS = int(float(_env("MAX_OPEN_POSITIONS", "10")))
 MAX_POSITIONS_PER_SECTOR = int(float(_env("MAX_POSITIONS_PER_SECTOR", "3")))
 AVOID_EARNINGS_DAYS = int(float(_env("AVOID_EARNINGS_DAYS", "3")))
@@ -290,6 +295,58 @@ def _execute_sell(ticker: str, t212_ticker: str, qty: float, price: float, reaso
         print(f"[trading212] {ticker}: продаж НЕ вдався — {order['detail']}")
 
 
+VOTE_TEXT = {
+    "NEAR_LOWER_BB": "ціна біля нижньої межі Bollinger",
+    "MACD_BULLISH": "MACD вгору",
+    "VOLUME_CONFIRMED": "підвищений обсяг",
+    "RSI<35": "RSI нижче 35",
+}
+
+
+def _pretty_votes(reason: str) -> str:
+    return ", ".join(VOTE_TEXT.get(p, p) for p in reason.split("+"))
+
+
+def _send_radar(radar: list, trading_state: dict) -> None:
+    """Раз у задані години шле в Telegram "радар входів" з рівнями цін."""
+    now = datetime.now(timezone.utc)
+    if now.hour not in RADAR_HOURS_UTC:
+        return
+    slot = now.strftime("%Y-%m-%d %H")
+    sent = trading_state.setdefault("radar_sent", [])
+    if slot in sent:
+        return
+    try:
+        radar = sorted(radar, key=lambda c: c["distance_pct"])[:RADAR_MAX]
+        lines = [f"📡 <b>РАДАР ВХОДІВ</b> · {now.strftime('%H:%M')} UTC", _mode_label(), ""]
+        if not radar:
+            lines.append("Поблизу від сигналу нічого немає (всі акції далі "
+                         f"ніж {RADAR_MAX_DISTANCE_PCT:g}% від рівня входу).")
+        else:
+            lines.append("Акції, які дадуть сигнал на купівлю, якщо ціна впаде до рівня входу:")
+            lines.append("")
+            for c in radar:
+                cur = _cur(c["ticker"])
+                entry = c["trigger"]
+                stop = entry * (1 - STOP_LOSS_PCT / 100)
+                row = (f"• <b>{c['ticker']}</b> ({sector_of(c['ticker'])})\n"
+                       f"  зараз {cur}{c['price']:.2f} → <b>вхід ≤ {cur}{entry:.2f}</b> "
+                       f"(−{c['distance_pct']:.1f}%)\n"
+                       f"  вже є: {c['have']}; на цьому рівні збігаться: {_pretty_votes(c['need'])}\n"
+                       f"  стоп ≈ {cur}{stop:.2f}")
+                if c.get("bb_upper") and c["bb_upper"] > entry:
+                    row += f" · ціль ≈ {cur}{c['bb_upper']:.2f}"
+                lines.append(row)
+            lines.append("")
+            lines.append("<i>Рівні орієнтовні: вони зміщуються разом із ціною. Це не гарантія і "
+                         "не порада, а місця, де спрацює стратегія бота.</i>")
+        telegram_notifier.send_alert("\n".join(lines))
+        sent.append(slot)
+        del sent[:-12]
+    except Exception as e:
+        print(f"[telegram] Не вдалося надіслати радар: {e}", file=sys.stderr)
+
+
 def _execute_cover(ticker: str, price: float, reason: str, trading_state: dict) -> None:
     """Закриття віртуального шорту. Реальних ордерів не існує (лише dry-run)."""
     position = trading_state["positions"].get(ticker, {})
@@ -389,6 +446,7 @@ def run_trading_scan(trading_state: dict) -> None:
         sector_counts[sec] = sector_counts.get(sec, 0) + 1
 
     scanned, signals_found = 0, 0
+    radar = []
     for ticker, df in batch.items():
         if df is None or len(df) < 210:  # замало історії для SMA200
             continue
@@ -411,6 +469,12 @@ def run_trading_scan(trading_state: dict) -> None:
             i = len(dfi) - 1
             price = float(dfi["close"].iloc[i])
             last = dfi.iloc[i]
+
+            if not position:
+                cand = strategy.entry_radar(dfi, RADAR_MAX_DISTANCE_PCT)
+                if cand and strategy.daily_trend_bullish(daily_batch.get(ticker)):
+                    cand["ticker"] = ticker
+                    radar.append(cand)
 
             if position and position.get("side") == "SHORT":
                 # Трейлінг-стоп шорту: рахується від найнижчої ціни з моменту
@@ -480,7 +544,9 @@ def run_trading_scan(trading_state: dict) -> None:
         except Exception as e:
             print(f"[trading212] Помилка аналізу {ticker}: {e}", file=sys.stderr)
 
-    print(f"[trading212] Проскановано {scanned} акцій, оброблено сигналів: {signals_found}.")
+    _send_radar(radar, trading_state)
+    print(f"[trading212] Проскановано {scanned} акцій, оброблено сигналів: {signals_found}, "
+          f"у радарі: {len(radar)}.")
 
 
 def _earnings_too_soon(ticker: str, days: int) -> bool:

@@ -227,6 +227,64 @@ def short_strategy_signal(df: pd.DataFrame, i: int, has_short: bool) -> tuple:
         return None, ""
 
 
+def entry_radar(df: pd.DataFrame, max_distance_pct: float = 5.0):
+    """"Радар входів": акція, яка ЩЕ НЕ дала сигналу на купівлю (має рівно 1
+    голос з 4), але може дати його, якщо ціна впаде до певного рівня.
+    Повертає dict з рівнем входу (`trigger`) або None.
+
+    Рівні рахуємо наближено: нижня межа Bollinger (вона трохи зміщується
+    разом із ціною) і ціна, за якої RSI(14) опуститься нижче 35."""
+    last = df.iloc[-1]
+    price = float(last["close"])
+    sma200, rsi = last["sma200"], last["rsi"]
+    macd, macd_signal = last["macd"], last["macd_signal"]
+    bb_lower, bb_upper = last["bb_lower"], last["bb_upper"]
+    if pd.isna(sma200) or pd.isna(rsi) or pd.isna(macd) or pd.isna(bb_lower):
+        return None
+    if not price > sma200:
+        return None
+    adx = last.get("adx")
+    if adx is not None and not pd.isna(adx) and adx < 15:
+        return None
+
+    vol, vol_sma = last.get("volume"), last.get("vol_sma20")
+    have = []
+    if rsi < 35:
+        have.append("RSI<35")
+    if price <= bb_lower:
+        have.append("нижня межа Bollinger")
+    if macd > macd_signal:
+        have.append("MACD вгору")
+    if vol is not None and vol_sma is not None and not pd.isna(vol_sma) and vol_sma > 0 and vol > 1.2 * vol_sma:
+        have.append("підвищений обсяг")
+    if len(have) != 1:
+        return None  # 0 голосів — далеко від сигналу; 2+ — бот уже діє сам
+
+    # Шукаємо ціну входу СИМУЛЯЦІЄЮ: поступово опускаємо останню ціну (кроки
+    # по 0.25%) і дивимось, при якій стратегія реально дасть BUY. Це точніше
+    # за формули, бо падіння ціни змінює й MACD, і Bollinger, і RSI разом.
+    base = df[["timestamp", "open", "high", "low", "close", "volume"]].copy()
+    step = 0.25
+    pct = step
+    while pct <= max_distance_pct + 1e-9:
+        p = price * (1 - pct / 100)
+        sim = base.copy()
+        idx = sim.index[-1]
+        sim.loc[idx, "close"] = p
+        sim.loc[idx, "low"] = min(float(sim.loc[idx, "low"]), p)
+        d2 = add_all_indicators(sim)
+        action, reason = new_strategy_signal(d2, len(d2) - 1, False)
+        if action == "BUY":
+            return {
+                "price": price, "trigger": p, "distance_pct": pct,
+                "have": have[0], "need": reason,
+                "bb_upper": None if pd.isna(bb_upper) else float(bb_upper),
+                "sma50": None if pd.isna(last["sma50"]) else float(last["sma50"]),
+            }
+        pct += step
+    return None
+
+
 def daily_trend_bearish(daily_df: pd.DataFrame) -> bool:
     """Дзеркало daily_trend_bullish: на денному графіку ціна нижче SMA50,
     а SMA50 нижче SMA200 (низхідний тренд). False, якщо даних мало."""
