@@ -189,7 +189,8 @@
       "t212_ticker": "TMUS_VIRTUAL",
       "opened": "2026-10-09T23:23:08.435684+00:00",
       "stop_pct": 7.0,
-      "mode": null
+      "mode": null,
+      "last_price": 148.5800018310547
     }
   },
   "trade_log": [
