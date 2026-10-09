@@ -164,6 +164,14 @@ def _cur(ticker: str) -> str:
     return "£" if _is_uk(ticker) else "$"
 
 
+def _resolve_t212_ticker(ticker: str):
+    """Віртуальний режим не потребує запитів до Trading 212: сам тікер
+    лише мітка. Реальний режим (заборонений умовами API) шукає інструмент."""
+    if t212.DRY_RUN:
+        return ticker + "_VIRTUAL"
+    return t212.find_instrument_ticker(ticker)
+
+
 def _uk_pence_to_pounds(df):
     """Yahoo віддає ціни акцій LSE в пенсах (GBX). Переводимо у фунти, щоб
     розмір угоди, стопи й результат рахувались в одних одиницях з рештою."""
@@ -486,7 +494,7 @@ def run_trading_scan(trading_state: dict) -> None:
             t212_ticker = ticker + "_UK_VIRTUAL"
             df = _uk_pence_to_pounds(df)
         else:
-            t212_ticker = (position.get("t212_ticker") if position else None) or t212.find_instrument_ticker(ticker)
+            t212_ticker = (position.get("t212_ticker") if position else None) or _resolve_t212_ticker(ticker)
         if not t212_ticker:
             continue
         scanned += 1
@@ -663,7 +671,7 @@ def run_regime_scan(trading_state: dict) -> None:
             t212_ticker = ticker + "_UK_VIRTUAL"
             df = _uk_pence_to_pounds(df)
         else:
-            t212_ticker = (position.get("t212_ticker") if position else None) or t212.find_instrument_ticker(ticker)
+            t212_ticker = (position.get("t212_ticker") if position else None) or _resolve_t212_ticker(ticker)
         if not t212_ticker:
             continue
         scanned += 1
