@@ -119,7 +119,8 @@
       "t212_ticker": "ADBE_VIRTUAL",
       "opened": "2026-10-09T05:21:16.431318+00:00",
       "stop_pct": 7.0,
-      "mode": null
+      "mode": null,
+      "last_price": 241.0500030517578
     },
     "IBM": {
       "qty": 1.3239,
@@ -128,7 +129,8 @@
       "t212_ticker": "IBM_VIRTUAL",
       "opened": "2026-10-09T05:21:16.903884+00:00",
       "stop_pct": 7.0,
-      "mode": null
+      "mode": null,
+      "last_price": 226.61000061035156
     },
     "ABBV": {
       "qty": 1.1012,
@@ -137,7 +139,8 @@
       "t212_ticker": "ABBV_VIRTUAL",
       "opened": "2026-10-09T05:21:17.488628+00:00",
       "stop_pct": 20.0,
-      "mode": "TREND"
+      "mode": "TREND",
+      "last_price": 272.4200134277344
     },
     "MRK": {
       "qty": 2.107,
@@ -146,7 +149,8 @@
       "t212_ticker": "MRK_VIRTUAL",
       "opened": "2026-10-09T05:21:17.877158+00:00",
       "stop_pct": 7.0,
-      "mode": null
+      "mode": null,
+      "last_price": 142.3800048828125
     },
     "T": {
       "qty": 12.0627,
@@ -155,7 +159,8 @@
       "t212_ticker": "T_VIRTUAL",
       "opened": "2026-10-09T05:21:18.653226+00:00",
       "stop_pct": 7.0,
-      "mode": null
+      "mode": null,
+      "last_price": 24.8700008392334
     }
   },
   "trade_log": [
