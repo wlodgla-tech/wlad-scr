@@ -1,6 +1,6 @@
 {
   "date": "2026-10-09",
-  "daily_spent_gbp": 2700.0,
+  "daily_spent_gbp": 3000.0,
   "positions": {
     "SHEL.L": {
       "qty": 2.6802,
@@ -181,6 +181,15 @@
       "stop_pct": 20.0,
       "mode": "TREND",
       "last_price": 182.24000549316406
+    },
+    "TMUS": {
+      "qty": 2.0191,
+      "buy_price": 148.5800018310547,
+      "peak_price": 148.5800018310547,
+      "t212_ticker": "TMUS_VIRTUAL",
+      "opened": "2026-10-09T23:23:08.435684+00:00",
+      "stop_pct": 7.0,
+      "mode": null
     }
   },
   "trade_log": [
@@ -491,6 +500,18 @@
       "dry_run": true,
       "detail": "(dry-run) SELL 250.8361 x VOD.L_UK_VIRTUAL",
       "time": "2026-10-09T23:04:26.187270+00:00"
+    },
+    {
+      "ticker": "TMUS",
+      "action": "BUY",
+      "reason": "RSI_OVERSOLD",
+      "qty": 2.0191,
+      "price": 148.5800018310547,
+      "value_gbp": 300.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 2.0191 x TMUS_VIRTUAL",
+      "time": "2026-10-09T23:23:08.435674+00:00"
     }
   ],
   "cumulative_pnl_gbp": -18.15,
