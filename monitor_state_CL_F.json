@@ -334,5 +334,8 @@
   "FALSE_BREAKOUT_UP_90.35": true,
   "NEAR_SUPPORT_90.3": true,
   "NEAR_RESISTANCE_90.3": true,
-  "FALSE_BREAKOUT_UP_90.3": true
+  "FALSE_BREAKOUT_UP_90.3": true,
+  "NEAR_SUPPORT_90.4": true,
+  "NEAR_RESISTANCE_90.4": true,
+  "FALSE_BREAKOUT_UP_90.4": true
 }
