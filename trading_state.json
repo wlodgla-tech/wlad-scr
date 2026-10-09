@@ -1,6 +1,6 @@
 {
   "date": "2026-10-09",
-  "daily_spent_gbp": 0.0,
+  "daily_spent_gbp": 1500.0,
   "positions": {
     "SHEL.L": {
       "qty": 2.6802,
@@ -111,6 +111,51 @@
       "stop_pct": 7.0,
       "mode": null,
       "last_price": 40.84
+    },
+    "ADBE": {
+      "qty": 1.2446,
+      "buy_price": 241.0500030517578,
+      "peak_price": 241.0500030517578,
+      "t212_ticker": "ADBE_VIRTUAL",
+      "opened": "2026-10-09T05:20:35.219719+00:00",
+      "stop_pct": 7.0,
+      "mode": null
+    },
+    "IBM": {
+      "qty": 1.3239,
+      "buy_price": 226.61000061035156,
+      "peak_price": 226.61000061035156,
+      "t212_ticker": "IBM_VIRTUAL",
+      "opened": "2026-10-09T05:20:35.906329+00:00",
+      "stop_pct": 7.0,
+      "mode": null
+    },
+    "ABBV": {
+      "qty": 1.1012,
+      "buy_price": 272.4200134277344,
+      "peak_price": 272.4200134277344,
+      "t212_ticker": "ABBV_VIRTUAL",
+      "opened": "2026-10-09T05:20:36.567641+00:00",
+      "stop_pct": 20.0,
+      "mode": "TREND"
+    },
+    "MRK": {
+      "qty": 2.107,
+      "buy_price": 142.3800048828125,
+      "peak_price": 142.3800048828125,
+      "t212_ticker": "MRK_VIRTUAL",
+      "opened": "2026-10-09T05:20:37.105399+00:00",
+      "stop_pct": 7.0,
+      "mode": null
+    },
+    "T": {
+      "qty": 12.0627,
+      "buy_price": 24.8700008392334,
+      "peak_price": 24.8700008392334,
+      "t212_ticker": "T_VIRTUAL",
+      "opened": "2026-10-09T05:20:38.003017+00:00",
+      "stop_pct": 7.0,
+      "mode": null
     }
   },
   "trade_log": [
@@ -291,6 +336,66 @@
       "dry_run": true,
       "detail": "(dry-run) BUY 7.3457 x BATS.L_UK_VIRTUAL",
       "time": "2026-10-08T23:17:01.706032+00:00"
+    },
+    {
+      "ticker": "ADBE",
+      "action": "BUY",
+      "reason": "NEAR_SUPPORT",
+      "qty": 1.2446,
+      "price": 241.0500030517578,
+      "value_gbp": 300.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 1.2446 x ADBE_VIRTUAL",
+      "time": "2026-10-09T05:20:35.219711+00:00"
+    },
+    {
+      "ticker": "IBM",
+      "action": "BUY",
+      "reason": "NEAR_SUPPORT",
+      "qty": 1.3239,
+      "price": 226.61000061035156,
+      "value_gbp": 300.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 1.3239 x IBM_VIRTUAL",
+      "time": "2026-10-09T05:20:35.906321+00:00"
+    },
+    {
+      "ticker": "ABBV",
+      "action": "BUY",
+      "reason": "TREND_BREAKOUT",
+      "qty": 1.1012,
+      "price": 272.4200134277344,
+      "value_gbp": 300.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 1.1012 x ABBV_VIRTUAL",
+      "time": "2026-10-09T05:20:36.567632+00:00"
+    },
+    {
+      "ticker": "MRK",
+      "action": "BUY",
+      "reason": "NEAR_SUPPORT",
+      "qty": 2.107,
+      "price": 142.3800048828125,
+      "value_gbp": 300.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 2.1070 x MRK_VIRTUAL",
+      "time": "2026-10-09T05:20:37.105390+00:00"
+    },
+    {
+      "ticker": "T",
+      "action": "BUY",
+      "reason": "NEAR_SUPPORT",
+      "qty": 12.0627,
+      "price": 24.8700008392334,
+      "value_gbp": 300.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 12.0627 x T_VIRTUAL",
+      "time": "2026-10-09T05:20:38.003006+00:00"
     }
   ],
   "cumulative_pnl_gbp": -0.15,
