@@ -10,7 +10,7 @@
       "opened": "2026-10-08T11:19:58.572016+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 37.335
+      "last_price": 37.287958984375
     },
     "HSBA.L": {
       "qty": 7.2812,
@@ -20,7 +20,7 @@
       "opened": "2026-10-08T11:19:59.164387+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 13.94199951171875
+      "last_price": 13.93
     },
     "BP.L": {
       "qty": 17.2117,
@@ -30,7 +30,7 @@
       "opened": "2026-10-08T11:19:59.715151+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 5.755
+      "last_price": 5.7540002441406255
     },
     "BARC.L": {
       "qty": 23.6714,
@@ -40,7 +40,7 @@
       "opened": "2026-10-08T11:20:00.320643+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 4.287000122070313
+      "last_price": 4.28
     },
     "PRU.L": {
       "qty": 11.4077,
@@ -50,7 +50,7 @@
       "opened": "2026-10-08T11:20:00.856686+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 8.997999877929688
+      "last_price": 8.982000122070312
     },
     "BA.L": {
       "qty": 5.484,
@@ -60,37 +60,37 @@
       "opened": "2026-10-08T11:20:01.386565+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 18.35
+      "last_price": 18.355
     },
     "NXT.L": {
       "qty": 0.688,
       "buy_price": 145.35,
-      "peak_price": 146.55,
+      "peak_price": 146.75,
       "t212_ticker": "NXT.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:20:02.010530+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 146.55
+      "last_price": 146.75
     },
     "TSCO.L": {
       "qty": 59.7566,
       "buy_price": 5.020369873046875,
-      "peak_price": 5.124000244140625,
+      "peak_price": 5.145999755859375,
       "t212_ticker": "TSCO.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:42:59.754950+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 5.124000244140625
+      "last_price": 5.145999755859375
     },
     "INF.L": {
       "qty": 34.0445,
       "buy_price": 8.812000122070312,
-      "peak_price": 9.02,
+      "peak_price": 9.062000122070312,
       "t212_ticker": "INF.L_UK_VIRTUAL",
       "opened": "2026-10-08T12:00:08.276820+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 9.017999877929688
+      "last_price": 9.062000122070312
     },
     "GSK.L": {
       "qty": 17.002,
@@ -100,17 +100,17 @@
       "opened": "2026-10-08T13:16:51.368530+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 17.67
+      "last_price": 17.650000000000002
     },
     "BATS.L": {
       "qty": 7.3457,
       "buy_price": 40.84,
-      "peak_price": 41.84,
+      "peak_price": 41.910000000000004,
       "t212_ticker": "BATS.L_UK_VIRTUAL",
       "opened": "2026-10-08T23:17:01.706041+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 41.84
+      "last_price": 41.910000000000004
     },
     "ADBE": {
       "qty": 1.2446,
