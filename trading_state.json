@@ -117,7 +117,7 @@
       "buy_price": 241.0500030517578,
       "peak_price": 241.0500030517578,
       "t212_ticker": "ADBE_VIRTUAL",
-      "opened": "2026-10-09T05:20:35.219719+00:00",
+      "opened": "2026-10-09T05:21:16.431318+00:00",
       "stop_pct": 7.0,
       "mode": null
     },
@@ -126,7 +126,7 @@
       "buy_price": 226.61000061035156,
       "peak_price": 226.61000061035156,
       "t212_ticker": "IBM_VIRTUAL",
-      "opened": "2026-10-09T05:20:35.906329+00:00",
+      "opened": "2026-10-09T05:21:16.903884+00:00",
       "stop_pct": 7.0,
       "mode": null
     },
@@ -135,7 +135,7 @@
       "buy_price": 272.4200134277344,
       "peak_price": 272.4200134277344,
       "t212_ticker": "ABBV_VIRTUAL",
-      "opened": "2026-10-09T05:20:36.567641+00:00",
+      "opened": "2026-10-09T05:21:17.488628+00:00",
       "stop_pct": 20.0,
       "mode": "TREND"
     },
@@ -144,7 +144,7 @@
       "buy_price": 142.3800048828125,
       "peak_price": 142.3800048828125,
       "t212_ticker": "MRK_VIRTUAL",
-      "opened": "2026-10-09T05:20:37.105399+00:00",
+      "opened": "2026-10-09T05:21:17.877158+00:00",
       "stop_pct": 7.0,
       "mode": null
     },
@@ -153,7 +153,7 @@
       "buy_price": 24.8700008392334,
       "peak_price": 24.8700008392334,
       "t212_ticker": "T_VIRTUAL",
-      "opened": "2026-10-09T05:20:38.003017+00:00",
+      "opened": "2026-10-09T05:21:18.653226+00:00",
       "stop_pct": 7.0,
       "mode": null
     }
@@ -347,7 +347,7 @@
       "ok": true,
       "dry_run": true,
       "detail": "(dry-run) BUY 1.2446 x ADBE_VIRTUAL",
-      "time": "2026-10-09T05:20:35.219711+00:00"
+      "time": "2026-10-09T05:21:16.431307+00:00"
     },
     {
       "ticker": "IBM",
@@ -359,7 +359,7 @@
       "ok": true,
       "dry_run": true,
       "detail": "(dry-run) BUY 1.3239 x IBM_VIRTUAL",
-      "time": "2026-10-09T05:20:35.906321+00:00"
+      "time": "2026-10-09T05:21:16.903874+00:00"
     },
     {
       "ticker": "ABBV",
@@ -371,7 +371,7 @@
       "ok": true,
       "dry_run": true,
       "detail": "(dry-run) BUY 1.1012 x ABBV_VIRTUAL",
-      "time": "2026-10-09T05:20:36.567632+00:00"
+      "time": "2026-10-09T05:21:17.488619+00:00"
     },
     {
       "ticker": "MRK",
@@ -383,7 +383,7 @@
       "ok": true,
       "dry_run": true,
       "detail": "(dry-run) BUY 2.1070 x MRK_VIRTUAL",
-      "time": "2026-10-09T05:20:37.105390+00:00"
+      "time": "2026-10-09T05:21:17.877148+00:00"
     },
     {
       "ticker": "T",
@@ -395,7 +395,7 @@
       "ok": true,
       "dry_run": true,
       "detail": "(dry-run) BUY 12.0627 x T_VIRTUAL",
-      "time": "2026-10-09T05:20:38.003006+00:00"
+      "time": "2026-10-09T05:21:18.653216+00:00"
     }
   ],
   "cumulative_pnl_gbp": -0.15,
