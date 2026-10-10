@@ -1,11 +1,5 @@
 [
   {
-    "time": "2026-10-09T19:50:02.458985+00:00",
-    "ticker": "^GSPC",
-    "type": "NEAR_RESISTANCE",
-    "detail": "ціна +0.06% від рівня опору ≈7807.0200"
-  },
-  {
     "time": "2026-10-09T19:50:03.276688+00:00",
     "ticker": "AAPL",
     "type": "NEAR_RESISTANCE",
@@ -358,5 +352,11 @@
     "ticker": "BTC-USD",
     "type": "NEAR_RESISTANCE",
     "detail": "ціна +0.49% від рівня опору ≈82070.2500"
+  },
+  {
+    "time": "2026-10-10T01:07:15.586139+00:00",
+    "ticker": "BTC-USD",
+    "type": "NEAR_SUPPORT",
+    "detail": "ціна -0.04% від рівня підтримки ≈82561.2031"
   }
 ]
