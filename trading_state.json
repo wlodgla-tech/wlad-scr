@@ -1,6 +1,6 @@
 {
-  "date": "2026-10-09",
-  "daily_spent_gbp": 3000.0,
+  "date": "2026-10-10",
+  "daily_spent_gbp": 0.0,
   "positions": {
     "SHEL.L": {
       "qty": 2.6802,
@@ -120,7 +120,7 @@
       "opened": "2026-10-09T05:21:16.431318+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 242.27000427246094
+      "last_price": 241.0500030517578
     },
     "IBM": {
       "qty": 1.3239,
@@ -130,7 +130,7 @@
       "opened": "2026-10-09T05:21:16.903884+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 227.1300048828125
+      "last_price": 226.61000061035156
     },
     "ABBV": {
       "qty": 1.1012,
@@ -140,7 +140,7 @@
       "opened": "2026-10-09T05:21:17.488628+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 276.4700012207031
+      "last_price": 272.4200134277344
     },
     "MRK": {
       "qty": 2.107,
@@ -150,47 +150,37 @@
       "opened": "2026-10-09T05:21:17.877158+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 145.60000610351562
+      "last_price": 142.3800048828125
     },
     "VZ": {
       "qty": 7.0228,
       "buy_price": 42.71820068359375,
-      "peak_price": 42.92319869995117,
+      "peak_price": 46.349998474121094,
       "t212_ticker": "VZ_VIRTUAL",
       "opened": "2026-10-09T13:32:10.127643+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 41.650001525878906
+      "last_price": 46.349998474121094
     },
     "T": {
       "qty": 13.1148,
       "buy_price": 22.875,
-      "peak_price": 23.059999465942383,
+      "peak_price": 24.8700008392334,
       "t212_ticker": "T_VIRTUAL",
       "opened": "2026-10-09T13:53:35.957206+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 22.18000030517578
-    },
-    "AMT": {
-      "qty": 1.6818,
-      "buy_price": 178.38499450683594,
-      "peak_price": 182.24000549316406,
-      "t212_ticker": "AMT_VIRTUAL",
-      "opened": "2026-10-09T13:53:36.448912+00:00",
-      "stop_pct": 20.0,
-      "mode": "TREND",
-      "last_price": 182.24000549316406
+      "last_price": 24.8700008392334
     },
     "TMUS": {
       "qty": 2.0191,
       "buy_price": 148.5800018310547,
-      "peak_price": 148.5800018310547,
+      "peak_price": 171.30999755859375,
       "t212_ticker": "TMUS_VIRTUAL",
       "opened": "2026-10-09T23:23:08.435684+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 148.5800018310547
+      "last_price": 171.30999755859375
     }
   },
   "trade_log": [
@@ -513,9 +503,20 @@
       "dry_run": true,
       "detail": "(dry-run) BUY 2.0191 x TMUS_VIRTUAL",
       "time": "2026-10-09T23:23:08.435674+00:00"
+    },
+    {
+      "ticker": "AMT",
+      "action": "SELL",
+      "reason": "TREND_BREAK",
+      "qty": 1.6818,
+      "price": 166.72999572753906,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) SELL 1.6818 x AMT_VIRTUAL",
+      "time": "2026-10-10T00:18:17.787046+00:00"
     }
   ],
-  "cumulative_pnl_gbp": -18.15,
+  "cumulative_pnl_gbp": -37.75,
   "peak_pnl_gbp": 0.33,
   "radar_sent": [
     "2026-10-08 10",
