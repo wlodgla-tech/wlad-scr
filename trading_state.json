@@ -169,7 +169,8 @@
       "t212_ticker": "T_VIRTUAL",
       "opened": "2026-10-10T02:01:55.600000+00:00",
       "stop_pct": 7.0,
-      "mode": null
+      "mode": null,
+      "last_price": 22.18000030517578
     },
     "VZ": {
       "qty": 7.2029,
@@ -178,7 +179,8 @@
       "t212_ticker": "VZ_VIRTUAL",
       "opened": "2026-10-10T02:01:56.136062+00:00",
       "stop_pct": 7.0,
-      "mode": null
+      "mode": null,
+      "last_price": 41.650001525878906
     },
     "TMUS": {
       "qty": 2.0191,
@@ -187,7 +189,8 @@
       "t212_ticker": "TMUS_VIRTUAL",
       "opened": "2026-10-10T02:01:56.610156+00:00",
       "stop_pct": 7.0,
-      "mode": null
+      "mode": null,
+      "last_price": 148.5800018310547
     }
   },
   "trade_log": [
