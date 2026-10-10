@@ -1,6 +1,6 @@
 {
   "date": "2026-10-10",
-  "daily_spent_gbp": 300.0,
+  "daily_spent_gbp": 1200.0,
   "positions": {
     "SHEL.L": {
       "qty": 2.6802,
@@ -159,7 +159,35 @@
       "t212_ticker": "AMT_VIRTUAL",
       "opened": "2026-10-10T01:47:51.216580+00:00",
       "stop_pct": 20.0,
-      "mode": "TREND"
+      "mode": "TREND",
+      "last_price": 182.24000549316406
+    },
+    "T": {
+      "qty": 13.5257,
+      "buy_price": 22.18000030517578,
+      "peak_price": 22.18000030517578,
+      "t212_ticker": "T_VIRTUAL",
+      "opened": "2026-10-10T02:01:55.600000+00:00",
+      "stop_pct": 7.0,
+      "mode": null
+    },
+    "VZ": {
+      "qty": 7.2029,
+      "buy_price": 41.650001525878906,
+      "peak_price": 41.650001525878906,
+      "t212_ticker": "VZ_VIRTUAL",
+      "opened": "2026-10-10T02:01:56.136062+00:00",
+      "stop_pct": 7.0,
+      "mode": null
+    },
+    "TMUS": {
+      "qty": 2.0191,
+      "buy_price": 148.5800018310547,
+      "peak_price": 148.5800018310547,
+      "t212_ticker": "TMUS_VIRTUAL",
+      "opened": "2026-10-10T02:01:56.610156+00:00",
+      "stop_pct": 7.0,
+      "mode": null
     }
   },
   "trade_log": [
@@ -538,6 +566,42 @@
       "dry_run": true,
       "detail": "(dry-run) BUY 1.6462 x AMT_VIRTUAL",
       "time": "2026-10-10T01:47:51.216571+00:00"
+    },
+    {
+      "ticker": "T",
+      "action": "BUY",
+      "reason": "RSI_OVERSOLD",
+      "qty": 13.5257,
+      "price": 22.18000030517578,
+      "value_gbp": 300.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 13.5257 x T_VIRTUAL",
+      "time": "2026-10-10T02:01:55.599992+00:00"
+    },
+    {
+      "ticker": "VZ",
+      "action": "BUY",
+      "reason": "RSI_OVERSOLD",
+      "qty": 7.2029,
+      "price": 41.650001525878906,
+      "value_gbp": 300.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 7.2029 x VZ_VIRTUAL",
+      "time": "2026-10-10T02:01:56.136054+00:00"
+    },
+    {
+      "ticker": "TMUS",
+      "action": "BUY",
+      "reason": "RSI_OVERSOLD",
+      "qty": 2.0191,
+      "price": 148.5800018310547,
+      "value_gbp": 300.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 2.0191 x TMUS_VIRTUAL",
+      "time": "2026-10-10T02:01:56.610147+00:00"
     }
   ],
   "cumulative_pnl_gbp": -54.36,
