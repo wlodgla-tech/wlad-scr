@@ -1,23 +1,5 @@
 [
   {
-    "time": "2026-10-11T14:36:21.494785+00:00",
-    "ticker": "BTC-USD",
-    "type": "NEAR_RESISTANCE",
-    "detail": "ціна -0.04% від рівня опору ≈83091.0391"
-  },
-  {
-    "time": "2026-10-11T14:36:21.494785+00:00",
-    "ticker": "BTC-USD",
-    "type": "FALSE_BREAKOUT_UP",
-    "detail": "рівень ≈83091.0391 (resistance) пробитий і ціна повернулась назад"
-  },
-  {
-    "time": "2026-10-11T14:53:20.341422+00:00",
-    "ticker": "BTC-USD",
-    "type": "NEAR_SUPPORT",
-    "detail": "ціна -0.08% від рівня підтримки ≈83130.7578"
-  },
-  {
     "time": "2026-10-11T14:53:20.341422+00:00",
     "ticker": "BTC-USD",
     "type": "NEAR_RESISTANCE",
@@ -358,5 +340,23 @@
     "ticker": "BTC-USD",
     "type": "FALSE_BREAKOUT_UP",
     "detail": "рівень ≈83818.0078 (resistance) пробитий і ціна повернулась назад"
+  },
+  {
+    "time": "2026-10-11T19:37:45.683049+00:00",
+    "ticker": "BTC-USD",
+    "type": "NEAR_SUPPORT",
+    "detail": "ціна +0.11% від рівня підтримки ≈83556.2109"
+  },
+  {
+    "time": "2026-10-11T19:37:45.683049+00:00",
+    "ticker": "BTC-USD",
+    "type": "NEAR_RESISTANCE",
+    "detail": "ціна -0.20% від рівня опору ≈83821.4922"
+  },
+  {
+    "time": "2026-10-11T19:37:45.683049+00:00",
+    "ticker": "BTC-USD",
+    "type": "FALSE_BREAKOUT_UP",
+    "detail": "рівень ≈83814.0703 (resistance) пробитий і ціна повернулась назад"
   }
 ]
