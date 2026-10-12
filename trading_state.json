@@ -10,17 +10,17 @@
       "opened": "2026-10-08T11:19:58.572016+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 38.33
+      "last_price": 38.36
     },
     "HSBA.L": {
       "qty": 7.2812,
       "buy_price": 13.734000244140626,
-      "peak_price": 14.274000244140625,
+      "peak_price": 14.284000244140625,
       "t212_ticker": "HSBA.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:19:59.164387+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 14.204000244140625
+      "last_price": 14.284000244140625
     },
     "BP.L": {
       "qty": 17.2117,
@@ -30,17 +30,17 @@
       "opened": "2026-10-08T11:19:59.715151+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 5.882360229492187
+      "last_price": 5.88
     },
     "BARC.L": {
       "qty": 23.6714,
       "buy_price": 4.224500122070313,
-      "peak_price": 4.374500122070312,
+      "peak_price": 4.376000061035156,
       "t212_ticker": "BARC.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:20:00.320643+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 4.360499877929688
+      "last_price": 4.376000061035156
     },
     "PRU.L": {
       "qty": 11.4077,
@@ -50,7 +50,7 @@
       "opened": "2026-10-08T11:20:00.856686+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 9.040999755859374
+      "last_price": 9.01
     },
     "BA.L": {
       "qty": 5.484,
@@ -60,7 +60,7 @@
       "opened": "2026-10-08T11:20:01.386565+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 18.87
+      "last_price": 18.825
     },
     "NXT.L": {
       "qty": 0.688,
@@ -70,7 +70,7 @@
       "opened": "2026-10-08T11:20:02.010530+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 146.9
+      "last_price": 147.20000000000002
     },
     "TSCO.L": {
       "qty": 59.7566,
@@ -80,7 +80,7 @@
       "opened": "2026-10-08T11:42:59.754950+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 5.082000122070313
+      "last_price": 5.11
     },
     "INF.L": {
       "qty": 34.0445,
@@ -90,7 +90,7 @@
       "opened": "2026-10-08T12:00:08.276820+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 8.82
+      "last_price": 8.74
     },
     "GSK.L": {
       "qty": 17.002,
@@ -100,7 +100,7 @@
       "opened": "2026-10-08T13:16:51.368530+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 17.655
+      "last_price": 17.71
     },
     "BATS.L": {
       "qty": 7.3457,
@@ -110,7 +110,7 @@
       "opened": "2026-10-08T23:17:01.706041+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 42.03
+      "last_price": 41.94
     },
     "ADBE": {
       "qty": 1.2446,
@@ -120,7 +120,7 @@
       "opened": "2026-10-09T05:21:16.431318+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 239.39999389648438
+      "last_price": 238.8000030517578
     },
     "IBM": {
       "qty": 1.3239,
@@ -130,7 +130,7 @@
       "opened": "2026-10-09T05:21:16.903884+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 225.7550048828125
+      "last_price": 225.81500244140625
     },
     "ABBV": {
       "qty": 1.1012,
@@ -140,7 +140,7 @@
       "opened": "2026-10-09T05:21:17.488628+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 279.4849853515625
+      "last_price": 279.4549865722656
     },
     "MRK": {
       "qty": 2.107,
@@ -150,7 +150,7 @@
       "opened": "2026-10-09T05:21:17.877158+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 145.42999267578125
+      "last_price": 145.2100067138672
     },
     "AMT": {
       "qty": 1.6462,
@@ -160,7 +160,7 @@
       "opened": "2026-10-10T01:47:51.216580+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 182.3300018310547
+      "last_price": 182.1199951171875
     },
     "T": {
       "qty": 13.5257,
@@ -170,7 +170,7 @@
       "opened": "2026-10-10T02:01:55.600000+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 22.264999389648438
+      "last_price": 22.30500030517578
     },
     "VZ": {
       "qty": 7.2029,
@@ -180,7 +180,7 @@
       "opened": "2026-10-10T02:01:56.136062+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 42.334999084472656
+      "last_price": 42.33000183105469
     },
     "TMUS": {
       "qty": 2.0191,
@@ -190,17 +190,17 @@
       "opened": "2026-10-10T02:01:56.610156+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 152.5
+      "last_price": 152.39999389648438
     },
     "APD": {
       "qty": 1.0532,
       "buy_price": 284.8500061035156,
-      "peak_price": 284.8500061035156,
+      "peak_price": 285.75,
       "t212_ticker": "APD_VIRTUAL",
       "opened": "2026-10-12T14:50:24.201704+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 284.5
+      "last_price": 285.75
     }
   },
   "trade_log": [
