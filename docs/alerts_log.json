@@ -1,35 +1,5 @@
 [
   {
-    "time": "2026-10-13T09:49:42.543013+00:00",
-    "ticker": "GC=F",
-    "type": "FALSE_BREAKOUT_UP",
-    "detail": "рівень ≈4209.1001 (resistance) пробитий і ціна повернулась назад"
-  },
-  {
-    "time": "2026-10-13T09:49:43.823148+00:00",
-    "ticker": "CL=F",
-    "type": "NEAR_SUPPORT",
-    "detail": "ціна +0.17% від рівня підтримки ≈91.8200"
-  },
-  {
-    "time": "2026-10-13T09:49:43.823148+00:00",
-    "ticker": "CL=F",
-    "type": "NEAR_RESISTANCE",
-    "detail": "ціна +0.02% від рівня опору ≈91.9600"
-  },
-  {
-    "time": "2026-10-13T09:49:43.823148+00:00",
-    "ticker": "CL=F",
-    "type": "FALSE_BREAKOUT_DOWN",
-    "detail": "рівень ≈91.9600 (support) пробитий і ціна повернулась назад"
-  },
-  {
-    "time": "2026-10-13T09:49:43.823148+00:00",
-    "ticker": "CL=F",
-    "type": "FALSE_BREAKOUT_UP",
-    "detail": "рівень ≈92.2900 (resistance) пробитий і ціна повернулась назад"
-  },
-  {
     "time": "2026-10-13T09:49:44.895410+00:00",
     "ticker": "BTC-USD",
     "type": "NEAR_SUPPORT",
@@ -358,5 +328,35 @@
     "ticker": "BTC-USD",
     "type": "FALSE_BREAKOUT_UP",
     "detail": "рівень ≈83556.2109 (resistance) пробитий і ціна повернулась назад"
+  },
+  {
+    "time": "2026-10-13T12:21:17.660885+00:00",
+    "ticker": "SB=F",
+    "type": "FALSE_BREAKOUT_UP",
+    "detail": "рівень ≈20.8900 (resistance) пробитий і ціна повернулась назад"
+  },
+  {
+    "time": "2026-10-13T12:21:18.746354+00:00",
+    "ticker": "GC=F",
+    "type": "FALSE_BREAKOUT_DOWN",
+    "detail": "рівень ≈4209.1001 (support) пробитий і ціна повернулась назад"
+  },
+  {
+    "time": "2026-10-13T12:21:21.647966+00:00",
+    "ticker": "BTC-USD",
+    "type": "NEAR_SUPPORT",
+    "detail": "ціна -0.01% від рівня підтримки ≈83130.7578"
+  },
+  {
+    "time": "2026-10-13T12:21:21.647966+00:00",
+    "ticker": "BTC-USD",
+    "type": "NEAR_RESISTANCE",
+    "detail": "ціна +0.08% від рівня опору ≈83052.5703"
+  },
+  {
+    "time": "2026-10-13T12:21:21.647966+00:00",
+    "ticker": "BTC-USD",
+    "type": "FALSE_BREAKOUT_UP",
+    "detail": "рівень ≈83130.7578 (resistance) пробитий і ціна повернулась назад"
   }
 ]
