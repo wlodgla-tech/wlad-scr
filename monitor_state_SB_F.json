@@ -104,5 +104,7 @@
   "NEAR_SUPPORT_20.66": true,
   "NEAR_SUPPORT_20.64": true,
   "NEAR_SUPPORT_20.67": true,
-  "NEAR_RESISTANCE_20.81": true
+  "NEAR_RESISTANCE_20.81": true,
+  "NEAR_RESISTANCE_20.9": true,
+  "FALSE_BREAKOUT_DOWN_20.9": true
 }
