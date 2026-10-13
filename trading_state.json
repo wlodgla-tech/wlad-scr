@@ -10,47 +10,47 @@
       "opened": "2026-10-08T11:19:58.572016+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 37.935
+      "last_price": 38.495
     },
     "HSBA.L": {
       "qty": 7.2812,
       "buy_price": 13.734000244140626,
-      "peak_price": 14.284000244140625,
+      "peak_price": 14.476500244140626,
       "t212_ticker": "HSBA.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:19:59.164387+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 13.95800048828125
+      "last_price": 14.476500244140626
     },
     "BP.L": {
       "qty": 17.2117,
       "buy_price": 5.8100000000000005,
-      "peak_price": 5.915999755859375,
+      "peak_price": 5.967000122070313,
       "t212_ticker": "BP.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:19:59.715151+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 5.8629998779296875
+      "last_price": 5.967000122070313
     },
     "BARC.L": {
       "qty": 23.6714,
       "buy_price": 4.224500122070313,
-      "peak_price": 4.376000061035156,
+      "peak_price": 4.4429998779296875,
       "t212_ticker": "BARC.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:20:00.320643+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 4.2964999389648435
+      "last_price": 4.4429998779296875
     },
     "PRU.L": {
       "qty": 11.4077,
       "buy_price": 8.765999755859376,
-      "peak_price": 9.047999877929687,
+      "peak_price": 9.092000122070313,
       "t212_ticker": "PRU.L_UK_VIRTUAL",
       "opened": "2026-10-08T11:20:00.856686+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 8.984000244140626
+      "last_price": 9.092000122070313
     },
     "BA.L": {
       "qty": 5.484,
@@ -60,17 +60,7 @@
       "opened": "2026-10-08T11:20:01.386565+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 18.6
-    },
-    "NXT.L": {
-      "qty": 0.688,
-      "buy_price": 145.35,
-      "peak_price": 147.8,
-      "t212_ticker": "NXT.L_UK_VIRTUAL",
-      "opened": "2026-10-08T11:20:02.010530+00:00",
-      "stop_pct": 7.0,
-      "mode": null,
-      "last_price": 147.0
+      "last_price": 18.900000000000002
     },
     "TSCO.L": {
       "qty": 59.7566,
@@ -80,7 +70,7 @@
       "opened": "2026-10-08T11:42:59.754950+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 5.037999877929687
+      "last_price": 5.1000000000000005
     },
     "INF.L": {
       "qty": 34.0445,
@@ -90,27 +80,17 @@
       "opened": "2026-10-08T12:00:08.276820+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 8.955999755859375
+      "last_price": 8.832000122070312
     },
     "GSK.L": {
       "qty": 17.002,
       "buy_price": 17.645,
-      "peak_price": 17.905,
+      "peak_price": 18.038000488281252,
       "t212_ticker": "GSK.L_UK_VIRTUAL",
       "opened": "2026-10-08T13:16:51.368530+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 17.5
-    },
-    "BATS.L": {
-      "qty": 7.3457,
-      "buy_price": 40.84,
-      "peak_price": 42.24,
-      "t212_ticker": "BATS.L_UK_VIRTUAL",
-      "opened": "2026-10-08T23:17:01.706041+00:00",
-      "stop_pct": 7.0,
-      "mode": null,
-      "last_price": 41.94
+      "last_price": 18.038000488281252
     },
     "ADBE": {
       "qty": 1.2446,
@@ -627,9 +607,31 @@
       "dry_run": true,
       "detail": "(dry-run) BUY 1.0532 x APD_VIRTUAL",
       "time": "2026-10-12T14:50:24.201696+00:00"
+    },
+    {
+      "ticker": "BATS.L",
+      "action": "SELL",
+      "reason": "NEAR_RESISTANCE",
+      "qty": 7.3457,
+      "price": 42.4914990234375,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) SELL 7.3457 x BATS.L_UK_VIRTUAL",
+      "time": "2026-10-13T07:31:46.710811+00:00"
+    },
+    {
+      "ticker": "NXT.L",
+      "action": "SELL",
+      "reason": "NEAR_RESISTANCE",
+      "qty": 0.688,
+      "price": 149.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) SELL 0.6880 x NXT.L_UK_VIRTUAL",
+      "time": "2026-10-13T07:31:47.323821+00:00"
     }
   ],
-  "cumulative_pnl_gbp": -54.36,
+  "cumulative_pnl_gbp": -39.72,
   "peak_pnl_gbp": 0.33,
   "radar_sent": [
     "2026-10-10 10",
