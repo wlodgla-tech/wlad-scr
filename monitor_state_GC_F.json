@@ -872,5 +872,7 @@
   "RSI_OVERSOLD_4096.6": true,
   "NEAR_SUPPORT_4096.6": true,
   "RSI_OVERSOLD_4100.5": true,
-  "NEAR_SUPPORT_4100.5": true
+  "NEAR_SUPPORT_4100.5": true,
+  "RSI_OVERSOLD_4101.6": true,
+  "NEAR_SUPPORT_4101.6": true
 }
