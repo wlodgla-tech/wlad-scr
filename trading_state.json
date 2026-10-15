@@ -100,17 +100,7 @@
       "opened": "2026-10-09T05:21:16.431318+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 249.81500244140625
-    },
-    "IBM": {
-      "qty": 1.3239,
-      "buy_price": 226.61000061035156,
-      "peak_price": 232.8350067138672,
-      "t212_ticker": "IBM_VIRTUAL",
-      "opened": "2026-10-09T05:21:16.903884+00:00",
-      "stop_pct": 7.0,
-      "mode": null,
-      "last_price": 232.54469299316406
+      "last_price": 251.08999633789062
     },
     "ABBV": {
       "qty": 1.1012,
@@ -120,7 +110,7 @@
       "opened": "2026-10-09T05:21:17.488628+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 287.739990234375
+      "last_price": 287.95001220703125
     },
     "MRK": {
       "qty": 2.107,
@@ -130,7 +120,7 @@
       "opened": "2026-10-09T05:21:17.877158+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 149.6649932861328
+      "last_price": 149.3249969482422
     },
     "AMT": {
       "qty": 1.6462,
@@ -140,7 +130,7 @@
       "opened": "2026-10-10T01:47:51.216580+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 182.66000366210938
+      "last_price": 182.34500122070312
     },
     "T": {
       "qty": 13.5257,
@@ -150,7 +140,7 @@
       "opened": "2026-10-10T02:01:55.600000+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 23.674999237060547
+      "last_price": 23.645000457763672
     },
     "VZ": {
       "qty": 7.2029,
@@ -160,7 +150,7 @@
       "opened": "2026-10-10T02:01:56.136062+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 45.064998626708984
+      "last_price": 44.95500183105469
     },
     "TMUS": {
       "qty": 2.0191,
@@ -170,7 +160,7 @@
       "opened": "2026-10-10T02:01:56.610156+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 158.25999450683594
+      "last_price": 157.6999969482422
     },
     "APD": {
       "qty": 1.0532,
@@ -180,7 +170,7 @@
       "opened": "2026-10-12T14:50:24.201704+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 295.3999938964844
+      "last_price": 295.0199890136719
     },
     "PG": {
       "qty": 1.9582,
@@ -190,7 +180,7 @@
       "opened": "2026-10-13T07:55:34.569740+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 157.9499969482422
+      "last_price": 158.03750610351562
     },
     "TGT": {
       "qty": 1.9529,
@@ -200,7 +190,7 @@
       "opened": "2026-10-13T07:55:35.135741+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 156.97999572753906
+      "last_price": 156.7100067138672
     }
   },
   "trade_log": [
@@ -673,9 +663,20 @@
       "dry_run": true,
       "detail": "(dry-run) BUY 1.9529 x TGT_VIRTUAL",
       "time": "2026-10-13T07:55:35.135731+00:00"
+    },
+    {
+      "ticker": "IBM",
+      "action": "SELL",
+      "reason": "NEAR_RESISTANCE",
+      "qty": 1.3239,
+      "price": 233.1649932861328,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) SELL 1.3239 x IBM_VIRTUAL",
+      "time": "2026-10-15T17:00:48.468052+00:00"
     }
   ],
-  "cumulative_pnl_gbp": -39.72,
+  "cumulative_pnl_gbp": -31.04,
   "peak_pnl_gbp": 0.33,
   "radar_sent": [
     "2026-10-13 07",
