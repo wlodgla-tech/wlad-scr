@@ -762,7 +762,7 @@
   ],
   "report_sent": "2026-10-16",
   "radar": {
-    "updated": "2026-10-16T23:28:34.242968+00:00",
+    "updated": "2026-10-16T23:53:48.469658+00:00",
     "items": [
       {
         "ticker": "ELV",
@@ -783,6 +783,16 @@
         "stop": 58.088,
         "stop_pct": 20.0,
         "cur": "$"
+      },
+      {
+        "ticker": "IBE.MC",
+        "sector": "Інше:IBE.MC",
+        "price": 21.69,
+        "trigger": 21.71,
+        "distance_pct": 0.09,
+        "stop": 17.368,
+        "stop_pct": 20.0,
+        "cur": "€"
       },
       {
         "ticker": "AI.PA",
@@ -915,6 +925,16 @@
         "cur": "$"
       },
       {
+        "ticker": "GIVN.SW",
+        "sector": "Інше:GIVN.SW",
+        "price": 3915.0,
+        "trigger": 3935.0,
+        "distance_pct": 0.51,
+        "stop": 3148.0,
+        "stop_pct": 20.0,
+        "cur": "CHF "
+      },
+      {
         "ticker": "DIS",
         "sector": "Споживчі товари",
         "price": 110.59,
@@ -1005,16 +1025,6 @@
         "cur": "$"
       },
       {
-        "ticker": "IBE.MC",
-        "sector": "Інше:IBE.MC",
-        "price": 21.53,
-        "trigger": 21.71,
-        "distance_pct": 0.84,
-        "stop": 17.368,
-        "stop_pct": 20.0,
-        "cur": "€"
-      },
-      {
         "ticker": "VEEV",
         "sector": "Охорона здоров'я",
         "price": 310.36,
@@ -1053,16 +1063,6 @@
         "stop": 22.96,
         "stop_pct": 20.0,
         "cur": "£"
-      },
-      {
-        "ticker": "MTD",
-        "sector": "Охорона здоров'я",
-        "price": 1622.29,
-        "trigger": 1639.04,
-        "distance_pct": 1.03,
-        "stop": 1311.232,
-        "stop_pct": 20.0,
-        "cur": "$"
       }
     ]
   },
