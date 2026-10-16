@@ -730,6 +730,17 @@ def run_regime_scan(trading_state: dict) -> None:
         except Exception as e:
             print(f"[trading212] Помилка аналізу {ticker}: {e}", file=sys.stderr)
 
+    # для дашборду: найближчі до входу кандидати (з рівнем входу і стопом)
+    trading_state["radar"] = {
+        "updated": datetime.now(timezone.utc).isoformat(),
+        "items": [
+            {"ticker": c["ticker"], "sector": sector_of(c["ticker"]), "price": round(c["price"], 4),
+             "trigger": round(c["trigger"], 4), "distance_pct": round(c["distance_pct"], 2),
+             "stop": round(c["trigger"] * (1 - TREND_STOP_PCT / 100), 4), "stop_pct": TREND_STOP_PCT,
+             "cur": _cur(c["ticker"])}
+            for c in sorted(radar, key=lambda c: c["distance_pct"])[:30]
+        ],
+    }
     _send_radar(radar, trading_state)
     _send_daily_report(trading_state)
     print(f"[trading212] [режими] Проскановано {scanned} акцій, сигналів: {signals_found}, у радарі: {len(radar)}.")
@@ -837,6 +848,8 @@ def _build_trading_summary(trading_state: dict) -> dict:
         "max_open_positions": MAX_OPEN_POSITIONS,
         "cumulative_pnl_gbp": trading_state["cumulative_pnl_gbp"],
         "paused_for_drawdown": _is_paused_for_drawdown(trading_state),
+        "radar": trading_state.get("radar"),
+        "trade_value_gbp": MAX_PER_TRADE_GBP,
     }
 
 

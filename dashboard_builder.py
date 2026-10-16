@@ -204,25 +204,63 @@ def _trading_panel_html(trading_summary: dict | None) -> str:
     positions = trading_summary["positions"]
     if positions:
         rows = []
-        sl = trading_summary["stop_loss_pct"] / 100
+        tot_pct_w = 0.0
         for t, p in positions.items():
+            cur = "£" if t.endswith(".L") else "$"
+            buy = p["buy_price"]
+            last = p.get("last_price", buy)
+            peak = p.get("peak_price", buy)
+            sl = p.get("stop_pct", trading_summary["stop_loss_pct"]) / 100
             if p.get("side") == "SHORT":
-                trough = p.get("trough_price", p["buy_price"])
-                rows.append(
-                    f'<div class="event-row">🔻 ШОРТ {t}: {p["qty"]} шт. від {p["buy_price"]:.4f} '
-                    f'(трейлінг стоп-лос ≈{trough * (1 + sl):.4f}, мінімум ціни {trough:.4f})</div>'
-                )
+                trough = p.get("trough_price", buy)
+                stop = trough * (1 + p.get("stop_pct", trading_summary["stop_loss_pct"]) / 100)
+                pct = (buy / last - 1) * 100 if last else 0.0
+                pnl = (buy - last) * p["qty"]
+                kind = "ШОРТ"
             else:
-                peak = p.get("peak_price", p["buy_price"])
-                sl = p.get("stop_pct", trading_summary["stop_loss_pct"]) / 100
-                kind = "ТРЕНД " if p.get("mode") == "TREND" else ""
-                rows.append(
-                    f'<div class="event-row">{kind}{t}: {p["qty"]} шт. по {p["buy_price"]:.4f} '
-                    f'(трейлінг стоп-лос ≈{peak * (1 - sl):.4f}, пік ціни {peak:.4f})</div>'
-                )
-        positions_html = "".join(rows)
+                stop = peak * (1 - sl)
+                pct = (last / buy - 1) * 100
+                pnl = (last - buy) * p["qty"]
+                kind = "ТРЕНД" if p.get("mode") == "TREND" else "відскок"
+            to_stop = (last / stop - 1) * 100 if stop else 0.0
+            opened = (p.get("opened") or "")[:10]
+            cls = "bull" if pnl > 0 else ("bear" if pnl < 0 else "neutral")
+            rows.append(
+                f'<tr><td class="mono"><b>{t}</b><br><span style="color:var(--muted);font-size:10.5px">{kind}</span></td>'
+                f'<td class="mono">{opened}</td>'
+                f'<td class="mono">{cur}{buy:.2f}</td>'
+                f'<td class="mono">{cur}{last:.2f}</td>'
+                f'<td class="mono {cls}">{pct:+.1f}%<br><span style="font-size:10.5px">{cur}{pnl:+.2f}</span></td>'
+                f'<td class="mono">{cur}{stop:.2f}<br><span style="color:var(--muted);font-size:10.5px">{to_stop:.1f}% до стопа</span></td></tr>'
+            )
+        positions_html = (
+            '<div style="overflow-x:auto"><table class="pos-table" style="width:100%;border-collapse:collapse;font-size:12px">'
+            '<tr style="color:var(--muted);text-align:left"><th>Акція</th><th>Відкрито</th><th>Вхід</th><th>Зараз</th><th>P&amp;L</th><th>Стоп</th></tr>'
+            + "".join(rows) + '</table></div>')
     else:
         positions_html = '<p class="empty">Немає відкритих позицій.</p>'
+
+    radar = trading_summary.get("radar") or {}
+    items = radar.get("items") or []
+    if items:
+        rrows = ""
+        for c in items:
+            cu = c.get("cur", "$")
+            rrows += (
+                f'<tr><td class="mono"><b>{c["ticker"]}</b><br><span style="color:var(--muted);font-size:10.5px">{c.get("sector", "")}</span></td>'
+                f'<td class="mono">{cu}{c["price"]:.2f}</td>'
+                f'<td class="mono"><b>{cu}{c["trigger"]:.2f}</b><br><span style="color:var(--muted);font-size:10.5px">+{c["distance_pct"]:.1f}%</span></td>'
+                f'<td class="mono">{cu}{c["stop"]:.2f}<br><span style="color:var(--muted);font-size:10.5px">−{c["stop_pct"]:g}%</span></td></tr>'
+            )
+        upd = (radar.get("updated") or "")[:16].replace("T", " ")
+        radar_html = (
+            f'<p class="empty">Куплю, коли ціна ЗАКРИЄТЬСЯ вище рівня входу (і вище SMA200). '
+            f'Сума угоди £{trading_summary.get("trade_value_gbp", 0):.0f}. Оновлено {upd} UTC.</p>'
+            '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12px">'
+            '<tr style="color:var(--muted);text-align:left"><th>Акція</th><th>Зараз</th><th>Вхід вище</th><th>Стоп</th></tr>'
+            + rrows + '</table></div>')
+    else:
+        radar_html = '<p class="empty">Поблизу від сигналу нічого немає (або ще не було скану).</p>'
 
     pause_html = ""
     if trading_summary.get("paused_for_drawdown"):
@@ -260,6 +298,8 @@ def _trading_panel_html(trading_summary: dict | None) -> str:
   {pause_html}
   <h2 style="margin-top:14px;">Відкриті позиції</h2>
   {positions_html}
+  <h2 style="margin-top:14px;">Потенційні входи (радар)</h2>
+  {radar_html}
   <h2 style="margin-top:14px;">Останні угоди</h2>
   {log_html}
 </div>"""
