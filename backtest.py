@@ -100,6 +100,24 @@ def _ftse100() -> list:
     return [s.strip().rstrip(".").replace(".", "-") + ".L" for s in syms]
 
 
+def _sp400() -> list:
+    syms = _wiki_table_column("https://en.wikipedia.org/wiki/List_of_S%26P_400_companies", ("symbol", "ticker"))
+    return [s.replace(".", "-") for s in syms]
+
+
+def _sp600() -> list:
+    syms = _wiki_table_column("https://en.wikipedia.org/wiki/List_of_S%26P_600_companies", ("symbol", "ticker"))
+    return [s.replace(".", "-") for s in syms]
+
+
+def _ftse250() -> list:
+    syms = _wiki_table_column("https://en.wikipedia.org/wiki/FTSE_250_Index", ("ticker", "epic", "symbol"))
+    return [s.strip().rstrip(".").replace(".", "-") + ".L" for s in syms]
+
+
+SMALL = set()  # тікери середніх/малих компаній (дорожчі угоди)
+
+
 def _parse_tickers(raw: str) -> list:
     out = []
     for tok in [t.strip() for t in raw.split(",") if t.strip()]:
@@ -112,6 +130,10 @@ def _parse_tickers(raw: str) -> list:
                 out += _sp500()
             elif u == "FTSE100":
                 out += _ftse100()
+            elif u in ("SP400", "SP600", "FTSE250"):
+                lst = _sp400() if u == "SP400" else (_sp600() if u == "SP600" else _ftse250())
+                SMALL.update(lst)
+                out += lst
             else:
                 out.append(tok)
         except Exception as e:
@@ -133,6 +155,8 @@ STOP_LOSS_PCT = float(_env("STOP_LOSS_PCT", "7"))
 # ~0.15% в одну сторону. За замовчуванням рахуємо консервативно.
 TREND_STOP_PCT = float(_env("BACKTEST_TREND_STOP_PCT", "20"))
 COMMISSION_PCT = float(_env("BACKTEST_COMMISSION_PCT", "0.15"))
+# середні/малі компанії: ширший спред і гірша ліквідність — рахуємо дорожче
+SMALL_COMMISSION_PCT = float(_env("BACKTEST_SMALL_COMMISSION_PCT", "0.5"))
 
 DOCS_DIR = Path(__file__).parent / "docs"
 MIN_WARMUP_BARS = 200  # SMA200 потребує мінімум стільки барів історії
@@ -274,11 +298,12 @@ def run_all() -> dict:
 
         df = strategy.add_all_indicators(raw)
         DATA[ticker] = df
+        COMM = SMALL_COMMISSION_PCT if ticker in SMALL else COMMISSION_PCT
 
-        old_result = simulate(df, strategy.old_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT)
-        new_result = simulate(df, strategy.new_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT)
-        prev_result = simulate(df, strategy.new_strategy_signal_no_dip, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT)
-        short_result = simulate(df, strategy.short_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT,
+        old_result = simulate(df, strategy.old_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT, COMM)
+        new_result = simulate(df, strategy.new_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT, COMM)
+        prev_result = simulate(df, strategy.new_strategy_signal_no_dip, TRADE_VALUE, STOP_LOSS_PCT, COMM)
+        short_result = simulate(df, strategy.short_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT, COMM,
                                 side="SHORT")
 
         mid = (MIN_WARMUP_BARS + len(df)) // 2
@@ -286,9 +311,9 @@ def run_all() -> dict:
         for nm, fn, tsp in (("old", strategy.old_strategy_signal, None),
                             ("trend", strategy.trend_signal, TREND_STOP_PCT),
                             ("regime", strategy.regime_signal, TREND_STOP_PCT)):
-            extra[nm] = simulate(df, fn, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT, trend_stop_pct=tsp) if nm != "old" else old_result
+            extra[nm] = simulate(df, fn, TRADE_VALUE, STOP_LOSS_PCT, COMM, trend_stop_pct=tsp) if nm != "old" else old_result
             for hn, a, z in (("h1", MIN_WARMUP_BARS, mid), ("h2", mid, len(df))):
-                extra[f"{nm}_{hn}"] = simulate(df, fn, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT,
+                extra[f"{nm}_{hn}"] = simulate(df, fn, TRADE_VALUE, STOP_LOSS_PCT, COMM,
                                                trend_stop_pct=tsp, start_i=a, end_i=z)
         cl = df["close"]
         bh_h1 = (float(cl.iloc[mid - 1]) / float(cl.iloc[MIN_WARMUP_BARS]) - 1) * 100
@@ -461,7 +486,8 @@ def main():
             pres = pb.run_portfolio(
                 DATA, idx,
                 max_pos=int(_env("MAX_OPEN_POSITIONS", "20")), sector_cap=int(_env("MAX_POSITIONS_PER_SECTOR", "3")),
-                trade_value=TRADE_VALUE, stop_loss_pct=STOP_LOSS_PCT, commission_pct=COMMISSION_PCT)
+                trade_value=TRADE_VALUE, stop_loss_pct=STOP_LOSS_PCT, commission_pct=COMMISSION_PCT,
+                small=SMALL, small_commission_pct=SMALL_COMMISSION_PCT)
             portfolio_html = pb.build_html(pres)
             (DOCS_DIR / "portfolio_results.json").write_text(json.dumps(pres, ensure_ascii=False, indent=2, default=str))
         except Exception as e:

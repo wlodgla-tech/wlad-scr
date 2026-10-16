@@ -89,8 +89,9 @@ def _market_ok_series(index_df: pd.DataFrame, dates) -> pd.Series:
 
 
 def run_variant(prep: dict, dates, market_ok: pd.Series, params: dict, max_pos: int, sector_cap: int,
-                trade_value: float, stop_loss_pct: float, commission_pct: float) -> dict:
+                trade_value: float, stop_loss_pct: float, commission_pct: float, small_comm_pct=None) -> dict:
     comm = commission_pct / 100
+    small_comm = (small_comm_pct if small_comm_pct is not None else commission_pct) / 100
     capital = max_pos * trade_value
     positions = {}   # ticker -> dict
     closed = []
@@ -123,7 +124,7 @@ def run_variant(prep: dict, dates, market_ok: pd.Series, params: dict, max_pos: 
                     reason = "REBOUND_EXIT"
             if reason:
                 gross = (price / pos["buy"] - 1) * trade_value
-                cost = trade_value * comm * (1 + price / pos["buy"])
+                cost = trade_value * (small_comm if prep[t].get("small") else comm) * (1 + price / pos["buy"])
                 pnl = gross - cost
                 realized += pnl
                 closed.append(pnl / trade_value * 100)
@@ -183,7 +184,7 @@ def run_variant(prep: dict, dates, market_ok: pd.Series, params: dict, max_pos: 
     # позиції, що лишились, закриваємо по останній ціні
     for t, pos in positions.items():
         lp = last_price.get(t, pos["buy"])
-        pnl = (lp / pos["buy"] - 1) * trade_value - trade_value * comm * (1 + lp / pos["buy"])
+        pnl = (lp / pos["buy"] - 1) * trade_value - trade_value * (small_comm if prep[t].get("small") else comm) * (1 + lp / pos["buy"])
         closed.append(pnl / trade_value * 100)
 
     eq = np.array(equity_curve) if equity_curve else np.array([0.0])
@@ -217,20 +218,42 @@ def index_benchmark(index_df: pd.DataFrame, dates) -> dict:
 
 
 def run_portfolio(data: dict, index_df: pd.DataFrame, max_pos: int, sector_cap: int, trade_value: float,
-                  stop_loss_pct: float, commission_pct: float) -> dict:
+                  stop_loss_pct: float, commission_pct: float, small=None, small_commission_pct=None) -> dict:
     print(f"[portfolio] Готую сигнали для {len(data)} акцій...")
+    small = small or set()
     prep = prepare_all(data)
+    for t in prep:
+        prep[t]["small"] = t in small
     all_dates = sorted({d for p in prep.values() for d in p["date_to_i"] if True})
     # лише дати, коли вже можна торгувати (після прогріву хоча б однієї акції)
     first_ok = min(list(p["date_to_i"].keys())[WARMUP] for p in prep.values() if len(p["date_to_i"]) > WARMUP)
     dates = [d for d in all_dates if d >= first_ok]
     mok = _market_ok_series(index_df, dates)
     rows = []
-    for name, params in VARIANTS:
-        r = run_variant(prep, dates, mok, params, max_pos, sector_cap, trade_value, stop_loss_pct, commission_pct)
+    variants = list(VARIANTS)
+    best = dict(rank=True, mkt=True, vol=False, atr=False, tstop=20)
+    groups = []
+    if small:
+        large_keys = {t for t in prep if t not in small}
+        small_keys = {t for t in prep if t in small}
+        groups = [("[ГРУПА] Лише великі (S&P 500 + FTSE 100)", large_keys),
+                  ("[ГРУПА] Лише середні/малі (S&P 400/600, FTSE 250)", small_keys),
+                  ("[ГРУПА] Усі разом", set(prep))]
+    rows = []
+    for name, params in variants:
+        r = run_variant(prep, dates, mok, params, max_pos, sector_cap, trade_value, stop_loss_pct, commission_pct, small_commission_pct)
         r["name"] = name
         rows.append(r)
         print(f"[portfolio] {name}: угод {r['trades']}, прибуток {r['total_pct']:+.1f}%, "
+              f"просадка {r['max_dd_pct']:.1f}%, win {r['win_rate']}%")
+    for gname, keys in groups:
+        sub = {t: prep[t] for t in keys}
+        if not sub:
+            continue
+        r = run_variant(sub, dates, mok, best, max_pos, sector_cap, trade_value, stop_loss_pct, commission_pct, small_commission_pct)
+        r["name"] = gname + f" ({len(sub)} акцій)"
+        rows.append(r)
+        print(f"[portfolio] {r['name']}: угод {r['trades']}, прибуток {r['total_pct']:+.1f}%, "
               f"просадка {r['max_dd_pct']:.1f}%, win {r['win_rate']}%")
     bench = index_benchmark(index_df, dates)
     return {"rows": rows, "bench": bench, "max_pos": max_pos, "sector_cap": sector_cap,
