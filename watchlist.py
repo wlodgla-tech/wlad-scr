@@ -206,6 +206,14 @@ if _EXTRA:
     for _t, _s in _EXTRA.items():
         if _s and _t not in TICKER_SECTORS:
             TICKER_SECTORS[_t] = _s
+# Європа (за результатом портфельного бектесту: +98% окремо, +206% разом із ядром)
+if _os.environ.get("UNIVERSE_EUROPE", "true").strip().lower() != "false":
+    try:
+        import universe_world as _uw
+        _have = set(TRADING_UNIVERSE)
+        TRADING_UNIVERSE = TRADING_UNIVERSE + [t for t in _uw.EUROPE if t not in _have]
+    except Exception as _e:
+        print(f"[watchlist] Європу не додано: {_e}")
 print(f"[watchlist] Усього акцій у списку: {len(TRADING_UNIVERSE)}")
 
 

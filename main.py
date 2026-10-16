@@ -163,8 +163,46 @@ def _is_uk(ticker: str) -> bool:
     return ticker.upper().endswith(".L")
 
 
+_CCY_BY_SUFFIX = {
+    ".L": "GBP", ".DE": "EUR", ".PA": "EUR", ".AS": "EUR", ".MC": "EUR", ".MI": "EUR",
+    ".BR": "EUR", ".HE": "EUR", ".SW": "CHF", ".CO": "DKK", ".ST": "SEK", ".OL": "NOK",
+}
+_CCY_SYMBOL = {"GBP": "£", "USD": "$", "EUR": "€", "CHF": "CHF ", "DKK": "kr ", "SEK": "kr ", "NOK": "kr "}
+# запасні курси (в фунтах), якщо Yahoo не віддасть живий курс
+_FX_FALLBACK = {"EUR": 0.87, "CHF": 0.93, "DKK": 0.117, "SEK": 0.08, "NOK": 0.075}
+_FX_CACHE: dict = {}
+
+
+def _ccy(ticker: str) -> str:
+    t = ticker.upper()
+    for sfx, ccy in _CCY_BY_SUFFIX.items():
+        if t.endswith(sfx):
+            return ccy
+    return "USD"
+
+
 def _cur(ticker: str) -> str:
-    return "£" if _is_uk(ticker) else "$"
+    return _CCY_SYMBOL[_ccy(ticker)]
+
+
+def _fx_to_gbp(ticker: str) -> float:
+    """Скільки фунтів у одній одиниці валюти акції. Для США і Лондона = 1
+    (як було раніше: ліміт угоди рахується в одиницях валюти акції); для
+    євро, франка і скандинавських крон переводимо, щоб "£300" означало £300."""
+    ccy = _ccy(ticker)
+    if ccy in ("USD", "GBP"):
+        return 1.0
+    if ccy not in _FX_CACHE:
+        rate = None
+        try:
+            df = data_collector.fetch_candles(f"{ccy}GBP=X", interval="1d", period="5d")
+            rate = float(df["close"].iloc[-1])
+            if not (0.01 < rate < 5):
+                rate = None
+        except Exception as e:
+            print(f"[trading212] Курс {ccy}/GBP недоступний ({e}) — беру запасний.", file=sys.stderr)
+        _FX_CACHE[ccy] = rate or _FX_FALLBACK[ccy]
+    return _FX_CACHE[ccy]
 
 
 def _resolve_t212_ticker(ticker: str):
@@ -431,7 +469,7 @@ def _execute_buy(ticker: str, t212_ticker: str, price: float, reason: str, tradi
     if trade_value < MIN_TRADE_GBP:
         return  # денний ліміт вичерпано — мовчки пропускаємо (не варто засмічувати лог на 100 тікерів)
 
-    qty = round(trade_value / price, 4)
+    qty = round(trade_value / (price * _fx_to_gbp(ticker)), 4)
     if qty <= 0:
         return
 
@@ -630,11 +668,11 @@ def _send_daily_report(trading_state: dict) -> None:
             body = "\n".join(lines)
         footer = [""]
         if n:
-            footer.append(f"Відкритих: {n}/{MAX_OPEN_POSITIONS} · плаваючий результат: <b>{total_pnl:+.2f}</b> "
-                          f"(сер. {total_pct_sum / n:+.1f}% на позицію)")
+            footer.append(f"Відкритих: {n}/{MAX_OPEN_POSITIONS} · середній плаваючий результат: "
+                          f"<b>{total_pct_sum / n:+.1f}%</b> на позицію")
         footer.append(f"Закрито сьогодні: {len(closed_today)} · сукупний результат закритих: "
                       f"<b>{trading_state.get('cumulative_pnl_gbp', 0):+.2f}</b>")
-        footer.append("<i>Суми в валюті акції ($ для США, £ для Лондона). Ціни Yahoo можуть "
+        footer.append("<i>Суми в валюті акції ($, £, €, CHF, kr), тому разом не додаються. Ціни Yahoo можуть "
                       "відставати; реальний спред брокера не врахований.</i>")
         text = header + "\n" + body + "\n" + "\n".join(footer)
         while len(text) > 3800:
