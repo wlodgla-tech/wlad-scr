@@ -70,6 +70,26 @@ def fetch_candles_batch(tickers: list, interval: str = "1h", period: str = None)
     if period is None:
         period = DEFAULT_PERIODS.get(interval, "60d")
 
+    if len(tickers) > 80:
+        # багато тікерів: качаємо пачками по 80 з паузою і одним повтором,
+        # щоб Yahoo не обрізав відповідь
+        import time
+        result = {}
+        for k in range(0, len(tickers), 80):
+            chunk = tickers[k:k + 80]
+            part = None
+            for attempt in range(2):
+                try:
+                    part = fetch_candles_batch(chunk, interval=interval, period=period)
+                    if sum(v is not None for v in part.values()) >= len(chunk) * 0.5 or attempt == 1:
+                        break
+                except Exception as e:
+                    print(f"[data_collector] пачка {k}: {e}")
+                time.sleep(3)
+            result.update(part or {t: None for t in chunk})
+            time.sleep(1)
+        return result
+
     raw = yf.download(
         tickers, period=period, interval=interval, group_by="ticker",
         progress=False, auto_adjust=True, threads=True,

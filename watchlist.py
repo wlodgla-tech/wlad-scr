@@ -104,5 +104,112 @@ TICKER_SECTORS = {
 }
 
 
+# ---------------------------------------------------------------------------
+# Розширення до S&P 500 + FTSE 100 (списки беруться з Вікіпедії).
+# Керується змінною UNIVERSE_EXTRA (за замовчуванням "SP500,FTSE100";
+# порожнє значення = лишити тільки ручний список вище).
+# Якщо Вікіпедія недоступна — беремо кеш universe_cache.json, а якщо й його
+# нема — працюємо зі старим ручним списком (бот не ламається).
+# ---------------------------------------------------------------------------
+import json as _json
+import os as _os
+
+_GICS_MAP = {
+    "Information Technology": "Технології", "Communication Services": "Технології",
+    "Financials": "Фінанси", "Health Care": "Охорона здоров'я",
+    "Consumer Staples": "Споживчі товари", "Consumer Discretionary": "Споживчі товари",
+    "Industrials": "Промисловість/енергетика", "Energy": "Промисловість/енергетика",
+    "Materials": "Нерухомість/матеріали", "Real Estate": "Нерухомість/матеріали",
+    "Utilities": "Телеком/комунальні",
+}
+_CACHE = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "universe_cache.json")
+
+
+def _wiki_rows(url, sym_words, sector_words):
+    import requests
+    from html.parser import HTMLParser
+    html = requests.get(url, headers={"User-Agent": "Mozilla/5.0 (market-monitor)"}, timeout=30).text
+
+    class P(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.tables, self.row, self.cell, self.in_cell, self.cur = [], None, "", False, None
+
+        def handle_starttag(self, tag, attrs):
+            if tag == "table":
+                self.cur = []
+            elif tag == "tr" and self.cur is not None:
+                self.row = []
+            elif tag in ("td", "th") and self.row is not None:
+                self.in_cell, self.cell = True, ""
+
+        def handle_endtag(self, tag):
+            if tag in ("td", "th") and self.in_cell:
+                self.row.append(self.cell.strip()); self.in_cell = False
+            elif tag == "tr" and self.row is not None and self.cur is not None:
+                self.cur.append(self.row); self.row = None
+            elif tag == "table" and self.cur is not None:
+                self.tables.append(self.cur); self.cur = None
+
+        def handle_data(self, data):
+            if self.in_cell:
+                self.cell += data
+
+    p = P(); p.feed(html)
+    for t in p.tables:
+        if len(t) < 20:
+            continue
+        hdr = [h.lower() for h in t[0]]
+        si = next((i for i, h in enumerate(hdr) if any(w in h for w in sym_words)), None)
+        if si is None:
+            continue
+        gi = next((i for i, h in enumerate(hdr) if any(w in h for w in sector_words)), None)
+        return [(r[si], r[gi] if gi is not None and len(r) > gi else "") for r in t[1:] if len(r) > si and r[si]]
+    raise RuntimeError("table not found: " + url)
+
+
+def _load_extra():
+    """Повертає {ticker: sector}."""
+    spec = _os.environ.get("UNIVERSE_EXTRA", "SP500,FTSE100")
+    names = [x.strip().upper() for x in spec.split(",") if x.strip()]
+    out = {}
+    for n in names:
+        try:
+            if n == "SP500":
+                for sym, sec in _wiki_rows("https://en.wikipedia.org/wiki/List_of_S%26P_500_companies", ("symbol", "ticker"), ("gics sector",)):
+                    out[sym.replace(".", "-")] = _GICS_MAP.get(sec, "")
+            elif n == "FTSE100":
+                for sym, sec in _wiki_rows("https://en.wikipedia.org/wiki/FTSE_100_Index", ("ticker", "epic"), ("industry", "sector")):
+                    out[sym.strip().rstrip(".").replace(".", "-") + ".L"] = ""
+        except Exception as e:
+            print(f"[watchlist] Не вдалось завантажити {n}: {e}")
+    if out:
+        try:
+            with open(_CACHE, "w") as f:
+                _json.dump(out, f)
+        except Exception:
+            pass
+    elif names:
+        try:
+            with open(_CACHE) as f:
+                out = _json.load(f)
+            print(f"[watchlist] Беру кеш: {len(out)} тікерів")
+        except Exception:
+            pass
+    return out
+
+
+_EXTRA = _load_extra()
+if _EXTRA:
+    _have = set(TRADING_UNIVERSE)
+    TRADING_UNIVERSE = TRADING_UNIVERSE + [t for t in _EXTRA if t not in _have]
+    for _t, _s in _EXTRA.items():
+        if _s and _t not in TICKER_SECTORS:
+            TICKER_SECTORS[_t] = _s
+print(f"[watchlist] Усього акцій у списку: {len(TRADING_UNIVERSE)}")
+
+
 def sector_of(ticker: str) -> str:
-    return TICKER_SECTORS.get(ticker, "Інше")
+    # невідомий сектор = окремий "сектор" на кожен тікер, щоб ліміт 3 на
+    # сектор не блокував усі невідомі акції разом
+    return TICKER_SECTORS.get(ticker) or ("Інше:" + ticker)
