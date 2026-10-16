@@ -98,6 +98,9 @@ ENABLE_SHORTS = _env("ENABLE_SHORTS", "false").lower() == "true"
 # "Радар входів": у задані години (UTC) бот шле в Telegram список акцій, які
 # ще не дали сигналу, але дадуть, якщо ціна впаде до вказаного рівня.
 DAILY_REPORT_HOUR_UTC = int(_env("DAILY_REPORT_HOUR_UTC", "21"))  # після закриття США; -1 = вимкнено
+# Фільтр ринку і ранжування (портфельний бектест: +48% -> +145% за ~4 роки)
+MARKET_FILTER = _env("MARKET_FILTER", "true").lower() == "true"
+MOMENTUM_DAYS = 126
 RADAR_MAX_DISTANCE_PCT = float(_env("RADAR_MAX_DISTANCE_PCT", "5"))
 RADAR_MAX = int(_env("RADAR_MAX", "8"))
 RADAR_HOURS_UTC = [int(x) for x in _env("RADAR_HOURS_UTC", "7,10,13,16").split(",") if x.strip().isdigit()]
@@ -644,6 +647,20 @@ def _send_daily_report(trading_state: dict) -> None:
         print(f"[telegram] Не вдалося надіслати щоденний звіт: {e}", file=sys.stderr)
 
 
+def _market_is_bullish() -> bool:
+    """True, якщо S&P 500 закрився вище своєї SMA200. Якщо дані недоступні —
+    True (не блокуємо торгівлю через збій)."""
+    try:
+        df = data_collector.fetch_candles("^GSPC", interval="1d", period="2y")
+        close = df["close"].astype(float)
+        if len(close) < 205:
+            return True
+        return bool(close.iloc[-1] > close.rolling(200).mean().iloc[-1])
+    except Exception as e:
+        print(f"[trading212] Фільтр ринку недоступний ({e}) — не блокую.", file=sys.stderr)
+        return True
+
+
 def run_regime_scan(trading_state: dict) -> None:
     """Стратегія "перемикання режимів" на ЩОДЕННИХ свічках (так, як її
     перевіряв бектест): пробій 50-денного максимуму вище SMA200 = трендовий
@@ -659,8 +676,13 @@ def run_regime_scan(trading_state: dict) -> None:
         sec = sector_of(t)
         sector_counts[sec] = sector_counts.get(sec, 0) + 1
 
+    market_ok = _market_is_bullish() if MARKET_FILTER else True
+    print(f"[trading212] [режими] Фільтр ринку: {'S&P 500 вище SMA200 — трендові входи дозволені' if market_ok else 'S&P 500 нижче SMA200 — НОВІ трендові входи заблоковані'}")
+    trading_state["market_ok"] = market_ok
+
     scanned, signals_found = 0, 0
     radar = []
+    buy_cands = []
     for ticker, df in batch.items():
         if df is None or len(df) < 210:
             continue
@@ -707,15 +729,16 @@ def run_regime_scan(trading_state: dict) -> None:
 
             if paused or open_positions_count >= MAX_OPEN_POSITIONS:
                 continue
-            sector = sector_of(ticker)
-            if sector_counts.get(sector, 0) >= MAX_POSITIONS_PER_SECTOR:
+            if sector_counts.get(sector_of(ticker), 0) >= MAX_POSITIONS_PER_SECTOR:
                 continue
             action, reason = strategy.regime_signal(dfi, i, False)
             if action != "BUY":
                 continue
-            if AVOID_EARNINGS_DAYS > 0 and _earnings_too_soon(ticker, AVOID_EARNINGS_DAYS):
-                continue
             trend = reason.startswith("TREND")
+            if trend and not market_ok:
+                continue  # слабкий ринок: нові трендові пробої не купуємо
+            c0 = float(dfi["close"].iloc[i - MOMENTUM_DAYS]) if i >= MOMENTUM_DAYS else 0.0
+            momentum = (price / c0 - 1) * 100 if c0 > 0 else -1e9
             levels = {
                 "trend": trend,
                 "stop_pct": TREND_STOP_PCT if trend else STOP_LOSS_PCT,
@@ -723,12 +746,25 @@ def run_regime_scan(trading_state: dict) -> None:
                 "bb_upper": None if pd.isna(last["bb_upper"]) else float(last["bb_upper"]),
                 "sma50": None if pd.isna(last["sma50"]) else float(last["sma50"]),
             }
-            _execute_buy(ticker, t212_ticker, price, reason, trading_state, levels)
+            buy_cands.append((momentum, ticker, t212_ticker, price, reason, levels))
+        except Exception as e:
+            print(f"[trading212] Помилка аналізу {ticker}: {e}", file=sys.stderr)
+
+    # купуємо найсильніші першими (за зростанням за ~6 місяців), поки є місця
+    buy_cands.sort(key=lambda c: -c[0])
+    for momentum, ticker, t212_ticker, price, reason, levels in buy_cands:
+        if paused or open_positions_count >= MAX_OPEN_POSITIONS:
+            break
+        sector = sector_of(ticker)
+        if sector_counts.get(sector, 0) >= MAX_POSITIONS_PER_SECTOR:
+            continue
+        if AVOID_EARNINGS_DAYS > 0 and _earnings_too_soon(ticker, AVOID_EARNINGS_DAYS):
+            continue
+        _execute_buy(ticker, t212_ticker, price, reason, trading_state, levels)
+        if ticker in trading_state["positions"]:
             open_positions_count += 1
             sector_counts[sector] = sector_counts.get(sector, 0) + 1
             signals_found += 1
-        except Exception as e:
-            print(f"[trading212] Помилка аналізу {ticker}: {e}", file=sys.stderr)
 
     # для дашборду: найближчі до входу кандидати (з рівнем входу і стопом)
     trading_state["radar"] = {
