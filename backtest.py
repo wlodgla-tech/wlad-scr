@@ -252,6 +252,9 @@ def _summarize(trades: list, trade_value: float) -> dict:
     }
 
 
+DATA = {}  # ticker -> DataFrame з індикаторами (для портфельного тесту)
+
+
 def run_all() -> dict:
     results = {}
     for ticker in TICKERS:
@@ -270,6 +273,7 @@ def run_all() -> dict:
             continue
 
         df = strategy.add_all_indicators(raw)
+        DATA[ticker] = df
 
         old_result = simulate(df, strategy.old_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT)
         new_result = simulate(df, strategy.new_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT, COMMISSION_PCT)
@@ -307,7 +311,7 @@ def run_all() -> dict:
     return results
 
 
-def build_report_html(results: dict) -> str:
+def build_report_html(results: dict, portfolio_html: str = "") -> str:
     rows = ""
     for ticker, r in results.items():
         for label, key in (("Стара (RSI+рівні)", "old"), ("Попередня нова (без вимоги просадки)", "prev"),
@@ -428,6 +432,7 @@ def build_report_html(results: dict) -> str:
     комісія/спред {COMMISSION_PCT:.2f}% врахована в розрахунку (і при купівлі,
     і при продажу) — реальний результат все одно може трохи відрізнятись.
   </div>
+  {portfolio_html}
   {halves_html}
   {summary_html}
   <table>
@@ -448,7 +453,21 @@ def main():
     if not results:
         print("[backtest] Жодного тікера не вдалось обробити.")
         return
-    html = build_report_html(results)
+    portfolio_html = ""
+    if len(DATA) >= 20:
+        try:
+            import portfolio_backtest as pb
+            idx = fetch_history("^GSPC", YEARS)
+            pres = pb.run_portfolio(
+                DATA, idx,
+                max_pos=int(_env("MAX_OPEN_POSITIONS", "20")), sector_cap=int(_env("MAX_POSITIONS_PER_SECTOR", "3")),
+                trade_value=TRADE_VALUE, stop_loss_pct=STOP_LOSS_PCT, commission_pct=COMMISSION_PCT)
+            portfolio_html = pb.build_html(pres)
+            (DOCS_DIR / "portfolio_results.json").write_text(json.dumps(pres, ensure_ascii=False, indent=2, default=str))
+        except Exception as e:
+            import traceback; traceback.print_exc()
+            print(f"[backtest] Портфельний тест не вдався: {e}")
+    html = build_report_html(results, portfolio_html)
     (DOCS_DIR / "backtest.html").write_text(html, encoding="utf-8")
     (DOCS_DIR / "backtest_results.json").write_text(
         json.dumps(results, ensure_ascii=False, indent=2, default=str)
