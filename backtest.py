@@ -115,6 +115,7 @@ def _ftse250() -> list:
     return [s.strip().rstrip(".").replace(".", "-") + ".L" for s in syms]
 
 
+FOREIGN = set()  # європейські/азійські (валюта, збори)
 SMALL = set()  # тікери середніх/малих компаній (дорожчі угоди)
 
 
@@ -130,6 +131,11 @@ def _parse_tickers(raw: str) -> list:
                 out += _sp500()
             elif u == "FTSE100":
                 out += _ftse100()
+            elif u in ("EUROPE", "ASIA"):
+                import universe_world as uw
+                lst = list(uw.EUROPE if u == "EUROPE" else uw.ASIA_ADR)
+                FOREIGN.update(lst)
+                out += lst
             elif u in ("SP400", "SP600", "FTSE250"):
                 lst = _sp400() if u == "SP400" else (_sp600() if u == "SP600" else _ftse250())
                 SMALL.update(lst)
@@ -157,6 +163,8 @@ TREND_STOP_PCT = float(_env("BACKTEST_TREND_STOP_PCT", "20"))
 COMMISSION_PCT = float(_env("BACKTEST_COMMISSION_PCT", "0.15"))
 # середні/малі компанії: ширший спред і гірша ліквідність — рахуємо дорожче
 SMALL_COMMISSION_PCT = float(_env("BACKTEST_SMALL_COMMISSION_PCT", "0.5"))
+# іноземні великі компанії: конвертація валюти + біржові збори/податки (напр. 0.4% у Франції)
+FOREIGN_COMMISSION_PCT = float(_env("BACKTEST_FOREIGN_COMMISSION_PCT", "0.4"))
 
 DOCS_DIR = Path(__file__).parent / "docs"
 MIN_WARMUP_BARS = 200  # SMA200 потребує мінімум стільки барів історії
@@ -298,7 +306,7 @@ def run_all() -> dict:
 
         df = strategy.add_all_indicators(raw)
         DATA[ticker] = df
-        COMM = SMALL_COMMISSION_PCT if ticker in SMALL else COMMISSION_PCT
+        COMM = SMALL_COMMISSION_PCT if ticker in SMALL else (FOREIGN_COMMISSION_PCT if ticker in FOREIGN else COMMISSION_PCT)
 
         old_result = simulate(df, strategy.old_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT, COMM)
         new_result = simulate(df, strategy.new_strategy_signal, TRADE_VALUE, STOP_LOSS_PCT, COMM)
@@ -487,7 +495,8 @@ def main():
                 DATA, idx,
                 max_pos=int(_env("MAX_OPEN_POSITIONS", "20")), sector_cap=int(_env("MAX_POSITIONS_PER_SECTOR", "3")),
                 trade_value=TRADE_VALUE, stop_loss_pct=STOP_LOSS_PCT, commission_pct=COMMISSION_PCT,
-                small=SMALL, small_commission_pct=SMALL_COMMISSION_PCT)
+                small=SMALL, small_commission_pct=SMALL_COMMISSION_PCT,
+                foreign=FOREIGN, foreign_commission_pct=FOREIGN_COMMISSION_PCT)
             portfolio_html = pb.build_html(pres)
             (DOCS_DIR / "portfolio_results.json").write_text(json.dumps(pres, ensure_ascii=False, indent=2, default=str))
         except Exception as e:

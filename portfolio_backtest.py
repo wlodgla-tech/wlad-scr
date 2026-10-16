@@ -91,7 +91,6 @@ def _market_ok_series(index_df: pd.DataFrame, dates) -> pd.Series:
 def run_variant(prep: dict, dates, market_ok: pd.Series, params: dict, max_pos: int, sector_cap: int,
                 trade_value: float, stop_loss_pct: float, commission_pct: float, small_comm_pct=None) -> dict:
     comm = commission_pct / 100
-    small_comm = (small_comm_pct if small_comm_pct is not None else commission_pct) / 100
     capital = max_pos * trade_value
     positions = {}   # ticker -> dict
     closed = []
@@ -124,7 +123,7 @@ def run_variant(prep: dict, dates, market_ok: pd.Series, params: dict, max_pos: 
                     reason = "REBOUND_EXIT"
             if reason:
                 gross = (price / pos["buy"] - 1) * trade_value
-                cost = trade_value * (small_comm if prep[t].get("small") else comm) * (1 + price / pos["buy"])
+                cost = trade_value * prep[t].get("comm", comm) * (1 + price / pos["buy"])
                 pnl = gross - cost
                 realized += pnl
                 closed.append(pnl / trade_value * 100)
@@ -184,7 +183,7 @@ def run_variant(prep: dict, dates, market_ok: pd.Series, params: dict, max_pos: 
     # позиції, що лишились, закриваємо по останній ціні
     for t, pos in positions.items():
         lp = last_price.get(t, pos["buy"])
-        pnl = (lp / pos["buy"] - 1) * trade_value - trade_value * (small_comm if prep[t].get("small") else comm) * (1 + lp / pos["buy"])
+        pnl = (lp / pos["buy"] - 1) * trade_value - trade_value * prep[t].get("comm", comm) * (1 + lp / pos["buy"])
         closed.append(pnl / trade_value * 100)
 
     eq = np.array(equity_curve) if equity_curve else np.array([0.0])
@@ -218,12 +217,20 @@ def index_benchmark(index_df: pd.DataFrame, dates) -> dict:
 
 
 def run_portfolio(data: dict, index_df: pd.DataFrame, max_pos: int, sector_cap: int, trade_value: float,
-                  stop_loss_pct: float, commission_pct: float, small=None, small_commission_pct=None) -> dict:
+                  stop_loss_pct: float, commission_pct: float, small=None, small_commission_pct=None,
+                  foreign=None, foreign_commission_pct=None) -> dict:
     print(f"[portfolio] Готую сигнали для {len(data)} акцій...")
     small = small or set()
+    foreign = foreign or set()
     prep = prepare_all(data)
     for t in prep:
         prep[t]["small"] = t in small
+        pct = commission_pct
+        if t in small and small_commission_pct is not None:
+            pct = small_commission_pct
+        elif t in foreign and foreign_commission_pct is not None:
+            pct = foreign_commission_pct
+        prep[t]["comm"] = pct / 100
     all_dates = sorted({d for p in prep.values() for d in p["date_to_i"] if True})
     # лише дати, коли вже можна торгувати (після прогріву хоча б однієї акції)
     first_ok = min(list(p["date_to_i"].keys())[WARMUP] for p in prep.values() if len(p["date_to_i"]) > WARMUP)
@@ -233,12 +240,17 @@ def run_portfolio(data: dict, index_df: pd.DataFrame, max_pos: int, sector_cap: 
     variants = list(VARIANTS)
     best = dict(rank=True, mkt=True, vol=False, atr=False, tstop=20)
     groups = []
-    if small:
-        large_keys = {t for t in prep if t not in small}
-        small_keys = {t for t in prep if t in small}
-        groups = [("[ГРУПА] Лише великі (S&P 500 + FTSE 100)", large_keys),
-                  ("[ГРУПА] Лише середні/малі (S&P 400/600, FTSE 250)", small_keys),
-                  ("[ГРУПА] Усі разом", set(prep))]
+    if small or foreign:
+        core = {t for t in prep if t not in small and t not in foreign}
+        groups = [("[ГРУПА] Ядро (S&P 500 + FTSE 100)", core)]
+        if small:
+            groups.append(("[ГРУПА] Лише середні/малі", {t for t in prep if t in small}))
+        if foreign:
+            eu = {t for t in prep if t in foreign and "." in t}
+            asia = {t for t in prep if t in foreign and "." not in t}
+            groups += [("[ГРУПА] Лише Європа", eu), ("[ГРУПА] Лише Азія (ADR)", asia),
+                       ("[ГРУПА] Ядро + Європа + Азія", core | eu | asia)]
+        groups.append(("[ГРУПА] Усі разом", set(prep)))
     rows = []
     for name, params in variants:
         r = run_variant(prep, dates, mok, params, max_pos, sector_cap, trade_value, stop_loss_pct, commission_pct, small_commission_pct)
