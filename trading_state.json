@@ -808,7 +808,7 @@
   ],
   "report_sent": "2026-10-21",
   "radar": {
-    "updated": "2026-10-21T23:17:41.608949+00:00",
+    "updated": "2026-10-21T23:49:53.873979+00:00",
     "items": [
       {
         "ticker": "EBAY",
@@ -931,6 +931,16 @@
         "cur": "€"
       },
       {
+        "ticker": "GIVN.SW",
+        "sector": "Інше:GIVN.SW",
+        "price": 3962.0,
+        "trigger": 3967.0,
+        "distance_pct": 0.13,
+        "stop": 3173.6,
+        "stop_pct": 20.0,
+        "cur": "CHF "
+      },
+      {
         "ticker": "AES",
         "sector": "Телеком/комунальні",
         "price": 14.97,
@@ -969,16 +979,6 @@
         "stop": 65.504,
         "stop_pct": 20.0,
         "cur": "$"
-      },
-      {
-        "ticker": "GIVN.SW",
-        "sector": "Інше:GIVN.SW",
-        "price": 3960.0,
-        "trigger": 3967.0,
-        "distance_pct": 0.18,
-        "stop": 3173.6,
-        "stop_pct": 20.0,
-        "cur": "CHF "
       },
       {
         "ticker": "DB1.DE",
