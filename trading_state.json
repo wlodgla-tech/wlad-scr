@@ -804,7 +804,7 @@
   ],
   "report_sent": "2026-10-22",
   "radar": {
-    "updated": "2026-10-22T23:07:03.927832+00:00",
+    "updated": "2026-10-22T23:36:52.583775+00:00",
     "items": [
       {
         "ticker": "NWSA",
@@ -897,16 +897,6 @@
         "cur": "$"
       },
       {
-        "ticker": "GIVN.SW",
-        "sector": "Інше:GIVN.SW",
-        "price": 3962.0,
-        "trigger": 3967.0,
-        "distance_pct": 0.13,
-        "stop": 3173.6,
-        "stop_pct": 20.0,
-        "cur": "CHF "
-      },
-      {
         "ticker": "AES",
         "sector": "Телеком/комунальні",
         "price": 14.97,
@@ -965,16 +955,6 @@
         "stop": 29.056,
         "stop_pct": 20.0,
         "cur": "£"
-      },
-      {
-        "ticker": "LONN.SW",
-        "sector": "Інше:LONN.SW",
-        "price": 623.6,
-        "trigger": 625.0,
-        "distance_pct": 0.22,
-        "stop": 500.0,
-        "stop_pct": 20.0,
-        "cur": "CHF "
       },
       {
         "ticker": "PTC",
@@ -1105,6 +1085,26 @@
         "stop": 538.4,
         "stop_pct": 20.0,
         "cur": "CHF "
+      },
+      {
+        "ticker": "COP",
+        "sector": "Промисловість/енергетика",
+        "price": 145.63,
+        "trigger": 146.51,
+        "distance_pct": 0.6,
+        "stop": 117.208,
+        "stop_pct": 20.0,
+        "cur": "$"
+      },
+      {
+        "ticker": "ZAL.DE",
+        "sector": "Інше:ZAL.DE",
+        "price": 25.75,
+        "trigger": 25.91,
+        "distance_pct": 0.62,
+        "stop": 20.728,
+        "stop_pct": 20.0,
+        "cur": "€"
       }
     ]
   },
