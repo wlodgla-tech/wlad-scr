@@ -199,7 +199,8 @@
       "t212_ticker": "NOW_VIRTUAL",
       "opened": "2026-10-22T20:25:21.869299+00:00",
       "stop_pct": 20.0,
-      "mode": "TREND"
+      "mode": "TREND",
+      "last_price": 157.0
     }
   },
   "trade_log": [
@@ -801,9 +802,9 @@
     "2026-10-22 13",
     "2026-10-22 16"
   ],
-  "report_sent": "2026-10-21",
+  "report_sent": "2026-10-22",
   "radar": {
-    "updated": "2026-10-22T20:25:22.454994+00:00",
+    "updated": "2026-10-22T21:00:34.517390+00:00",
     "items": [
       {
         "ticker": "AI.PA",
