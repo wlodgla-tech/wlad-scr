@@ -1,6 +1,6 @@
 {
   "date": "2026-10-23",
-  "daily_spent_gbp": 3000.0,
+  "daily_spent_gbp": 3300.0,
   "positions": {
     "SHEL.L": {
       "qty": 2.6802,
@@ -190,22 +190,19 @@
       "opened": "2026-10-23T16:01:29.300769+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 3975.0
+      "last_price": 3993.0
+    },
+    "MAERSK-B.CO": {
+      "qty": 0.1176,
+      "buy_price": 22860.0,
+      "peak_price": 22860.0,
+      "t212_ticker": "MAERSK-B.CO_VIRTUAL",
+      "opened": "2026-10-23T23:34:36.934841+00:00",
+      "stop_pct": 7.0,
+      "mode": null
     }
   },
   "trade_log": [
-    {
-      "ticker": "VZ",
-      "action": "BUY",
-      "reason": "RSI_OVERSOLD",
-      "qty": 7.2029,
-      "price": 41.650001525878906,
-      "value_gbp": 300.0,
-      "ok": true,
-      "dry_run": true,
-      "detail": "(dry-run) BUY 7.2029 x VZ_VIRTUAL",
-      "time": "2026-10-10T02:01:56.136054+00:00"
-    },
     {
       "ticker": "TMUS",
       "action": "BUY",
@@ -769,6 +766,18 @@
       "dry_run": true,
       "detail": "(dry-run) SELL 0.1176 x MAERSK-B.CO_VIRTUAL",
       "time": "2026-10-23T23:05:53.026846+00:00"
+    },
+    {
+      "ticker": "MAERSK-B.CO",
+      "action": "BUY",
+      "reason": "NEAR_SUPPORT",
+      "qty": 0.1176,
+      "price": 22860.0,
+      "value_gbp": 300.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 0.1176 x MAERSK-B.CO_VIRTUAL",
+      "time": "2026-10-23T23:34:36.934834+00:00"
     }
   ],
   "cumulative_pnl_gbp": 40.15,
@@ -789,7 +798,7 @@
   ],
   "report_sent": "2026-10-23",
   "radar": {
-    "updated": "2026-10-23T23:05:53.549833+00:00",
+    "updated": "2026-10-23T23:34:37.396457+00:00",
     "items": [
       {
         "ticker": "AI.PA",
