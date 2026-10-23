@@ -1,6 +1,6 @@
 {
   "date": "2026-10-23",
-  "daily_spent_gbp": 2400.0,
+  "daily_spent_gbp": 2700.0,
   "positions": {
     "SHEL.L": {
       "qty": 2.6802,
@@ -191,20 +191,18 @@
       "stop_pct": 20.0,
       "mode": "TREND",
       "last_price": 3993.0
+    },
+    "MAERSK-B.CO": {
+      "qty": 0.1175,
+      "buy_price": 22870.0,
+      "peak_price": 22870.0,
+      "t212_ticker": "MAERSK-B.CO_VIRTUAL",
+      "opened": "2026-10-23T21:33:31.213408+00:00",
+      "stop_pct": 7.0,
+      "mode": null
     }
   },
   "trade_log": [
-    {
-      "ticker": "VZ",
-      "action": "SELL",
-      "reason": "TRAILING_STOP_LOSS",
-      "qty": 7.0228,
-      "price": 41.650001525878906,
-      "ok": true,
-      "dry_run": true,
-      "detail": "(dry-run) SELL 7.0228 x VZ_VIRTUAL",
-      "time": "2026-10-10T01:47:50.340510+00:00"
-    },
     {
       "ticker": "TMUS",
       "action": "SELL",
@@ -769,6 +767,18 @@
       "dry_run": true,
       "detail": "(dry-run) SELL 0.1176 x MAERSK-B.CO_VIRTUAL",
       "time": "2026-10-23T21:01:53.586876+00:00"
+    },
+    {
+      "ticker": "MAERSK-B.CO",
+      "action": "BUY",
+      "reason": "NEAR_SUPPORT",
+      "qty": 0.1175,
+      "price": 22870.0,
+      "value_gbp": 300.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 0.1175 x MAERSK-B.CO_VIRTUAL",
+      "time": "2026-10-23T21:33:31.213393+00:00"
     }
   ],
   "cumulative_pnl_gbp": 41.32,
@@ -789,7 +799,7 @@
   ],
   "report_sent": "2026-10-23",
   "radar": {
-    "updated": "2026-10-23T21:01:54.088325+00:00",
+    "updated": "2026-10-23T21:33:31.738303+00:00",
     "items": [
       {
         "ticker": "ELE.MC",
