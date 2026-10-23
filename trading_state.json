@@ -191,29 +191,9 @@
       "stop_pct": 20.0,
       "mode": "TREND",
       "last_price": 3993.0
-    },
-    "MAERSK-B.CO": {
-      "qty": 0.1176,
-      "buy_price": 22870.0,
-      "peak_price": 22870.0,
-      "t212_ticker": "MAERSK-B.CO_VIRTUAL",
-      "opened": "2026-10-23T20:28:34.872521+00:00",
-      "stop_pct": 7.0,
-      "mode": null
     }
   },
   "trade_log": [
-    {
-      "ticker": "T",
-      "action": "SELL",
-      "reason": "TRAILING_STOP_LOSS",
-      "qty": 13.1148,
-      "price": 22.18000030517578,
-      "ok": true,
-      "dry_run": true,
-      "detail": "(dry-run) SELL 13.1148 x T_VIRTUAL",
-      "time": "2026-10-10T01:47:49.759458+00:00"
-    },
     {
       "ticker": "VZ",
       "action": "SELL",
@@ -778,6 +758,17 @@
       "dry_run": true,
       "detail": "(dry-run) BUY 0.1176 x MAERSK-B.CO_VIRTUAL",
       "time": "2026-10-23T20:28:34.872511+00:00"
+    },
+    {
+      "ticker": "MAERSK-B.CO",
+      "action": "SELL",
+      "reason": "NEAR_RESISTANCE",
+      "qty": 0.1176,
+      "price": 22870.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) SELL 0.1176 x MAERSK-B.CO_VIRTUAL",
+      "time": "2026-10-23T21:01:53.586876+00:00"
     }
   ],
   "cumulative_pnl_gbp": 41.32,
@@ -796,9 +787,9 @@
     "2026-10-23 13",
     "2026-10-23 16"
   ],
-  "report_sent": "2026-10-22",
+  "report_sent": "2026-10-23",
   "radar": {
-    "updated": "2026-10-23T20:28:35.341910+00:00",
+    "updated": "2026-10-23T21:01:54.088325+00:00",
     "items": [
       {
         "ticker": "ELE.MC",
