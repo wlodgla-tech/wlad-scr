@@ -191,29 +191,9 @@
       "stop_pct": 20.0,
       "mode": "TREND",
       "last_price": 3993.0
-    },
-    "MAERSK-B.CO": {
-      "qty": 0.1175,
-      "buy_price": 22870.0,
-      "peak_price": 22870.0,
-      "t212_ticker": "MAERSK-B.CO_VIRTUAL",
-      "opened": "2026-10-24T12:38:58.880074+00:00",
-      "stop_pct": 7.0,
-      "mode": null
     }
   },
   "trade_log": [
-    {
-      "ticker": "MU",
-      "action": "SELL",
-      "reason": "TRAILING_STOP_LOSS",
-      "qty": 0.3331,
-      "price": 856.1381225585938,
-      "ok": true,
-      "dry_run": true,
-      "detail": "(dry-run) SELL 0.3331 x MU_VIRTUAL",
-      "time": "2026-10-22T17:04:55.377896+00:00"
-    },
     {
       "ticker": "HPE",
       "action": "BUY",
@@ -777,12 +757,22 @@
       "dry_run": true,
       "detail": "(dry-run) BUY 0.1175 x MAERSK-B.CO_VIRTUAL",
       "time": "2026-10-24T12:38:58.880064+00:00"
+    },
+    {
+      "ticker": "MAERSK-B.CO",
+      "action": "SELL",
+      "reason": "NEAR_RESISTANCE",
+      "qty": 0.1175,
+      "price": 22870.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) SELL 0.1175 x MAERSK-B.CO_VIRTUAL",
+      "time": "2026-10-24T13:17:18.766375+00:00"
     }
   ],
   "cumulative_pnl_gbp": 41.33,
   "peak_pnl_gbp": 41.33,
   "radar_sent": [
-    "2026-10-21 13",
     "2026-10-21 16",
     "2026-10-22 07",
     "2026-10-22 10",
@@ -793,11 +783,12 @@
     "2026-10-23 13",
     "2026-10-23 16",
     "2026-10-24 07",
-    "2026-10-24 10"
+    "2026-10-24 10",
+    "2026-10-24 13"
   ],
   "report_sent": "2026-10-23",
   "radar": {
-    "updated": "2026-10-24T12:38:59.420019+00:00",
+    "updated": "2026-10-24T13:17:19.550880+00:00",
     "items": [
       {
         "ticker": "ELE.MC",
