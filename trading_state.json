@@ -191,29 +191,9 @@
       "stop_pct": 20.0,
       "mode": "TREND",
       "last_price": 3993.0
-    },
-    "MAERSK-B.CO": {
-      "qty": 0.1176,
-      "buy_price": 22860.0,
-      "peak_price": 22860.0,
-      "t212_ticker": "MAERSK-B.CO_VIRTUAL",
-      "opened": "2026-10-24T06:14:50.994717+00:00",
-      "stop_pct": 7.0,
-      "mode": null
     }
   },
   "trade_log": [
-    {
-      "ticker": "BARC.L",
-      "action": "SELL",
-      "reason": "TRAILING_STOP_LOSS",
-      "qty": 23.6714,
-      "price": 4.137999877929688,
-      "ok": true,
-      "dry_run": true,
-      "detail": "(dry-run) SELL 23.6714 x BARC.L_UK_VIRTUAL",
-      "time": "2026-10-20T07:57:11.605574+00:00"
-    },
     {
       "ticker": "EZJ.L",
       "action": "BUY",
@@ -777,12 +757,22 @@
       "dry_run": true,
       "detail": "(dry-run) BUY 0.1176 x MAERSK-B.CO_VIRTUAL",
       "time": "2026-10-24T06:14:50.994705+00:00"
+    },
+    {
+      "ticker": "MAERSK-B.CO",
+      "action": "SELL",
+      "reason": "NEAR_RESISTANCE",
+      "qty": 0.1176,
+      "price": 22860.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) SELL 0.1176 x MAERSK-B.CO_VIRTUAL",
+      "time": "2026-10-24T07:00:50.882278+00:00"
     }
   ],
   "cumulative_pnl_gbp": 40.15,
   "peak_pnl_gbp": 41.32,
   "radar_sent": [
-    "2026-10-21 07",
     "2026-10-21 10",
     "2026-10-21 13",
     "2026-10-21 16",
@@ -793,11 +783,12 @@
     "2026-10-23 07",
     "2026-10-23 10",
     "2026-10-23 13",
-    "2026-10-23 16"
+    "2026-10-23 16",
+    "2026-10-24 07"
   ],
   "report_sent": "2026-10-23",
   "radar": {
-    "updated": "2026-10-24T06:14:51.454802+00:00",
+    "updated": "2026-10-24T07:00:51.586103+00:00",
     "items": [
       {
         "ticker": "AI.PA",
