@@ -140,7 +140,7 @@
       "opened": "2026-10-22T08:15:41.940910+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 386.45001220703125
+      "last_price": 384.1600036621094
     },
     "CRL": {
       "qty": 0.8659,
@@ -191,30 +191,9 @@
       "stop_pct": 20.0,
       "mode": "TREND",
       "last_price": 3993.0
-    },
-    "MAERSK-B.CO": {
-      "qty": 0.1176,
-      "buy_price": 22860.0,
-      "peak_price": 22860.0,
-      "t212_ticker": "MAERSK-B.CO_VIRTUAL",
-      "opened": "2026-10-23T23:34:36.934841+00:00",
-      "stop_pct": 7.0,
-      "mode": null
     }
   },
   "trade_log": [
-    {
-      "ticker": "TMUS",
-      "action": "BUY",
-      "reason": "RSI_OVERSOLD",
-      "qty": 2.0191,
-      "price": 148.5800018310547,
-      "value_gbp": 300.0,
-      "ok": true,
-      "dry_run": true,
-      "detail": "(dry-run) BUY 2.0191 x TMUS_VIRTUAL",
-      "time": "2026-10-10T02:01:56.610147+00:00"
-    },
     {
       "ticker": "APD",
       "action": "BUY",
@@ -778,6 +757,17 @@
       "dry_run": true,
       "detail": "(dry-run) BUY 0.1176 x MAERSK-B.CO_VIRTUAL",
       "time": "2026-10-23T23:34:36.934834+00:00"
+    },
+    {
+      "ticker": "MAERSK-B.CO",
+      "action": "SELL",
+      "reason": "NEAR_RESISTANCE",
+      "qty": 0.1176,
+      "price": 22860.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) SELL 0.1176 x MAERSK-B.CO_VIRTUAL",
+      "time": "2026-10-24T00:00:28.306878+00:00"
     }
   ],
   "cumulative_pnl_gbp": 40.15,
@@ -798,7 +788,7 @@
   ],
   "report_sent": "2026-10-23",
   "radar": {
-    "updated": "2026-10-23T23:34:37.396457+00:00",
+    "updated": "2026-10-24T00:00:28.787880+00:00",
     "items": [
       {
         "ticker": "AI.PA",
@@ -1001,6 +991,16 @@
         "cur": "£"
       },
       {
+        "ticker": "WAT",
+        "sector": "Охорона здоров'я",
+        "price": 455.59,
+        "trigger": 457.47,
+        "distance_pct": 0.41,
+        "stop": 365.976,
+        "stop_pct": 20.0,
+        "cur": "$"
+      },
+      {
         "ticker": "ZURN.SW",
         "sector": "Інше:ZURN.SW",
         "price": 622.0,
@@ -1041,16 +1041,6 @@
         "cur": "kr "
       },
       {
-        "ticker": "WST",
-        "sector": "Охорона здоров'я",
-        "price": 392.15,
-        "trigger": 394.03,
-        "distance_pct": 0.48,
-        "stop": 315.224,
-        "stop_pct": 20.0,
-        "cur": "$"
-      },
-      {
         "ticker": "DIS",
         "sector": "Споживчі товари",
         "price": 112.52,
@@ -1071,16 +1061,6 @@
         "cur": "$"
       },
       {
-        "ticker": "TYL",
-        "sector": "Технології",
-        "price": 390.14,
-        "trigger": 392.45,
-        "distance_pct": 0.59,
-        "stop": 313.96,
-        "stop_pct": 20.0,
-        "cur": "$"
-      },
-      {
         "ticker": "RSG",
         "sector": "Промисловість/енергетика",
         "price": 240.45,
@@ -1097,6 +1077,16 @@
         "trigger": 84.95,
         "distance_pct": 0.62,
         "stop": 67.96,
+        "stop_pct": 20.0,
+        "cur": "$"
+      },
+      {
+        "ticker": "SPGI",
+        "sector": "Фінанси",
+        "price": 450.31,
+        "trigger": 453.1,
+        "distance_pct": 0.62,
+        "stop": 362.48,
         "stop_pct": 20.0,
         "cur": "$"
       }
