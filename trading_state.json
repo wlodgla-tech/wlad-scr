@@ -1,6 +1,6 @@
 {
   "date": "2026-10-24",
-  "daily_spent_gbp": 300.0,
+  "daily_spent_gbp": 600.0,
   "positions": {
     "SHEL.L": {
       "qty": 2.6802,
@@ -191,20 +191,18 @@
       "stop_pct": 20.0,
       "mode": "TREND",
       "last_price": 3993.0
+    },
+    "MAERSK-B.CO": {
+      "qty": 0.1176,
+      "buy_price": 22860.0,
+      "peak_price": 22860.0,
+      "t212_ticker": "MAERSK-B.CO_VIRTUAL",
+      "opened": "2026-10-24T02:07:38.130988+00:00",
+      "stop_pct": 7.0,
+      "mode": null
     }
   },
   "trade_log": [
-    {
-      "ticker": "NXT.L",
-      "action": "SELL",
-      "reason": "NEAR_RESISTANCE",
-      "qty": 0.688,
-      "price": 149.0,
-      "ok": true,
-      "dry_run": true,
-      "detail": "(dry-run) SELL 0.6880 x NXT.L_UK_VIRTUAL",
-      "time": "2026-10-13T07:31:47.323821+00:00"
-    },
     {
       "ticker": "PG",
       "action": "BUY",
@@ -768,6 +766,18 @@
       "dry_run": true,
       "detail": "(dry-run) SELL 0.1176 x MAERSK-B.CO_VIRTUAL",
       "time": "2026-10-24T01:28:57.297328+00:00"
+    },
+    {
+      "ticker": "MAERSK-B.CO",
+      "action": "BUY",
+      "reason": "NEAR_SUPPORT",
+      "qty": 0.1176,
+      "price": 22860.0,
+      "value_gbp": 300.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 0.1176 x MAERSK-B.CO_VIRTUAL",
+      "time": "2026-10-24T02:07:38.130978+00:00"
     }
   ],
   "cumulative_pnl_gbp": 40.15,
@@ -788,7 +798,7 @@
   ],
   "report_sent": "2026-10-23",
   "radar": {
-    "updated": "2026-10-24T01:28:57.921648+00:00",
+    "updated": "2026-10-24T02:07:38.587377+00:00",
     "items": [
       {
         "ticker": "AI.PA",
