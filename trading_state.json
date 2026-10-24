@@ -1,6 +1,6 @@
 {
   "date": "2026-10-24",
-  "daily_spent_gbp": 2100.0,
+  "daily_spent_gbp": 2400.0,
   "positions": {
     "SHEL.L": {
       "qty": 2.6802,
@@ -191,21 +191,18 @@
       "stop_pct": 20.0,
       "mode": "TREND",
       "last_price": 3993.0
+    },
+    "MAERSK-B.CO": {
+      "qty": 0.1176,
+      "buy_price": 22860.0,
+      "peak_price": 22860.0,
+      "t212_ticker": "MAERSK-B.CO_VIRTUAL",
+      "opened": "2026-10-24T08:37:40.603668+00:00",
+      "stop_pct": 7.0,
+      "mode": null
     }
   },
   "trade_log": [
-    {
-      "ticker": "TEP.PA",
-      "action": "BUY",
-      "reason": "TREND_BREAKOUT",
-      "qty": 4.5881,
-      "price": 77.9800033569336,
-      "value_gbp": 300.0,
-      "ok": true,
-      "dry_run": true,
-      "detail": "(dry-run) BUY 4.5881 x TEP.PA_VIRTUAL",
-      "time": "2026-10-21T14:59:36.784140+00:00"
-    },
     {
       "ticker": "INF.L",
       "action": "SELL",
@@ -768,6 +765,18 @@
       "dry_run": true,
       "detail": "(dry-run) SELL 0.1176 x MAERSK-B.CO_VIRTUAL",
       "time": "2026-10-24T08:06:22.334516+00:00"
+    },
+    {
+      "ticker": "MAERSK-B.CO",
+      "action": "BUY",
+      "reason": "NEAR_SUPPORT",
+      "qty": 0.1176,
+      "price": 22860.0,
+      "value_gbp": 300.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 0.1176 x MAERSK-B.CO_VIRTUAL",
+      "time": "2026-10-24T08:37:40.603658+00:00"
     }
   ],
   "cumulative_pnl_gbp": 40.15,
@@ -788,7 +797,7 @@
   ],
   "report_sent": "2026-10-23",
   "radar": {
-    "updated": "2026-10-24T08:06:23.029125+00:00",
+    "updated": "2026-10-24T08:37:41.007174+00:00",
     "items": [
       {
         "ticker": "AI.PA",
