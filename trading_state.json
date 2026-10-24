@@ -1,6 +1,6 @@
 {
   "date": "2026-10-24",
-  "daily_spent_gbp": 3600.0,
+  "daily_spent_gbp": 3900.0,
   "positions": {
     "SHEL.L": {
       "qty": 2.6802,
@@ -191,21 +191,18 @@
       "stop_pct": 20.0,
       "mode": "TREND",
       "last_price": 3993.0
+    },
+    "MAERSK-B.CO": {
+      "qty": 0.1175,
+      "buy_price": 22870.0,
+      "peak_price": 22870.0,
+      "t212_ticker": "MAERSK-B.CO_VIRTUAL",
+      "opened": "2026-10-24T13:48:54.923071+00:00",
+      "stop_pct": 7.0,
+      "mode": null
     }
   },
   "trade_log": [
-    {
-      "ticker": "HPE",
-      "action": "BUY",
-      "reason": "NEAR_SUPPORT",
-      "qty": 5.4855,
-      "price": 54.689998626708984,
-      "value_gbp": 300.0,
-      "ok": true,
-      "dry_run": true,
-      "detail": "(dry-run) BUY 5.4855 x HPE_VIRTUAL",
-      "time": "2026-10-22T17:35:28.108209+00:00"
-    },
     {
       "ticker": "HPE",
       "action": "SELL",
@@ -768,6 +765,18 @@
       "dry_run": true,
       "detail": "(dry-run) SELL 0.1175 x MAERSK-B.CO_VIRTUAL",
       "time": "2026-10-24T13:17:18.766375+00:00"
+    },
+    {
+      "ticker": "MAERSK-B.CO",
+      "action": "BUY",
+      "reason": "NEAR_SUPPORT",
+      "qty": 0.1175,
+      "price": 22870.0,
+      "value_gbp": 300.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 0.1175 x MAERSK-B.CO_VIRTUAL",
+      "time": "2026-10-24T13:48:54.923061+00:00"
     }
   ],
   "cumulative_pnl_gbp": 41.33,
@@ -788,7 +797,7 @@
   ],
   "report_sent": "2026-10-23",
   "radar": {
-    "updated": "2026-10-24T13:17:19.550880+00:00",
+    "updated": "2026-10-24T13:48:55.439887+00:00",
     "items": [
       {
         "ticker": "ELE.MC",
