@@ -1,6 +1,6 @@
 {
   "date": "2026-10-24",
-  "daily_spent_gbp": 2400.0,
+  "daily_spent_gbp": 2700.0,
   "positions": {
     "SHEL.L": {
       "qty": 2.6802,
@@ -191,21 +191,18 @@
       "stop_pct": 20.0,
       "mode": "TREND",
       "last_price": 3993.0
+    },
+    "MAERSK-B.CO": {
+      "qty": 0.1175,
+      "buy_price": 22870.0,
+      "peak_price": 22870.0,
+      "t212_ticker": "MAERSK-B.CO_VIRTUAL",
+      "opened": "2026-10-24T09:37:40.002386+00:00",
+      "stop_pct": 7.0,
+      "mode": null
     }
   },
   "trade_log": [
-    {
-      "ticker": "ZBRA",
-      "action": "BUY",
-      "reason": "TREND_BREAKOUT",
-      "qty": 0.7673,
-      "price": 391.0,
-      "value_gbp": 300.0,
-      "ok": true,
-      "dry_run": true,
-      "detail": "(dry-run) BUY 0.7673 x ZBRA_VIRTUAL",
-      "time": "2026-10-22T08:15:41.940899+00:00"
-    },
     {
       "ticker": "MRK",
       "action": "SELL",
@@ -768,6 +765,18 @@
       "dry_run": true,
       "detail": "(dry-run) SELL 0.1176 x MAERSK-B.CO_VIRTUAL",
       "time": "2026-10-24T09:07:44.434417+00:00"
+    },
+    {
+      "ticker": "MAERSK-B.CO",
+      "action": "BUY",
+      "reason": "NEAR_SUPPORT",
+      "qty": 0.1175,
+      "price": 22870.0,
+      "value_gbp": 300.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 0.1175 x MAERSK-B.CO_VIRTUAL",
+      "time": "2026-10-24T09:37:40.002375+00:00"
     }
   ],
   "cumulative_pnl_gbp": 41.33,
@@ -788,7 +797,7 @@
   ],
   "report_sent": "2026-10-23",
   "radar": {
-    "updated": "2026-10-24T09:07:45.128899+00:00",
+    "updated": "2026-10-24T09:37:40.474854+00:00",
     "items": [
       {
         "ticker": "ELE.MC",
