@@ -191,29 +191,9 @@
       "stop_pct": 20.0,
       "mode": "TREND",
       "last_price": 3993.0
-    },
-    "MAERSK-B.CO": {
-      "qty": 0.1176,
-      "buy_price": 22860.0,
-      "peak_price": 22860.0,
-      "t212_ticker": "MAERSK-B.CO_VIRTUAL",
-      "opened": "2026-10-24T04:14:08.171468+00:00",
-      "stop_pct": 7.0,
-      "mode": null
     }
   },
   "trade_log": [
-    {
-      "ticker": "ADBE",
-      "action": "SELL",
-      "reason": "NEAR_RESISTANCE",
-      "qty": 1.2446,
-      "price": 249.33999633789062,
-      "ok": true,
-      "dry_run": true,
-      "detail": "(dry-run) SELL 1.2446 x ADBE_VIRTUAL",
-      "time": "2026-10-15T19:16:49.988487+00:00"
-    },
     {
       "ticker": "ADBE",
       "action": "BUY",
@@ -777,6 +757,17 @@
       "dry_run": true,
       "detail": "(dry-run) BUY 0.1176 x MAERSK-B.CO_VIRTUAL",
       "time": "2026-10-24T04:14:08.171433+00:00"
+    },
+    {
+      "ticker": "MAERSK-B.CO",
+      "action": "SELL",
+      "reason": "NEAR_RESISTANCE",
+      "qty": 0.1176,
+      "price": 22860.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) SELL 0.1176 x MAERSK-B.CO_VIRTUAL",
+      "time": "2026-10-24T04:48:38.028397+00:00"
     }
   ],
   "cumulative_pnl_gbp": 40.15,
@@ -797,7 +788,7 @@
   ],
   "report_sent": "2026-10-23",
   "radar": {
-    "updated": "2026-10-24T04:14:08.592657+00:00",
+    "updated": "2026-10-24T04:48:38.735661+00:00",
     "items": [
       {
         "ticker": "AI.PA",
