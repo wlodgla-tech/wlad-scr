@@ -191,29 +191,9 @@
       "stop_pct": 20.0,
       "mode": "TREND",
       "last_price": 3993.0
-    },
-    "MAERSK-B.CO": {
-      "qty": 0.1176,
-      "buy_price": 22860.0,
-      "peak_price": 22860.0,
-      "t212_ticker": "MAERSK-B.CO_VIRTUAL",
-      "opened": "2026-10-24T07:36:28.811167+00:00",
-      "stop_pct": 7.0,
-      "mode": null
     }
   },
   "trade_log": [
-    {
-      "ticker": "T",
-      "action": "SELL",
-      "reason": "TRAILING_STOP_LOSS",
-      "qty": 13.5257,
-      "price": 22.014999389648438,
-      "ok": true,
-      "dry_run": true,
-      "detail": "(dry-run) SELL 13.5257 x T_VIRTUAL",
-      "time": "2026-10-21T14:21:49.555179+00:00"
-    },
     {
       "ticker": "TEP.PA",
       "action": "BUY",
@@ -777,6 +757,17 @@
       "dry_run": true,
       "detail": "(dry-run) BUY 0.1176 x MAERSK-B.CO_VIRTUAL",
       "time": "2026-10-24T07:36:28.811153+00:00"
+    },
+    {
+      "ticker": "MAERSK-B.CO",
+      "action": "SELL",
+      "reason": "NEAR_RESISTANCE",
+      "qty": 0.1176,
+      "price": 22860.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) SELL 0.1176 x MAERSK-B.CO_VIRTUAL",
+      "time": "2026-10-24T08:06:22.334516+00:00"
     }
   ],
   "cumulative_pnl_gbp": 40.15,
@@ -797,7 +788,7 @@
   ],
   "report_sent": "2026-10-23",
   "radar": {
-    "updated": "2026-10-24T07:36:29.267459+00:00",
+    "updated": "2026-10-24T08:06:23.029125+00:00",
     "items": [
       {
         "ticker": "AI.PA",
