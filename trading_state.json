@@ -801,7 +801,7 @@
   ],
   "report_sent": "2026-10-23",
   "radar": {
-    "updated": "2026-10-26T20:19:42.922852+00:00",
+    "updated": "2026-10-26T20:58:30.136850+00:00",
     "items": [
       {
         "ticker": "OR.PA",
@@ -1014,22 +1014,22 @@
         "cur": "CHF "
       },
       {
-        "ticker": "WELL",
-        "sector": "Нерухомість/матеріали",
-        "price": 240.65,
-        "trigger": 241.56,
+        "ticker": "DHR",
+        "sector": "Охорона здоров'я",
+        "price": 232.97,
+        "trigger": 233.86,
         "distance_pct": 0.38,
-        "stop": 193.248,
+        "stop": 187.088,
         "stop_pct": 20.0,
         "cur": "$"
       },
       {
-        "ticker": "DHR",
-        "sector": "Охорона здоров'я",
-        "price": 232.96,
-        "trigger": 233.86,
+        "ticker": "WELL",
+        "sector": "Нерухомість/матеріали",
+        "price": 240.61,
+        "trigger": 241.56,
         "distance_pct": 0.39,
-        "stop": 187.088,
+        "stop": 193.248,
         "stop_pct": 20.0,
         "cur": "$"
       },
