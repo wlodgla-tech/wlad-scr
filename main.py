@@ -485,6 +485,7 @@ def _execute_buy(ticker: str, t212_ticker: str, price: float, reason: str, tradi
             "opened": datetime.now(timezone.utc).isoformat(),
             "stop_pct": (levels or {}).get("stop_pct", STOP_LOSS_PCT),
             "mode": "TREND" if (levels or {}).get("trend") else None,
+            "entry_bar": (levels or {}).get("bar"),
         }
         trading_state["daily_spent_gbp"] = round(trading_state["daily_spent_gbp"] + trade_value, 2)
         _notify_open(ticker, price, qty, trade_value, reason,
@@ -740,6 +741,8 @@ def run_regime_scan(trading_state: dict) -> None:
             i = len(dfi) - 1
             price = float(dfi["close"].iloc[i])
             last = dfi.iloc[i]
+            bar_id = str(dfi["timestamp"].iloc[i])[:10]  # дата останньої денної свічки
+            exits = trading_state.setdefault("last_exit_bar", {})
 
             if position:
                 if position.get("side") == "SHORT":
@@ -749,13 +752,23 @@ def run_regime_scan(trading_state: dict) -> None:
                 position["peak_price"] = max(position.get("peak_price", position["buy_price"]), price)
                 if price <= position["peak_price"] * (1 - stop_pct / 100):
                     _execute_sell(ticker, t212_ticker, position["qty"], price, "TRAILING_STOP_LOSS", trading_state)
+                    exits[ticker] = bar_id
                     signals_found += 1
+                    continue
+                # один сигнальний вихід на денну свічку, і не раніше наступної
+                # свічки після входу (як у бектесті): інакше бот у вихідні
+                # щогодини купує й продає одне й те саме на тій самій свічці
+                if position.get("entry_bar") == bar_id:
                     continue
                 action, reason = strategy.regime_signal(dfi, i, position.get("mode") or True)
                 if action == "SELL":
                     _execute_sell(ticker, t212_ticker, position["qty"], price, reason, trading_state)
+                    exits[ticker] = bar_id
                     signals_found += 1
                 continue
+
+            if exits.get(ticker) == bar_id:
+                continue  # вже виходили на цій свічці — повторно не заходимо
 
             # радар: акції під пробоєм 50-денного максимуму вище SMA200
             hh50, sma200 = last["hh50"], last["sma200"]
@@ -778,6 +791,7 @@ def run_regime_scan(trading_state: dict) -> None:
             c0 = float(dfi["close"].iloc[i - MOMENTUM_DAYS]) if i >= MOMENTUM_DAYS else 0.0
             momentum = (price / c0 - 1) * 100 if c0 > 0 else -1e9
             levels = {
+                "bar": bar_id,
                 "trend": trend,
                 "stop_pct": TREND_STOP_PCT if trend else STOP_LOSS_PCT,
                 "sma200": None if pd.isna(sma200) else float(sma200),
