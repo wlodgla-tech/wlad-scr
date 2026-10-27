@@ -175,13 +175,13 @@
     "MAERSK-B.CO": {
       "qty": 0.1174,
       "buy_price": 22870.0,
-      "peak_price": 23840.0,
+      "peak_price": 23880.0,
       "t212_ticker": "MAERSK-B.CO_VIRTUAL",
       "opened": "2026-10-26T05:55:52.766923+00:00",
       "stop_pct": 7.0,
       "mode": null,
       "entry_bar": "2026-10-23",
-      "last_price": 22870.0
+      "last_price": 23880.0
     },
     "LONN.SW": {
       "qty": 0.5226,
@@ -801,8 +801,18 @@
   ],
   "report_sent": "2026-10-26",
   "radar": {
-    "updated": "2026-10-27T07:25:42.487511+00:00",
+    "updated": "2026-10-27T08:11:40.614538+00:00",
     "items": [
+      {
+        "ticker": "KNEBV.HE",
+        "sector": "Інше:KNEBV.HE",
+        "price": 56.3,
+        "trigger": 56.32,
+        "distance_pct": 0.04,
+        "stop": 45.056,
+        "stop_pct": 20.0,
+        "cur": "€"
+      },
       {
         "ticker": "PKG",
         "sector": "Нерухомість/матеріали",
@@ -1092,16 +1102,6 @@
         "stop": 62.32,
         "stop_pct": 20.0,
         "cur": "€"
-      },
-      {
-        "ticker": "IFF",
-        "sector": "Нерухомість/матеріали",
-        "price": 93.69,
-        "trigger": 94.15,
-        "distance_pct": 0.49,
-        "stop": 75.32,
-        "stop_pct": 20.0,
-        "cur": "$"
       }
     ]
   },
