@@ -801,7 +801,7 @@
   ],
   "report_sent": "2026-10-27",
   "radar": {
-    "updated": "2026-10-27T23:18:04.712567+00:00",
+    "updated": "2026-10-27T23:51:24.228365+00:00",
     "items": [
       {
         "ticker": "OR.PA",
@@ -912,16 +912,6 @@
         "stop": 51.64,
         "stop_pct": 20.0,
         "cur": "£"
-      },
-      {
-        "ticker": "LOGN.SW",
-        "sector": "Інше:LOGN.SW",
-        "price": 91.2,
-        "trigger": 91.36,
-        "distance_pct": 0.18,
-        "stop": 73.088,
-        "stop_pct": 20.0,
-        "cur": "CHF "
       },
       {
         "ticker": "AEE",
@@ -1100,6 +1090,16 @@
         "trigger": 272.0336,
         "distance_pct": 0.46,
         "stop": 217.6269,
+        "stop_pct": 20.0,
+        "cur": "$"
+      },
+      {
+        "ticker": "DUK",
+        "sector": "Телеком/комунальні",
+        "price": 124.8,
+        "trigger": 125.4,
+        "distance_pct": 0.48,
+        "stop": 100.32,
         "stop_pct": 20.0,
         "cur": "$"
       }
