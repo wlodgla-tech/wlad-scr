@@ -801,7 +801,7 @@
   ],
   "report_sent": "2026-10-28",
   "radar": {
-    "updated": "2026-10-28T21:21:17.633318+00:00",
+    "updated": "2026-10-28T22:01:53.476914+00:00",
     "items": [
       {
         "ticker": "BATS.L",
@@ -912,6 +912,16 @@
         "stop": 239.0276,
         "stop_pct": 20.0,
         "cur": "$"
+      },
+      {
+        "ticker": "KNEBV.HE",
+        "sector": "Інше:KNEBV.HE",
+        "price": 56.46,
+        "trigger": 56.56,
+        "distance_pct": 0.18,
+        "stop": 45.248,
+        "stop_pct": 20.0,
+        "cur": "€"
       },
       {
         "ticker": "ACGL",
@@ -1092,16 +1102,6 @@
         "stop": 0.3974,
         "stop_pct": 20.0,
         "cur": "£"
-      },
-      {
-        "ticker": "KNIN.SW",
-        "sector": "Інше:KNIN.SW",
-        "price": 232.3,
-        "trigger": 233.5,
-        "distance_pct": 0.52,
-        "stop": 186.8,
-        "stop_pct": 20.0,
-        "cur": "CHF "
       }
     ]
   },
