@@ -50,7 +50,7 @@
       "opened": "2026-10-09T05:21:17.488628+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 294.7200012207031
+      "last_price": 294.8900146484375
     },
     "AMT": {
       "qty": 1.6462,
@@ -130,7 +130,7 @@
       "opened": "2026-10-22T14:39:50.717515+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 358.375
+      "last_price": 359.4100036621094
     },
     "QIA.DE": {
       "qty": 7.9669,
@@ -800,9 +800,9 @@
     "2026-10-30 13",
     "2026-10-30 16"
   ],
-  "report_sent": "2026-10-29",
+  "report_sent": "2026-10-30",
   "radar": {
-    "updated": "2026-10-30T20:29:29.718470+00:00",
+    "updated": "2026-10-30T21:13:35.319863+00:00",
     "items": [
       {
         "ticker": "INVE-B.ST",
@@ -813,6 +813,16 @@
         "stop": 341.76,
         "stop_pct": 20.0,
         "cur": "kr "
+      },
+      {
+        "ticker": "CCL",
+        "sector": "Споживчі товари",
+        "price": 28.83,
+        "trigger": 28.84,
+        "distance_pct": 0.03,
+        "stop": 23.072,
+        "stop_pct": 20.0,
+        "cur": "$"
       },
       {
         "ticker": "TECH",
@@ -835,22 +845,22 @@
         "cur": "$"
       },
       {
-        "ticker": "SWK",
-        "sector": "Промисловість/енергетика",
-        "price": 103.495,
-        "trigger": 103.61,
-        "distance_pct": 0.11,
-        "stop": 82.888,
-        "stop_pct": 20.0,
-        "cur": "$"
-      },
-      {
         "ticker": "MSI",
         "sector": "Технології",
         "price": 491.53,
         "trigger": 492.08,
         "distance_pct": 0.11,
         "stop": 393.664,
+        "stop_pct": 20.0,
+        "cur": "$"
+      },
+      {
+        "ticker": "SO",
+        "sector": "Телеком/комунальні",
+        "price": 93.71,
+        "trigger": 93.82,
+        "distance_pct": 0.12,
+        "stop": 75.056,
         "stop_pct": 20.0,
         "cur": "$"
       },
@@ -873,6 +883,26 @@
         "stop": 51.64,
         "stop_pct": 20.0,
         "cur": "£"
+      },
+      {
+        "ticker": "CCI",
+        "sector": "Нерухомість/матеріали",
+        "price": 88.69,
+        "trigger": 88.83,
+        "distance_pct": 0.16,
+        "stop": 71.064,
+        "stop_pct": 20.0,
+        "cur": "$"
+      },
+      {
+        "ticker": "SWK",
+        "sector": "Промисловість/енергетика",
+        "price": 103.44,
+        "trigger": 103.61,
+        "distance_pct": 0.16,
+        "stop": 82.888,
+        "stop_pct": 20.0,
+        "cur": "$"
       },
       {
         "ticker": "PHIA.AS",
@@ -935,32 +965,22 @@
         "cur": "€"
       },
       {
+        "ticker": "D",
+        "sector": "Телеком/комунальні",
+        "price": 66.62,
+        "trigger": 66.7952,
+        "distance_pct": 0.26,
+        "stop": 53.4362,
+        "stop_pct": 20.0,
+        "cur": "$"
+      },
+      {
         "ticker": "OXY",
         "sector": "Промисловість/енергетика",
         "price": 64.0,
         "trigger": 64.17,
         "distance_pct": 0.27,
         "stop": 51.336,
-        "stop_pct": 20.0,
-        "cur": "$"
-      },
-      {
-        "ticker": "D",
-        "sector": "Телеком/комунальні",
-        "price": 66.61,
-        "trigger": 66.7952,
-        "distance_pct": 0.28,
-        "stop": 53.4362,
-        "stop_pct": 20.0,
-        "cur": "$"
-      },
-      {
-        "ticker": "CINF",
-        "sector": "Фінанси",
-        "price": 181.345,
-        "trigger": 181.87,
-        "distance_pct": 0.29,
-        "stop": 145.496,
         "stop_pct": 20.0,
         "cur": "$"
       },
@@ -983,6 +1003,16 @@
         "stop": 21.976,
         "stop_pct": 20.0,
         "cur": "£"
+      },
+      {
+        "ticker": "SPG",
+        "sector": "Нерухомість/матеріали",
+        "price": 217.75,
+        "trigger": 218.386,
+        "distance_pct": 0.29,
+        "stop": 174.7088,
+        "stop_pct": 20.0,
+        "cur": "$"
       },
       {
         "ticker": "SRG.MI",
@@ -1015,32 +1045,12 @@
         "cur": "$"
       },
       {
-        "ticker": "COST",
-        "sector": "Споживчі товари",
-        "price": 1014.82,
-        "trigger": 1018.21,
-        "distance_pct": 0.33,
-        "stop": 814.568,
-        "stop_pct": 20.0,
-        "cur": "$"
-      },
-      {
         "ticker": "PNW",
         "sector": "Телеком/комунальні",
         "price": 106.28,
         "trigger": 106.64,
         "distance_pct": 0.34,
         "stop": 85.312,
-        "stop_pct": 20.0,
-        "cur": "$"
-      },
-      {
-        "ticker": "SPG",
-        "sector": "Нерухомість/матеріали",
-        "price": 217.645,
-        "trigger": 218.386,
-        "distance_pct": 0.34,
-        "stop": 174.7088,
         "stop_pct": 20.0,
         "cur": "$"
       },
@@ -1075,6 +1085,16 @@
         "cur": "€"
       },
       {
+        "ticker": "CINF",
+        "sector": "Фінанси",
+        "price": 181.19,
+        "trigger": 181.87,
+        "distance_pct": 0.38,
+        "stop": 145.496,
+        "stop_pct": 20.0,
+        "cur": "$"
+      },
+      {
         "ticker": "DD",
         "sector": "Промисловість/енергетика",
         "price": 140.05,
@@ -1083,26 +1103,6 @@
         "stop": 112.464,
         "stop_pct": 20.0,
         "cur": "$"
-      },
-      {
-        "ticker": "MDLZ",
-        "sector": "Споживчі товари",
-        "price": 64.94,
-        "trigger": 65.19,
-        "distance_pct": 0.38,
-        "stop": 52.152,
-        "stop_pct": 20.0,
-        "cur": "$"
-      },
-      {
-        "ticker": "BAS.DE",
-        "sector": "Інше:BAS.DE",
-        "price": 53.46,
-        "trigger": 53.67,
-        "distance_pct": 0.39,
-        "stop": 42.936,
-        "stop_pct": 20.0,
-        "cur": "€"
       }
     ]
   },
