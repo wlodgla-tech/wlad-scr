@@ -1,6 +1,6 @@
 {
   "date": "2026-10-30",
-  "daily_spent_gbp": 0.0,
+  "daily_spent_gbp": 300.0,
   "positions": {
     "SHEL.L": {
       "qty": 2.6802,
@@ -194,21 +194,19 @@
       "mode": "TREND",
       "entry_bar": "2026-10-26",
       "last_price": 109.30999755859375
+    },
+    "KNIN.SW": {
+      "qty": 1.3937,
+      "buy_price": 236.6999969482422,
+      "peak_price": 236.6999969482422,
+      "t212_ticker": "KNIN.SW_VIRTUAL",
+      "opened": "2026-10-30T01:14:22.647702+00:00",
+      "stop_pct": 20.0,
+      "mode": "TREND",
+      "entry_bar": "2026-10-29"
     }
   },
   "trade_log": [
-    {
-      "ticker": "MAERSK-B.CO",
-      "action": "BUY",
-      "reason": "NEAR_SUPPORT",
-      "qty": 0.1175,
-      "price": 22870.0,
-      "value_gbp": 300.0,
-      "ok": true,
-      "dry_run": true,
-      "detail": "(dry-run) BUY 0.1175 x MAERSK-B.CO_VIRTUAL",
-      "time": "2026-10-25T00:04:27.160362+00:00"
-    },
     {
       "ticker": "MAERSK-B.CO",
       "action": "SELL",
@@ -771,6 +769,18 @@
       "dry_run": true,
       "detail": "(dry-run) SELL 2.2260 x FTNT_VIRTUAL",
       "time": "2026-10-30T00:12:22.362294+00:00"
+    },
+    {
+      "ticker": "KNIN.SW",
+      "action": "BUY",
+      "reason": "TREND_BREAKOUT",
+      "qty": 1.3937,
+      "price": 236.6999969482422,
+      "value_gbp": 300.0,
+      "ok": true,
+      "dry_run": true,
+      "detail": "(dry-run) BUY 1.3937 x KNIN.SW_VIRTUAL",
+      "time": "2026-10-30T01:14:22.647691+00:00"
     }
   ],
   "cumulative_pnl_gbp": 44.17,
@@ -791,7 +801,7 @@
   ],
   "report_sent": "2026-10-29",
   "radar": {
-    "updated": "2026-10-30T00:12:25.782872+00:00",
+    "updated": "2026-10-30T01:14:23.140811+00:00",
     "items": [
       {
         "ticker": "BATS.L",
