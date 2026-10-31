@@ -1,17 +1,5 @@
 [
   {
-    "time": "2026-10-31T07:21:13.281782+00:00",
-    "ticker": "GC=F",
-    "type": "RSI_OVERSOLD",
-    "detail": "RSI=22.2 (&lt;30) — зона перепроданості"
-  },
-  {
-    "time": "2026-10-31T07:21:13.921220+00:00",
-    "ticker": "CL=F",
-    "type": "NEAR_RESISTANCE",
-    "detail": "ціна +0.19% від рівня опору ≈103.9200"
-  },
-  {
     "time": "2026-10-31T07:21:13.921220+00:00",
     "ticker": "CL=F",
     "type": "FALSE_BREAKOUT_DOWN",
@@ -358,5 +346,17 @@
     "ticker": "BTC-USD",
     "type": "FALSE_BREAKOUT_DOWN",
     "detail": "рівень ≈77434.3984 (support) пробитий і ціна повернулась назад"
+  },
+  {
+    "time": "2026-10-31T19:27:13.589028+00:00",
+    "ticker": "BTC-USD",
+    "type": "NEAR_SUPPORT",
+    "detail": "ціна +0.00% від рівня підтримки ≈77434.3984"
+  },
+  {
+    "time": "2026-10-31T19:27:13.589028+00:00",
+    "ticker": "BTC-USD",
+    "type": "NEAR_RESISTANCE",
+    "detail": "ціна +0.16% від рівня опору ≈77314.2969"
   }
 ]
