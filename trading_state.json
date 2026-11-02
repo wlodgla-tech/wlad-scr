@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-01",
+  "date": "2026-11-02",
   "daily_spent_gbp": 0.0,
   "positions": {
     "SHEL.L": {
@@ -802,7 +802,7 @@
   ],
   "report_sent": "2026-10-30",
   "radar": {
-    "updated": "2026-11-01T23:44:24.903624+00:00",
+    "updated": "2026-11-02T00:16:52.828562+00:00",
     "items": [
       {
         "ticker": "INVE-B.ST",
