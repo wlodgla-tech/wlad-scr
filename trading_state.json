@@ -50,7 +50,7 @@
       "opened": "2026-10-09T05:21:17.488628+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 288.6199951171875
+      "last_price": 288.2799987792969
     },
     "AMT": {
       "qty": 1.6462,
@@ -60,7 +60,7 @@
       "opened": "2026-10-10T01:47:51.216580+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 188.34500122070312
+      "last_price": 188.19500732421875
     },
     "VZ": {
       "qty": 7.2029,
@@ -70,7 +70,7 @@
       "opened": "2026-10-10T02:01:56.136062+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 45.07500076293945
+      "last_price": 44.92499923706055
     },
     "PG": {
       "qty": 1.9582,
@@ -80,7 +80,7 @@
       "opened": "2026-10-13T07:55:34.569740+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 163.07009887695312
+      "last_price": 163.75
     },
     "AAPL": {
       "qty": 0.8712,
@@ -90,7 +90,7 @@
       "opened": "2026-10-15T17:32:04.560841+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 337.1300048828125
+      "last_price": 337.0950012207031
     },
     "EZJ.L": {
       "qty": 43.8969,
@@ -120,7 +120,7 @@
       "opened": "2026-10-22T08:15:41.940910+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 368.3999938964844
+      "last_price": 368.1300048828125
     },
     "CRL": {
       "qty": 0.8659,
@@ -130,7 +130,7 @@
       "opened": "2026-10-22T14:39:50.717515+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 347.864990234375
+      "last_price": 344.4599914550781
     },
     "QIA.DE": {
       "qty": 7.9669,
@@ -150,7 +150,7 @@
       "opened": "2026-10-22T16:27:18.788522+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 313.0249938964844
+      "last_price": 312.4200134277344
     },
     "GIVN.SW": {
       "qty": 0.0829,
@@ -193,7 +193,7 @@
       "stop_pct": 20.0,
       "mode": "TREND",
       "entry_bar": "2026-10-26",
-      "last_price": 107.3499984741211
+      "last_price": 107.30000305175781
     },
     "KNIN.SW": {
       "qty": 1.3937,
@@ -802,28 +802,8 @@
   ],
   "report_sent": "2026-10-30",
   "radar": {
-    "updated": "2026-11-02T17:39:30.556417+00:00",
+    "updated": "2026-11-02T18:32:04.930146+00:00",
     "items": [
-      {
-        "ticker": "AFL",
-        "sector": "Фінанси",
-        "price": 123.87,
-        "trigger": 123.89,
-        "distance_pct": 0.02,
-        "stop": 99.112,
-        "stop_pct": 20.0,
-        "cur": "$"
-      },
-      {
-        "ticker": "YUM",
-        "sector": "Споживчі товари",
-        "price": 156.505,
-        "trigger": 156.5607,
-        "distance_pct": 0.04,
-        "stop": 125.2485,
-        "stop_pct": 20.0,
-        "cur": "$"
-      },
       {
         "ticker": "ITX.MC",
         "sector": "Інше:ITX.MC",
@@ -845,6 +825,26 @@
         "cur": "$"
       },
       {
+        "ticker": "AEP",
+        "sector": "Телеком/комунальні",
+        "price": 130.57,
+        "trigger": 130.64,
+        "distance_pct": 0.05,
+        "stop": 104.512,
+        "stop_pct": 20.0,
+        "cur": "$"
+      },
+      {
+        "ticker": "STLD",
+        "sector": "Нерухомість/матеріали",
+        "price": 253.365,
+        "trigger": 253.53,
+        "distance_pct": 0.07,
+        "stop": 202.824,
+        "stop_pct": 20.0,
+        "cur": "$"
+      },
+      {
         "ticker": "NESN.SW",
         "sector": "Інше:NESN.SW",
         "price": 84.64,
@@ -853,16 +853,6 @@
         "stop": 67.76,
         "stop_pct": 20.0,
         "cur": "CHF "
-      },
-      {
-        "ticker": "DLTR",
-        "sector": "Споживчі товари",
-        "price": 136.65,
-        "trigger": 136.75,
-        "distance_pct": 0.07,
-        "stop": 109.4,
-        "stop_pct": 20.0,
-        "cur": "$"
       },
       {
         "ticker": "DCC.L",
@@ -905,32 +895,12 @@
         "cur": "€"
       },
       {
-        "ticker": "ALL",
-        "sector": "Фінанси",
-        "price": 262.77,
-        "trigger": 263.11,
-        "distance_pct": 0.13,
-        "stop": 210.488,
-        "stop_pct": 20.0,
-        "cur": "$"
-      },
-      {
-        "ticker": "PM",
-        "sector": "Споживчі товари",
-        "price": 208.475,
-        "trigger": 208.79,
-        "distance_pct": 0.15,
-        "stop": 167.032,
-        "stop_pct": 20.0,
-        "cur": "$"
-      },
-      {
-        "ticker": "PTC",
-        "sector": "Технології",
-        "price": 195.22,
-        "trigger": 195.54,
-        "distance_pct": 0.16,
-        "stop": 156.432,
+        "ticker": "GILD",
+        "sector": "Охорона здоров'я",
+        "price": 170.39,
+        "trigger": 170.68,
+        "distance_pct": 0.17,
+        "stop": 136.544,
         "stop_pct": 20.0,
         "cur": "$"
       },
@@ -945,26 +915,6 @@
         "cur": "£"
       },
       {
-        "ticker": "GILD",
-        "sector": "Охорона здоров'я",
-        "price": 170.365,
-        "trigger": 170.68,
-        "distance_pct": 0.18,
-        "stop": 136.544,
-        "stop_pct": 20.0,
-        "cur": "$"
-      },
-      {
-        "ticker": "HLT",
-        "sector": "Споживчі товари",
-        "price": 361.54,
-        "trigger": 362.25,
-        "distance_pct": 0.2,
-        "stop": 289.8,
-        "stop_pct": 20.0,
-        "cur": "$"
-      },
-      {
         "ticker": "NG.L",
         "sector": "Телеком/комунальні",
         "price": 12.52,
@@ -975,12 +925,12 @@
         "cur": "£"
       },
       {
-        "ticker": "RSG",
-        "sector": "Промисловість/енергетика",
-        "price": 243.52,
-        "trigger": 244.04,
-        "distance_pct": 0.21,
-        "stop": 195.232,
+        "ticker": "BLK",
+        "sector": "Фінанси",
+        "price": 1173.6274,
+        "trigger": 1176.24,
+        "distance_pct": 0.22,
+        "stop": 940.992,
         "stop_pct": 20.0,
         "cur": "$"
       },
@@ -995,12 +945,12 @@
         "cur": "€"
       },
       {
-        "ticker": "AEP",
+        "ticker": "ATO",
         "sector": "Телеком/комунальні",
-        "price": 130.335,
-        "trigger": 130.64,
-        "distance_pct": 0.23,
-        "stop": 104.512,
+        "price": 173.495,
+        "trigger": 173.91,
+        "distance_pct": 0.24,
+        "stop": 139.128,
         "stop_pct": 20.0,
         "cur": "$"
       },
@@ -1025,6 +975,26 @@
         "cur": "£"
       },
       {
+        "ticker": "IBM",
+        "sector": "Технології",
+        "price": 257.635,
+        "trigger": 258.28,
+        "distance_pct": 0.25,
+        "stop": 206.624,
+        "stop_pct": 20.0,
+        "cur": "$"
+      },
+      {
+        "ticker": "PM",
+        "sector": "Споживчі товари",
+        "price": 208.25,
+        "trigger": 208.79,
+        "distance_pct": 0.26,
+        "stop": 167.032,
+        "stop_pct": 20.0,
+        "cur": "$"
+      },
+      {
         "ticker": "BEI.DE",
         "sector": "Інше:BEI.DE",
         "price": 83.9,
@@ -1035,12 +1005,42 @@
         "cur": "€"
       },
       {
-        "ticker": "HAS",
-        "sector": "Споживчі товари",
-        "price": 119.23,
-        "trigger": 119.57,
+        "ticker": "PTC",
+        "sector": "Технології",
+        "price": 195.01,
+        "trigger": 195.54,
+        "distance_pct": 0.27,
+        "stop": 156.432,
+        "stop_pct": 20.0,
+        "cur": "$"
+      },
+      {
+        "ticker": "IEX",
+        "sector": "Промисловість/енергетика",
+        "price": 238.64,
+        "trigger": 239.33,
         "distance_pct": 0.29,
-        "stop": 95.656,
+        "stop": 191.464,
+        "stop_pct": 20.0,
+        "cur": "$"
+      },
+      {
+        "ticker": "LLY",
+        "sector": "Охорона здоров'я",
+        "price": 1413.2,
+        "trigger": 1417.54,
+        "distance_pct": 0.31,
+        "stop": 1134.032,
+        "stop_pct": 20.0,
+        "cur": "$"
+      },
+      {
+        "ticker": "ETR",
+        "sector": "Телеком/комунальні",
+        "price": 109.765,
+        "trigger": 110.11,
+        "distance_pct": 0.31,
+        "stop": 88.088,
         "stop_pct": 20.0,
         "cur": "$"
       },
@@ -1067,40 +1067,40 @@
       {
         "ticker": "VRSN",
         "sector": "Технології",
-        "price": 307.6875,
+        "price": 307.71,
         "trigger": 308.72,
-        "distance_pct": 0.34,
+        "distance_pct": 0.33,
         "stop": 246.976,
         "stop_pct": 20.0,
         "cur": "$"
       },
       {
-        "ticker": "BLK",
-        "sector": "Фінанси",
-        "price": 1172.23,
-        "trigger": 1176.24,
+        "ticker": "HAS",
+        "sector": "Споживчі товари",
+        "price": 119.16,
+        "trigger": 119.57,
         "distance_pct": 0.34,
-        "stop": 940.992,
+        "stop": 95.656,
         "stop_pct": 20.0,
         "cur": "$"
       },
       {
-        "ticker": "SHW",
-        "sector": "Нерухомість/матеріали",
-        "price": 349.2201,
-        "trigger": 350.45,
-        "distance_pct": 0.35,
-        "stop": 280.36,
+        "ticker": "CL",
+        "sector": "Споживчі товари",
+        "price": 97.04,
+        "trigger": 97.39,
+        "distance_pct": 0.36,
+        "stop": 77.912,
         "stop_pct": 20.0,
         "cur": "$"
       },
       {
-        "ticker": "IEX",
+        "ticker": "MMM",
         "sector": "Промисловість/енергетика",
-        "price": 238.45,
-        "trigger": 239.33,
-        "distance_pct": 0.37,
-        "stop": 191.464,
+        "price": 179.35,
+        "trigger": 180.0,
+        "distance_pct": 0.36,
+        "stop": 144.0,
         "stop_pct": 20.0,
         "cur": "$"
       }
