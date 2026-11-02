@@ -1899,5 +1899,7 @@
   "FALSE_BREAKOUT_UP_99.83": true,
   "RSI_OVERSOLD_98.84": true,
   "NEAR_RESISTANCE_98.84": true,
-  "FALSE_BREAKOUT_UP_98.84": true
+  "FALSE_BREAKOUT_UP_98.84": true,
+  "RSI_OVERSOLD_97.5": true,
+  "NEAR_SUPPORT_97.5": true
 }
