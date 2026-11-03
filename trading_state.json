@@ -802,7 +802,7 @@
   ],
   "report_sent": "2026-11-03",
   "radar": {
-    "updated": "2026-11-03T21:26:45.772181+00:00",
+    "updated": "2026-11-03T22:15:43.583095+00:00",
     "items": [
       {
         "ticker": "ZURN.SW",
@@ -891,16 +891,6 @@
         "trigger": 43.4,
         "distance_pct": 0.12,
         "stop": 34.72,
-        "stop_pct": 20.0,
-        "cur": "€"
-      },
-      {
-        "ticker": "KNEBV.HE",
-        "sector": "Інше:KNEBV.HE",
-        "price": 56.48,
-        "trigger": 56.56,
-        "distance_pct": 0.14,
-        "stop": 45.248,
         "stop_pct": 20.0,
         "cur": "€"
       },
@@ -1041,6 +1031,16 @@
         "trigger": 104.7,
         "distance_pct": 0.38,
         "stop": 83.76,
+        "stop_pct": 20.0,
+        "cur": "€"
+      },
+      {
+        "ticker": "KNEBV.HE",
+        "sector": "Інше:KNEBV.HE",
+        "price": 56.34,
+        "trigger": 56.56,
+        "distance_pct": 0.39,
+        "stop": 45.248,
         "stop_pct": 20.0,
         "cur": "€"
       },
