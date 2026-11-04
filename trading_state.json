@@ -803,7 +803,7 @@
   ],
   "report_sent": "2026-11-04",
   "radar": {
-    "updated": "2026-11-04T21:58:49.703169+00:00",
+    "updated": "2026-11-04T22:45:13.688828+00:00",
     "items": [
       {
         "ticker": "MO",
@@ -834,16 +834,6 @@
         "stop": 23.832,
         "stop_pct": 20.0,
         "cur": "£"
-      },
-      {
-        "ticker": "SAMPO.HE",
-        "sector": "Інше:SAMPO.HE",
-        "price": 9.85,
-        "trigger": 9.856,
-        "distance_pct": 0.06,
-        "stop": 7.8848,
-        "stop_pct": 20.0,
-        "cur": "€"
       },
       {
         "ticker": "MET",
@@ -934,6 +924,16 @@
         "stop": 11.936,
         "stop_pct": 20.0,
         "cur": "$"
+      },
+      {
+        "ticker": "KNEBV.HE",
+        "sector": "Інше:KNEBV.HE",
+        "price": 56.48,
+        "trigger": 56.56,
+        "distance_pct": 0.14,
+        "stop": 45.248,
+        "stop_pct": 20.0,
+        "cur": "€"
       },
       {
         "ticker": "AMZN",
