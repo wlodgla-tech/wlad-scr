@@ -1,6 +1,6 @@
 {
-  "date": "2026-11-03",
-  "daily_spent_gbp": 300.0,
+  "date": "2026-11-04",
+  "daily_spent_gbp": 0.0,
   "positions": {
     "SHEL.L": {
       "qty": 2.6802,
@@ -10,7 +10,7 @@
       "opened": "2026-10-08T11:19:58.572016+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 38.635
+      "last_price": 39.21
     },
     "BP.L": {
       "qty": 17.2117,
@@ -20,7 +20,7 @@
       "opened": "2026-10-08T11:19:59.715151+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 5.892999877929688
+      "last_price": 6.0
     },
     "PRU.L": {
       "qty": 11.4077,
@@ -30,7 +30,7 @@
       "opened": "2026-10-08T11:20:00.856686+00:00",
       "stop_pct": 7.0,
       "mode": null,
-      "last_price": 9.442000122070313
+      "last_price": 9.332000122070312
     },
     "TSCO.L": {
       "qty": 59.7566,
@@ -40,7 +40,7 @@
       "opened": "2026-10-08T11:42:59.754950+00:00",
       "stop_pct": 20.0,
       "mode": "TREND",
-      "last_price": 5.385999755859375
+      "last_price": 5.45
     },
     "ABBV": {
       "qty": 1.1012,
@@ -802,7 +802,7 @@
   ],
   "report_sent": "2026-11-03",
   "radar": {
-    "updated": "2026-11-03T23:40:16.071300+00:00",
+    "updated": "2026-11-04T00:19:09.777958+00:00",
     "items": [
       {
         "ticker": "ITX.MC",
@@ -855,12 +855,12 @@
         "cur": "CHF "
       },
       {
-        "ticker": "ITRK.L",
-        "sector": "Інше:ITRK.L",
-        "price": 59.35,
-        "trigger": 59.4,
+        "ticker": "DCC.L",
+        "sector": "Інше:DCC.L",
+        "price": 64.5,
+        "trigger": 64.55,
         "distance_pct": 0.08,
-        "stop": 47.52,
+        "stop": 51.64,
         "stop_pct": 20.0,
         "cur": "£"
       },
@@ -905,12 +905,22 @@
         "cur": "$"
       },
       {
-        "ticker": "HSX.L",
-        "sector": "Інше:HSX.L",
-        "price": 19.39,
-        "trigger": 19.43,
-        "distance_pct": 0.21,
-        "stop": 15.544,
+        "ticker": "RKT.L",
+        "sector": "Споживчі товари",
+        "price": 55.74,
+        "trigger": 55.84,
+        "distance_pct": 0.18,
+        "stop": 44.672,
+        "stop_pct": 20.0,
+        "cur": "£"
+      },
+      {
+        "ticker": "NG.L",
+        "sector": "Телеком/комунальні",
+        "price": 12.52,
+        "trigger": 12.545,
+        "distance_pct": 0.2,
+        "stop": 10.036,
         "stop_pct": 20.0,
         "cur": "£"
       },
@@ -963,6 +973,16 @@
         "stop": 128.192,
         "stop_pct": 20.0,
         "cur": "$"
+      },
+      {
+        "ticker": "CTEC.L",
+        "sector": "Інше:CTEC.L",
+        "price": 2.456,
+        "trigger": 2.462,
+        "distance_pct": 0.24,
+        "stop": 1.9696,
+        "stop_pct": 20.0,
+        "cur": "£"
       },
       {
         "ticker": "BEI.DE",
@@ -1065,42 +1085,22 @@
         "cur": "€"
       },
       {
+        "ticker": "BATS.L",
+        "sector": "Споживчі товари",
+        "price": 45.74,
+        "trigger": 45.92,
+        "distance_pct": 0.39,
+        "stop": 36.736,
+        "stop_pct": 20.0,
+        "cur": "£"
+      },
+      {
         "ticker": "MDT",
         "sector": "Охорона здоров'я",
         "price": 98.88,
         "trigger": 99.29,
         "distance_pct": 0.41,
         "stop": 79.432,
-        "stop_pct": 20.0,
-        "cur": "$"
-      },
-      {
-        "ticker": "FAST",
-        "sector": "Промисловість/енергетика",
-        "price": 52.33,
-        "trigger": 52.55,
-        "distance_pct": 0.42,
-        "stop": 42.04,
-        "stop_pct": 20.0,
-        "cur": "$"
-      },
-      {
-        "ticker": "ESSITY-B.ST",
-        "sector": "Інше:ESSITY-B.ST",
-        "price": 280.0,
-        "trigger": 281.2,
-        "distance_pct": 0.43,
-        "stop": 224.96,
-        "stop_pct": 20.0,
-        "cur": "kr "
-      },
-      {
-        "ticker": "AFL",
-        "sector": "Фінанси",
-        "price": 124.04,
-        "trigger": 124.59,
-        "distance_pct": 0.44,
-        "stop": 99.672,
         "stop_pct": 20.0,
         "cur": "$"
       }
