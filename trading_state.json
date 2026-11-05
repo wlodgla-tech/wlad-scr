@@ -803,7 +803,7 @@
   ],
   "report_sent": "2026-11-05",
   "radar": {
-    "updated": "2026-11-05T21:57:28.546092+00:00",
+    "updated": "2026-11-05T22:43:49.160441+00:00",
     "items": [
       {
         "ticker": "WPP.L",
@@ -814,6 +814,16 @@
         "stop": 3.3536,
         "stop_pct": 20.0,
         "cur": "£"
+      },
+      {
+        "ticker": "SAMPO.HE",
+        "sector": "Інше:SAMPO.HE",
+        "price": 9.85,
+        "trigger": 9.856,
+        "distance_pct": 0.06,
+        "stop": 7.8848,
+        "stop_pct": 20.0,
+        "cur": "€"
       },
       {
         "ticker": "CL",
@@ -1092,16 +1102,6 @@
         "trigger": 117.02,
         "distance_pct": 0.4,
         "stop": 93.616,
-        "stop_pct": 20.0,
-        "cur": "$"
-      },
-      {
-        "ticker": "LNT",
-        "sector": "Телеком/комунальні",
-        "price": 73.44,
-        "trigger": 73.77,
-        "distance_pct": 0.45,
-        "stop": 59.016,
         "stop_pct": 20.0,
         "cur": "$"
       }
