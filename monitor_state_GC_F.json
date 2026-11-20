@@ -1987,5 +1987,6 @@
   "NEAR_SUPPORT_3734.1": true,
   "NEAR_SUPPORT_3679.2": true,
   "FALSE_BREAKOUT_UP_3679.2": true,
-  "RSI_OVERSOLD_3598.8": true
+  "RSI_OVERSOLD_3598.8": true,
+  "RSI_OVERSOLD_3554.6": true
 }
