@@ -1,35 +1,5 @@
 [
   {
-    "time": "2026-11-21T11:44:36.206365+00:00",
-    "ticker": "CL=F",
-    "type": "FALSE_BREAKOUT_DOWN",
-    "detail": "рівень ≈83.1100 (support) пробитий і ціна повернулась назад"
-  },
-  {
-    "time": "2026-11-21T11:44:37.501022+00:00",
-    "ticker": "BTC-USD",
-    "type": "FALSE_BREAKOUT_DOWN",
-    "detail": "рівень ≈57680.1016 (support) пробитий і ціна повернулась назад"
-  },
-  {
-    "time": "2026-11-22T11:48:43.918900+00:00",
-    "ticker": "BTC-USD",
-    "type": "NEAR_RESISTANCE",
-    "detail": "ціна +0.03% від рівня опору ≈60861.9883"
-  },
-  {
-    "time": "2026-11-22T11:48:43.918900+00:00",
-    "ticker": "BTC-USD",
-    "type": "FALSE_BREAKOUT_DOWN",
-    "detail": "рівень ≈60393.2500 (support) пробитий і ціна повернулась назад"
-  },
-  {
-    "time": "2026-11-22T18:42:10.817786+00:00",
-    "ticker": "BTC-USD",
-    "type": "NEAR_RESISTANCE",
-    "detail": "ціна -0.38% від рівня опору ≈60861.9883"
-  },
-  {
     "time": "2026-11-22T18:42:10.817786+00:00",
     "ticker": "BTC-USD",
     "type": "FALSE_BREAKOUT_UP",
@@ -358,5 +328,35 @@
     "ticker": "AAPL",
     "type": "FALSE_BREAKOUT_DOWN",
     "detail": "рівень ≈352.6000 (support) пробитий і ціна повернулась назад"
+  },
+  {
+    "time": "2026-11-25T05:19:02.803452+00:00",
+    "ticker": "GC=F",
+    "type": "RSI_OVERSOLD",
+    "detail": "RSI=29.7 (&lt;30) — зона перепроданості"
+  },
+  {
+    "time": "2026-11-25T05:19:04.204357+00:00",
+    "ticker": "CL=F",
+    "type": "NEAR_SUPPORT",
+    "detail": "ціна -0.09% від рівня підтримки ≈80.7800"
+  },
+  {
+    "time": "2026-11-25T05:19:04.204357+00:00",
+    "ticker": "CL=F",
+    "type": "FALSE_BREAKOUT_UP",
+    "detail": "рівень ≈80.7800 (resistance) пробитий і ціна повернулась назад"
+  },
+  {
+    "time": "2026-11-25T05:19:05.479468+00:00",
+    "ticker": "BTC-USD",
+    "type": "NEAR_SUPPORT",
+    "detail": "ціна -0.09% від рівня підтримки ≈59199.0195"
+  },
+  {
+    "time": "2026-11-25T05:19:05.479468+00:00",
+    "ticker": "BTC-USD",
+    "type": "FALSE_BREAKOUT_UP",
+    "detail": "рівень ≈59199.0195 (resistance) пробитий і ціна повернулась назад"
   }
 ]
